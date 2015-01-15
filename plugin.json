@@ -1,0 +1,16 @@
+{
+ "name": "Bandwidth",
+ "version": "0.1.0",
+ "description": "Monitor Bandwidth for each page, download, and measure overall traffic in bytes",
+ "theme": false,
+ "require": {
+    "piwik": ">=2.11.0-b2"
+ },
+ "authors": [
+     {
+         "name": "Piwik",
+         "email": "",
+         "homepage": ""
+     }
+ ]
+}
