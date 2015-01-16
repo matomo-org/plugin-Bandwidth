@@ -20,7 +20,7 @@ use Piwik\Url;
 class Bandwidth extends \Piwik\Plugin
 {
     private $reportsToEnrich = array(
-        'Actions' => array('getPageUrls', 'getPageTitles')
+        'Actions' => array('getPageUrls', 'getPageTitles', 'getDownloads')
     );
 
     /**
