@@ -58,9 +58,10 @@ class Bandwidth extends ActionDimension
     {
         $segment = new Segment();
         $segment->setSegment('keywords');
+        $segment->setType(Segment::TYPE_METRIC);
         $segment->setCategory('General_Actions');
         $segment->setName('Bandwidth_Bandwidth');
-        $segment->setAcceptedValues('Here you should explain which values are accepted/useful: Any word, for instance MyKeyword1, MyKeyword2');
+        $segment->setAcceptedValues('Any number in bytes, eg. 1000');
         $this->addSegment($segment);
     }
 

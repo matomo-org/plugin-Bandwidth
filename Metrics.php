@@ -20,13 +20,6 @@ class Metrics
     const METRICS_PAGE_MAX_BANDWIDTH = 92;
     const METRICS_NB_HITS_WITH_BANDWIDTH   = 93;
 
-    public static $mappingFromIdToName = array(
-        self::METRICS_PAGE_MAX_BANDWIDTH => 'max_bandwidth',
-        self::METRICS_PAGE_MIN_BANDWIDTH => 'min_bandwidth',
-        self::METRICS_PAGE_SUM_BANDWIDTH => 'sum_bandwidth',
-        self::METRICS_NB_HITS_WITH_BANDWIDTH   => 'nb_hits_with_bandwidth'
-    );
-
     public static function getMetricTranslations()
     {
         return array(

@@ -78,12 +78,12 @@ class Bandwidth extends \Piwik\Plugin
 
     public function enrichApi(DataTable $dataTable, $params)
     {
-        $dataTable->queueFilter('ReplaceColumnNames', array(Metrics::$mappingFromIdToName));
-
         $extraProcessedMetrics = $dataTable->getMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME);
+
         if (empty($extraProcessedMetrics)) {
             $extraProcessedMetrics = array();
         }
+
         $extraProcessedMetrics[] = new SumBandwidth();
         $extraProcessedMetrics[] = new MaxBandwidth();
         $extraProcessedMetrics[] = new MinBandwidth();
