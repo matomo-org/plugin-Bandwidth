@@ -2,6 +2,9 @@
     "Bandwidth": {
         "Bandwidth": "Bandwidth",
         "ColumnAvgBandwidth": "Avg. Bandwidth",
-        "ColumnSumBandwidth": "Sum Bandwidth"
+        "ColumnSumBandwidth": "Sum Bandwidth",
+        "ColumnMaxBandwidth": "Max Bandwidth",
+        "ColumnMinBandwidth": "Min Bandwidth",
+        "ColumnHitsWithBandwidth": "Recorded hits with bandwidth"
     }
 }

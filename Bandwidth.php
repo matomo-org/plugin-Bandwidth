@@ -10,6 +10,11 @@ namespace Piwik\Plugins\Bandwidth;
 use Piwik\DataTable;
 use Piwik\Metrics\Formatter;
 use Piwik\Plugin\ViewDataTable;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\AvgBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\HitsWithBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\MaxBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\MinBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\SumBandwidth;
 use Piwik\Url;
 
 class Bandwidth extends \Piwik\Plugin
@@ -69,45 +74,24 @@ class Bandwidth extends \Piwik\Plugin
         $view->config->columns_to_display[] = 'sum_bandwidth';
 
         $view->config->addTranslations(Metrics::getMetricTranslations());
-
-        $view->config->tooltip_metadata_name = 'tooltip';
-
-        $view->config->filters[] = function (DataTable $dataTable) {
-            $formatter = new Formatter();
-
-            foreach ($dataTable->getRows() as $row) {
-                foreach (array('sum_bandwidth', 'avg_bandwidth') as $column) {
-                    $value = $row->getColumn($column);
-                    $formatted = $formatter->getPrettyBytes($value);
-                    $row->setColumn($column, $formatted);
-                }
-            }
-        };
     }
 
     public function enrichApi(DataTable $dataTable, $params)
     {
         $dataTable->queueFilter('ReplaceColumnNames', array(Metrics::$mappingFromIdToName));
-        $dataTable->queueFilter(function (DataTable $dataTable) {
 
-            foreach ($dataTable->getRows() as $row) {
-                $hits      = $row->getColumn('nb_hits_with_bandwidth');
-                $bandwidth = $row->getColumn('sum_bandwidth');
-                if (empty($hits) || empty($bandwidth)) {
-                    $avg = 0;
-                } else {
-                    $avg = floor($bandwidth / $hits);
-                }
-                $row->setColumn('avg_bandwidth', $avg);
+        $extraProcessedMetrics = $dataTable->getMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME);
+        if (empty($extraProcessedMetrics)) {
+            $extraProcessedMetrics = array();
+        }
+        $extraProcessedMetrics[] = new SumBandwidth();
+        $extraProcessedMetrics[] = new MaxBandwidth();
+        $extraProcessedMetrics[] = new MinBandwidth();
+        $extraProcessedMetrics[] = new HitsWithBandwidth();
+        $extraProcessedMetrics[] = new AvgBandwidth();
 
-                foreach (array('min_bandwidth', 'max_bandwidth', 'sum_bandwidth', 'avg_bandwidth', 'nb_hits_with_bandwidth') as $column) {
-                    $value = $row->getColumn($column);
-                    if (false !== $value) {
-                        $row->setColumn($column, (int) $value);
-                    }
-                }
-            }
-        });
+        $dataTable->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $extraProcessedMetrics);
+
     }
 
 }
