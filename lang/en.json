@@ -1,5 +1,7 @@
 {
     "Bandwidth": {
-        "Bandwidth": "Bandwidth"
+        "Bandwidth": "Bandwidth",
+        "ColumnAvgBandwidth": "Avg. Bandwidth",
+        "ColumnSumBandwidth": "Sum Bandwidth"
     }
 }

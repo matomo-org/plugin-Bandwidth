@@ -7,96 +7,107 @@
  *
  */
 namespace Piwik\Plugins\Bandwidth;
-use Piwik\API\Proxy;
-use Piwik\API\Request;
 use Piwik\DataTable;
 use Piwik\Metrics\Formatter;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Url;
 
-/**
- */
 class Bandwidth extends \Piwik\Plugin
 {
+    private $reportsToEnrich = array(
+        'Actions' => array('getPageUrls', 'getPageTitles')
+    );
+
     /**
      * @see Piwik\Plugin::getListHooksRegistered
      */
     public function getListHooksRegistered()
     {
-        return array(
-            'ViewDataTable.configure'     => 'configureViewDataTable',
-            'API.Actions.getPageUrls.end' => 'enrichGetPageUrls',
+        $hooks = array(
+            'ViewDataTable.configure' => 'configureViewDataTable',
+            'Actions.Archiving.addActionMetrics' => 'addActionMetrics',
+            'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
         );
+
+        foreach ($this->reportsToEnrich as $module => $actions) {
+            foreach ($actions as $action) {
+                $hooks['API.' . $module . '.' . $action . '.end'] = 'enrichApi';
+            }
+        }
+
+        return $hooks;
+    }
+
+    public function addMetricTranslations(&$translations)
+    {
+        $metrics      = Metrics::getMetricTranslations();
+        $translations = array_merge($translations, $metrics);
+    }
+
+    public function addActionMetrics(&$metricsConfig)
+    {
+        foreach (Metrics::getActionMetrics() as $metric => $config) {
+            $metricsConfig[$metric] = $config;
+        }
     }
 
     public function configureViewDataTable(ViewDataTable $view)
     {
-        if ('Actions' == $view->requestConfig->getApiModuleToRequest()
-            && 'getPageUrls' == $view->requestConfig->getApiMethodToRequest()) {
-            $view->config->columns_to_display[] = 'avg_bandwidth';
-            $view->config->columns_to_display[] = 'sum_bandwidth';
-            $view->config->columns_to_display[] = 'min_bandwidth';
-            $view->config->columns_to_display[] = 'max_bandwidth';
-
-            $view->config->filters[] = function (DataTable $dataTable) {
-                $formatter = new Formatter();
-
-                foreach ($dataTable->getRows() as $row) {
-                    foreach (array('min_bandwidth', 'max_bandwidth', 'sum_bandwidth', 'avg_bandwidth') as $column) {
-                        $value = $row->getColumn($column);
-                        $formatted = $formatter->getPrettyBytes($value);
-                        $row->setColumn($column, $formatted);
-                    }
-                }
-            };
+        $module = $view->requestConfig->getApiModuleToRequest();
+        if (!array_key_exists($module, $this->reportsToEnrich)) {
+            return;
         }
-    }
 
-    public function enrichGetPageUrls($pageUrlsDataTable, $params)
-    {
-        /** @var DataTable $pageUrlsDataTable */
-        $pageUrlParams = $params['parameters'];
+        $method  = $view->requestConfig->getApiMethodToRequest();
+        $methods = $this->reportsToEnrich[$module];
 
-        $idsubtable = $pageUrlParams[5];
+        if (!in_array($method, $methods)) {
+            return;
+        }
 
-        $bandwidthDatatable = API::getInstance()->getBandwidth($pageUrlParams[0], $pageUrlParams[1], $pageUrlParams[2], $pageUrlParams[3], $pageUrlParams[4], $pageUrlParams[5]);
-        $bandwidthDatatable->applyQueuedFilters();
+        $view->config->columns_to_display[] = 'avg_bandwidth';
+        $view->config->columns_to_display[] = 'sum_bandwidth';
 
-       // var_dump($bandwidthDatatable);
-/*
- *         $finalParameters = $params['parameters'];
-        $finalParameters['method'] = 'Bandwidth.getBandwidth';
-        $finalParameters['format'] = 'original';
+        $view->config->addTranslations(Metrics::getMetricTranslations());
 
-        var_dump($finalParameters);
+        $view->config->tooltip_metadata_name = 'tooltip';
 
+        $view->config->filters[] = function (DataTable $dataTable) {
+            $formatter = new Formatter();
 
-
- *    $url = Url::getQueryStringFromParameters($finalParameters);
-        $request = new Request($url);
-        $bandwidthDatatable = $request->process();
-        $bandwidthDatatable = Proxy::getInstance()->call('\\' . __NAMESPACE__ . '\\API', 'getBandwidth', $finalParameters);
-*/
-        /*
-        var_dump($bandwidthDatatable->getFirstRow());
-var_dump($pageUrlsDataTable->getFirstRow());
-        */
-
-        /*
-        foreach ($pageUrlsDataTable->getRows() as $row) {
-            $label = ($row->getColumn('label'));
-            $bandwidthRow = $bandwidthDatatable->getRowFromLabel($label);
-
-            foreach (array('min_bandwidth', 'max_bandwidth', 'sum_bandwidth') as $column) {
-                if ($bandwidthRow) {
-                    $row->setColumn($column, $bandwidthRow->getColumn($column));
-                } else {
-                    $row->setColumn($column, 0);
+            foreach ($dataTable->getRows() as $row) {
+                foreach (array('sum_bandwidth', 'avg_bandwidth') as $column) {
+                    $value = $row->getColumn($column);
+                    $formatted = $formatter->getPrettyBytes($value);
+                    $row->setColumn($column, $formatted);
                 }
             }
-        }
-*/
-       $pageUrlsDataTable->addDataTable($bandwidthDatatable);
+        };
+    }
+
+    public function enrichApi(DataTable $dataTable, $params)
+    {
+        $dataTable->queueFilter('ReplaceColumnNames', array(Metrics::$mappingFromIdToName));
+        $dataTable->queueFilter(function (DataTable $dataTable) {
+
+            foreach ($dataTable->getRows() as $row) {
+                $hits      = $row->getColumn('nb_hits_with_bandwidth');
+                $bandwidth = $row->getColumn('sum_bandwidth');
+                if (empty($hits) || empty($bandwidth)) {
+                    $avg = 0;
+                } else {
+                    $avg = floor($bandwidth / $hits);
+                }
+                $row->setColumn('avg_bandwidth', $avg);
+
+                foreach (array('min_bandwidth', 'max_bandwidth', 'sum_bandwidth', 'avg_bandwidth', 'nb_hits_with_bandwidth') as $column) {
+                    $value = $row->getColumn($column);
+                    if (false !== $value) {
+                        $row->setColumn($column, (int) $value);
+                    }
+                }
+            }
+        });
     }
 
 }
