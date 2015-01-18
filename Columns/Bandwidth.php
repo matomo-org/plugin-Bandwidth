@@ -12,6 +12,7 @@ use Piwik\Common;
 use Piwik\Piwik;
 use Piwik\Plugin\Dimension\ActionDimension;
 use Piwik\Plugin\Segment;
+use Piwik\Plugins\Actions\Actions\ActionDownloadUrl;
 use Piwik\Tracker\ActionPageview;
 use Piwik\Tracker\Request;
 use Piwik\Tracker\Visitor;
@@ -78,8 +79,8 @@ class Bandwidth extends ActionDimension
      */
     public function onNewAction(Request $request, Visitor $visitor, Action $action)
     {
-        if (!($action instanceof ActionPageview)) {
-            // save value only in case it is a page view.
+        if (!($action instanceof ActionPageview) && !($action instanceof ActionDownloadUrl)) {
+            // save value only in case it is a page view or a download.
             return false;
         }
 

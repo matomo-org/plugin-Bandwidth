@@ -10,15 +10,16 @@ namespace Piwik\Plugins\Bandwidth;
 use Piwik\DataTable;
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
+use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
 use Piwik\Url;
 
 class Metrics
 {
 
-    const METRICS_PAGE_SUM_BANDWIDTH = 90;
-    const METRICS_PAGE_MIN_BANDWIDTH = 91;
-    const METRICS_PAGE_MAX_BANDWIDTH = 92;
-    const METRICS_NB_HITS_WITH_BANDWIDTH   = 93;
+    const METRICS_PAGE_SUM_BANDWIDTH = 1090;
+    const METRICS_PAGE_MIN_BANDWIDTH = 1091;
+    const METRICS_PAGE_MAX_BANDWIDTH = 1092;
+    const METRICS_NB_HITS_WITH_BANDWIDTH   = 1093;
 
     public static function getMetricTranslations()
     {
@@ -30,7 +31,7 @@ class Metrics
 
     public static function getActionMetrics()
     {
-        $column = new \Piwik\Plugins\Bandwidth\Columns\Bandwidth();
+        $column = new BandwidthColumn();
         $column = $column->getColumnName();
 
         $metricsConfig = array();
