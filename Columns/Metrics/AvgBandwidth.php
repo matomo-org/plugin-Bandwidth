@@ -16,7 +16,7 @@ use Piwik\Plugins\Bandwidth\Metrics;
 /**
  * The average amount bandwidth per page.
  */
-class AvgBandwidth extends ProcessedMetric
+class AvgBandwidth extends Base
 {
     public function getName()
     {
@@ -30,8 +30,8 @@ class AvgBandwidth extends ProcessedMetric
 
     public function compute(Row $row)
     {
-        $hits = $this->getMetric($row, Metrics::METRICS_NB_HITS_WITH_BANDWIDTH);
-        $sum  = $this->getMetric($row, Metrics::METRICS_PAGE_SUM_BANDWIDTH);
+        $hits = $this->getMetricAsIntSafe($row, Metrics::METRICS_NB_HITS_WITH_BANDWIDTH);
+        $sum  = $this->getMetricAsIntSafe($row, Metrics::METRICS_PAGE_SUM_BANDWIDTH);
 
         if (!empty($hits) && !empty($sum)) {
             $avg = floor($sum / $hits);
@@ -40,15 +40,6 @@ class AvgBandwidth extends ProcessedMetric
         }
 
         return $avg;
-    }
-
-    public function format($value, Formatter $formatter)
-    {
-        if ($value) {
-            $value = $formatter->getPrettyBytes($value);
-        }
-
-        return $value;
     }
 
     public function getDependentMetrics()

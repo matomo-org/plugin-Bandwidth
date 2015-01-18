@@ -11,8 +11,8 @@ My answer
 
 ## Changelog
 
-Here goes the changelog text.
+0.1.0 Initial Release
 
 ## Support
 
-Please direct any feedback to ...
+Please direct any feedback to [hello@piwik.org](mailto:hello@piwik.org)

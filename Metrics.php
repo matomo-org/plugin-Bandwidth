@@ -9,8 +9,12 @@
 namespace Piwik\Plugins\Bandwidth;
 use Piwik\DataTable;
 use Piwik\Metrics\Formatter;
-use Piwik\Piwik;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\AvgBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\HitsWithBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\MaxBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\MinBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\SumBandwidth;
 use Piwik\Url;
 
 class Metrics
@@ -21,12 +25,28 @@ class Metrics
     const METRICS_PAGE_MAX_BANDWIDTH = 1092;
     const METRICS_NB_HITS_WITH_BANDWIDTH   = 1093;
 
-    public static function getMetricTranslations()
+    /**
+     * @return \Piwik\Plugin\ProcessedMetric[]
+     */
+    public static function getBandwidthMetrics()
     {
         return array(
-            'avg_bandwidth' => Piwik::translate('Bandwidth_ColumnAvgBandwidth'),
-            'sum_bandwidth' => Piwik::translate('Bandwidth_ColumnSumBandwidth'),
+            new HitsWithBandwidth(),
+            new MaxBandwidth(),
+            new MinBandwidth(),
+            new SumBandwidth(),
+            new AvgBandwidth()
         );
+    }
+
+    public static function getMetricTranslations()
+    {
+        $translations = array();
+        foreach (self::getBandwidthMetrics() as $metric) {
+            $translations[$metric->getName()] = $metric->getTranslatedName();
+        }
+
+        return $translations;
     }
 
     public static function getActionMetrics()

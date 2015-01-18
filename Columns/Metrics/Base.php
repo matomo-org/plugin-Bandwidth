@@ -10,7 +10,6 @@ namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 use Piwik\DataTable\Row;
 use Piwik\Metrics\Formatter;
 use Piwik\Plugin\ProcessedMetric;
-use Piwik\Plugins\Bandwidth\Metrics;
 
 abstract class Base extends ProcessedMetric
 {
@@ -29,7 +28,7 @@ abstract class Base extends ProcessedMetric
     public function format($value, Formatter $formatter)
     {
         if ($value) {
-            $value = $formatter->getPrettyBytes($value);
+            $value = $formatter->getPrettySizeFromBytes($value);
         }
 
         return $value;

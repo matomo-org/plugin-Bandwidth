@@ -7,14 +7,10 @@
  *
  */
 namespace Piwik\Plugins\Bandwidth;
+
 use Piwik\DataTable;
 use Piwik\Metrics\Formatter;
 use Piwik\Plugin\ViewDataTable;
-use Piwik\Plugins\Bandwidth\Columns\Metrics\AvgBandwidth;
-use Piwik\Plugins\Bandwidth\Columns\Metrics\HitsWithBandwidth;
-use Piwik\Plugins\Bandwidth\Columns\Metrics\MaxBandwidth;
-use Piwik\Plugins\Bandwidth\Columns\Metrics\MinBandwidth;
-use Piwik\Plugins\Bandwidth\Columns\Metrics\SumBandwidth;
 use Piwik\Url;
 
 class Bandwidth extends \Piwik\Plugin
@@ -72,7 +68,6 @@ class Bandwidth extends \Piwik\Plugin
 
         $view->config->columns_to_display[] = 'avg_bandwidth';
         $view->config->columns_to_display[] = 'sum_bandwidth';
-
         $view->config->addTranslations(Metrics::getMetricTranslations());
     }
 
@@ -84,14 +79,11 @@ class Bandwidth extends \Piwik\Plugin
             $extraProcessedMetrics = array();
         }
 
-        $extraProcessedMetrics[] = new SumBandwidth();
-        $extraProcessedMetrics[] = new MaxBandwidth();
-        $extraProcessedMetrics[] = new MinBandwidth();
-        $extraProcessedMetrics[] = new HitsWithBandwidth();
-        $extraProcessedMetrics[] = new AvgBandwidth();
+        foreach (Metrics::getBandwidthMetrics() as $metric) {
+            $extraProcessedMetrics[] = $metric;
+        }
 
         $dataTable->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $extraProcessedMetrics);
-
     }
 
 }
