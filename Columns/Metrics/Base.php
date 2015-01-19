@@ -28,7 +28,7 @@ abstract class Base extends ProcessedMetric
     public function format($value, Formatter $formatter)
     {
         if ($value) {
-            $value = $formatter->getPrettySizeFromBytes($value);
+            $value = $formatter->getPrettySizeFromBytes($value, null, 2);
         }
 
         return $value;

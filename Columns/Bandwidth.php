@@ -39,7 +39,7 @@ class Bandwidth extends ActionDimension
      * perform an update which can sometimes take a long time so be careful when choosing the correct column type.
      * @var string
      */
-    protected $columnType = 'INTEGER(12) UNSIGNED DEFAULT 0';
+    protected $columnType = 'INTEGER(12) UNSIGNED DEFAULT NULL';
 
     /**
      * The name of the dimension which will be visible for instance in the UI of a related report and in the mobile app.
