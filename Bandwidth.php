@@ -10,13 +10,14 @@ namespace Piwik\Plugins\Bandwidth;
 
 use Piwik\DataTable;
 use Piwik\Metrics\Formatter;
+use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Url;
 
 class Bandwidth extends \Piwik\Plugin
 {
     private $reportsToEnrich = array(
-        'Actions' => array('getPageUrls', 'getPageTitles', 'getDownloads')
+        'Actions' => array('getPageUrls', 'getPageTitles', 'getDownloads'),
     );
 
     /**
@@ -55,20 +56,20 @@ class Bandwidth extends \Piwik\Plugin
     public function configureViewDataTable(ViewDataTable $view)
     {
         $module = $view->requestConfig->getApiModuleToRequest();
-        if (!array_key_exists($module, $this->reportsToEnrich)) {
-            return;
+        $method = $view->requestConfig->getApiMethodToRequest();
+
+        if (property_exists($view->config, 'selectable_columns') &&
+            (($module === 'API' && $method === 'get') || ($module === 'VisitsSummary' && $method === 'getEvolutionGraph'))) {
+            $columns = array(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
+            $view->config->selectable_columns = array_merge($view->config->selectable_columns ? : array(), $columns);
+            $view->config->addTranslation('nb_total_bandwidth', Piwik::translate('Bandwidth_ColumnTotalBandwidth'));
         }
 
-        $method  = $view->requestConfig->getApiMethodToRequest();
-        $methods = $this->reportsToEnrich[$module];
-
-        if (!in_array($method, $methods)) {
-            return;
+        if (array_key_exists($module, $this->reportsToEnrich) && in_array($method, $this->reportsToEnrich[$module])) {
+            $view->config->columns_to_display[] = 'avg_bandwidth';
+            $view->config->columns_to_display[] = 'sum_bandwidth';
+            $view->config->addTranslations(Metrics::getMetricTranslations());
         }
-
-        $view->config->columns_to_display[] = 'avg_bandwidth';
-        $view->config->columns_to_display[] = 'sum_bandwidth';
-        $view->config->addTranslations(Metrics::getMetricTranslations());
     }
 
     public function enrichApi(DataTable $dataTable, $params)
