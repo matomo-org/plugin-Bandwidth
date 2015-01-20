@@ -20,6 +20,8 @@ use Piwik\Tests\Framework\Mock\FakeAccess;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 
 /**
+ * Bandidth Class and Bandwidth Tracker test
+ *
  * @group Bandwidth
  * @group APITest
  * @group Plugins
@@ -61,10 +63,7 @@ class BandwidthTest extends IntegrationTestCase
         $result = $this->requestAction('getPageUrls');
 
         $row = $result->getFirstRow();
-        $this->assertSame($row->getColumn('max_bandwidth'), 3949);
-        $this->assertSame($row->getColumn('min_bandwidth'), 1);
-        $this->assertSame($row->getColumn('sum_bandwidth'), 4364);
-        $this->assertSame($row->getColumn('avg_bandwidth'), 872);
+        $this->assertBandwidthStats($row, $maxB = 3949, $minB = 1, $sumB = 4364, $avgB = 872);
     }
 
     public function test_shouldEnrichPageUrls_ZeroShouldCountToAverageCount()
@@ -82,10 +81,17 @@ class BandwidthTest extends IntegrationTestCase
         $result = $this->requestAction('getPageUrls');
 
         $row = $result->getFirstRow();
-        $this->assertSame($row->getColumn('max_bandwidth'), false);
-        $this->assertSame($row->getColumn('min_bandwidth'), false);
-        $this->assertSame($row->getColumn('sum_bandwidth'), 0);
-        $this->assertSame($row->getColumn('avg_bandwidth'), 0);
+        $this->assertBandwidthStats($row, $maxB = false, $minB = false, $sumB = 0, $avgB = 0);
+    }
+
+    public function test_shouldEnrichPageUrls_ShouldDefineASegment()
+    {
+        $this->trackBytes(array(1, 10, 5, 0, null, 3949, 0, null, 399));
+        $result = $this->requestAction('getPageUrls', array('segment' => 'bandwidth>=34'));
+
+        $row = $result->getFirstRow();
+
+        $this->assertBandwidthStats($row, $maxB = 3949, $minB = 399, $sumB = 4348, $avgB = 2174);
     }
 
     public function test_shouldEnrichPageTitles()
@@ -95,23 +101,56 @@ class BandwidthTest extends IntegrationTestCase
         $result = $this->requestAction('getPageTitles');
 
         $row = $result->getFirstRow();
-        $this->assertSame($row->getColumn('max_bandwidth'), 3949);
-        $this->assertSame($row->getColumn('min_bandwidth'), 1);
-        $this->assertSame($row->getColumn('sum_bandwidth'), 4364);
-        $this->assertSame($row->getColumn('avg_bandwidth'), 872);
+        $this->assertBandwidthStats($row, $maxB = 3949, $minB = 1, $sumB = 4364, $avgB = 872);
     }
 
     public function test_shouldEnrichDownloads()
     {
-        $this->trackDownloadBytes(array(1, 10, null, 5, null, 3949, 399));
+        $this->trackDownloadBytes(array(1, 10, null, 5, null, 3949, 397));
 
         $result = $this->requestAction('getDownloads');
 
         $row = $result->getFirstRow();
-        $this->assertSame($row->getColumn('max_bandwidth'), 3949);
-        $this->assertSame($row->getColumn('min_bandwidth'), 1);
-        $this->assertSame($row->getColumn('sum_bandwidth'), 4364);
-        $this->assertSame($row->getColumn('avg_bandwidth'), 872);
+        $this->assertBandwidthStats($row, $maxB = 3949, $minB = 1, $sumB = 4362, $avgB = 872);
+    }
+
+    public function test_manyDifferentUrlsWithFolders_ShouldAggregateStats()
+    {
+        $tracker = $this->getTracker();
+        $this->trackUrlByte($tracker, 10, '/index');
+        $this->trackUrlByte($tracker, 20, '/blog/2014/test');
+        $this->trackUrlByte($tracker, 15, '/blog/2014/test2');
+        $this->trackUrlByte($tracker, 3, '/team/contact');
+        $this->trackUrlByte($tracker, null, '/index');
+        $this->trackUrlByte($tracker, 10, '/index');
+
+        $result = $this->requestAction('getPageUrls');
+        $this->assertSame(3, $result->getRowsCount());
+
+        $row = $result->getRowFromLabel('/index');
+        $this->assertBandwidthStats($row, $maxB = 10, $minB = 10, $sumB = 20, $avgB = 10);
+        $row = $result->getRowFromLabel('team');
+        $this->assertBandwidthStats($row, $maxB = 3, $minB = 3, $sumB = 3, $avgB = 3);
+        $row = $result->getRowFromLabel('blog');
+        $this->assertBandwidthStats($row, $maxB = 35, $minB = 35, $sumB = 35, $avgB = 17);
+
+        // request subtable /blog
+        $result = $this->requestAction('getPageUrls', array('idSubtable' => $row->getIdSubDataTable()));
+        $row    = $result->getRowFromLabel('2014');
+        $this->assertBandwidthStats($row, $maxB = 35, $minB = 35, $sumB = 35, $avgB = 17);
+
+        // request subtable /blog/2014
+        $result = $this->requestAction('getPageUrls', array('idSubtable' => $row->getIdSubDataTable()));
+        $row    = $result->getRowFromLabel('/test');
+        $this->assertBandwidthStats($row, $maxB = 20, $minB = 20, $sumB = 20, $avgB = 20);
+    }
+
+    private function assertBandwidthStats(DataTable\Row $row, $maxB, $minB, $sumB, $avgB)
+    {
+        $this->assertSame($row->getColumn('max_bandwidth'), $maxB);
+        $this->assertSame($row->getColumn('min_bandwidth'), $minB);
+        $this->assertSame($row->getColumn('sum_bandwidth'), $sumB);
+        $this->assertSame($row->getColumn('avg_bandwidth'), $avgB);
     }
 
     private function trackBytes($bytes)
@@ -119,14 +158,25 @@ class BandwidthTest extends IntegrationTestCase
         $tracker = $this->getTracker();
 
         foreach ($bytes as $byte) {
-            if (null === $byte) {
-                $tracker->setDebugStringAppend('');
-            } else {
-                $tracker->setDebugStringAppend('bw_bytes=' . $byte);
-            }
-
-            $tracker->doTrackPageView('test');
+            $this->trackUrlByte($tracker, $byte);
         }
+    }
+
+    private function trackUrlByte(\PiwikTracker $tracker, $byte, $url = null)
+    {
+        if (null !== $url) {
+            $tracker->setUrl('http://www.example.org' . $url);
+        }
+
+        if (null === $byte) {
+            $tracker->setDebugStringAppend('');
+        } else {
+            $tracker->setDebugStringAppend('bw_bytes=' . $byte);
+        }
+
+        $title = $url ? : 'test';
+
+        $tracker->doTrackPageView($title);
     }
 
     private function trackDownloadBytes($bytes)
@@ -160,15 +210,24 @@ class BandwidthTest extends IntegrationTestCase
         Access::setSingletonInstance($pseudoMockAccess);
     }
 
-    private function requestAction($action)
+    /**
+     * @param string $action
+     * @param bool|string $segment
+     * @return DataTable
+     */
+    private function requestAction($action, $additionalParams = array())
     {
-        /** @var DataTable $result */
-        $result = Request::processRequest('Actions.' . $action, array(
+        $params = array(
             'idSite' => 1,
             'period' => 'day',
             'date' => '2014-04-04'
-        ), $defaultParams = array());
-        return $result;
+        );
+
+        if (!empty($additionalParams)) {
+            $params = array_merge($params, $additionalParams);
+        }
+
+        return Request::processRequest('Actions.' . $action, $params);
     }
 
     /**

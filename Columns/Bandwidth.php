@@ -58,7 +58,7 @@ class Bandwidth extends ActionDimension
     protected function configureSegments()
     {
         $segment = new Segment();
-        $segment->setSegment('keywords');
+        $segment->setSegment('bandwidth');
         $segment->setType(Segment::TYPE_METRIC);
         $segment->setCategory('General_Actions');
         $segment->setName('Bandwidth_Bandwidth');
@@ -79,11 +79,6 @@ class Bandwidth extends ActionDimension
      */
     public function onNewAction(Request $request, Visitor $visitor, Action $action)
     {
-        if (!($action instanceof ActionPageview) && !($action instanceof ActionDownloadUrl)) {
-            // save value only in case it is a page view or a download.
-            return false;
-        }
-
         $value = Common::getRequestVar('bw_bytes', false, 'string', $request->getParams());
 
         if (is_numeric($value)) {
