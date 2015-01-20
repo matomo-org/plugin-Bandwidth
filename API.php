@@ -16,7 +16,7 @@ use Piwik\Piwik;
 use Piwik\Plugin\Dimension\VisitDimension;
 
 /**
- * @method static \Piwik\Plugins\API\API getInstance()
+ * @method static \Piwik\Plugins\Bandwidth\API getInstance()
  */
 class API extends \Piwik\Plugin\API
 {
@@ -26,17 +26,22 @@ class API extends \Piwik\Plugin\API
 
         $archive = Archive::build($idSite, $period, $date, $segment);
 
-        $requestedColumns = Piwik::getArrayFromApiParameter($columns);
-
         $columns     = array(Archiver::BANDWIDTH_TOTAL_RECORD);
         $columnNames = array(Archiver::BANDWIDTH_TOTAL_RECORD => Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
 
         $dataTable = $archive->getDataTableFromNumeric($columns);
         $dataTable->filter('ReplaceColumnNames', array($columnNames));
+        $dataTable->filter(function(DataTable $dataTable) {
+            foreach ($dataTable->getRows() as $row) {
+                $metric = Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH;
+                $row->setColumn($metric, (int) $row->getColumn($metric));
+            }
+        });
 
         $allColumns = array(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
 
-        $columnsToShow = $requestedColumns ?: $allColumns;
+        $requestedColumns = Piwik::getArrayFromApiParameter($columns);
+        $columnsToShow    = $requestedColumns ?: $allColumns;
         $dataTable->queueFilter('ColumnDelete', array($columnsToRemove = array(), $columnsToShow));
 
         return $dataTable;

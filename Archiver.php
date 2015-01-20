@@ -56,7 +56,7 @@ class Archiver extends \Piwik\Plugin\Archiver
             }
         }
 
-         $this->getProcessor()->insertNumericRecord(self::BANDWIDTH_TOTAL_RECORD, $total);
+         $this->getProcessor()->insertNumericRecord(self::BANDWIDTH_TOTAL_RECORD, (int) $total);
     }
 
     public function aggregateMultipleReports()

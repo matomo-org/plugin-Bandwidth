@@ -39,7 +39,7 @@ class AvgBandwidth extends Base
             $avg = 0;
         }
 
-        return $avg;
+        return (int) $avg;
     }
 
     public function getDependentMetrics()
