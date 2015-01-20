@@ -6,6 +6,7 @@
         "ColumnMaxBandwidth": "Max Bandwidth",
         "ColumnMinBandwidth": "Min Bandwidth",
         "ColumnHitsWithBandwidth": "Recorded hits with bandwidth",
-        "ColumnTotalBandwidth": "Total Bandwidth"
+        "ColumnTotalBandwidth": "Total Bandwidth",
+        "SparklineTotalBandwidthDetails": "%s total bandwidth"
     }
 }

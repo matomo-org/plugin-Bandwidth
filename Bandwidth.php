@@ -12,6 +12,7 @@ use Piwik\DataTable;
 use Piwik\FrontController;
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
+use Piwik\Plugin;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Url;
 
@@ -30,7 +31,7 @@ class Bandwidth extends \Piwik\Plugin
             'ViewDataTable.configure' => 'configureViewDataTable',
             'Actions.Archiving.addActionMetrics' => 'addActionMetrics',
             'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
-            'Template.VisitsSummaryOverviewSparklines' => 'renderSparklines',
+            'Template.VisitsSummaryOverviewSparklines' => 'renderSparklines'
         );
 
         foreach ($this->reportsToEnrich as $module => $actions) {

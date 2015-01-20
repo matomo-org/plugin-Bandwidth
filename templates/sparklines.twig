@@ -1,6 +1,6 @@
 {% block content %}
     <div class="sparkline">
         {{ sparkline(urlSparklineBandwidth)|raw }}
-        <strong>{{ nbTotalBandwidth }}</strong> total bandwidth
+        {{ 'Bandwidth_SparklineTotalBandwidthDetails'|translate("<strong>"~nbTotalBandwidth~"</strong>")|raw }}
     </div>
 {% endblock %}

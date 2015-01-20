@@ -51,10 +51,8 @@ class Controller extends \Piwik\Plugin\Controller
     private function getFormattedTotalBandwidth(Row $row)
     {
         $nbTotalBandwidth = (int) $row->getColumn(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
-
         $formatter = new Formatter();
         $nbTotalBandwidth = $formatter->getPrettySizeFromBytes($nbTotalBandwidth, null, 2);
-
         return $nbTotalBandwidth;
     }
 
@@ -70,7 +68,7 @@ class Controller extends \Piwik\Plugin\Controller
             'period'  => $period,
             'date'    => $date,
             'segment' => $segment
-        ), $defaultParams = array());
+        ));
 
         if ($dataTableActions->getRowsCount() === 0) {
             $row = new Row();

@@ -26,10 +26,10 @@ class API extends \Piwik\Plugin\API
 
         $archive = Archive::build($idSite, $period, $date, $segment);
 
-        $columns     = array(Archiver::BANDWIDTH_TOTAL_RECORD);
+        $archiveColumns = array(Archiver::BANDWIDTH_TOTAL_RECORD);
         $columnNames = array(Archiver::BANDWIDTH_TOTAL_RECORD => Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
 
-        $dataTable = $archive->getDataTableFromNumeric($columns);
+        $dataTable = $archive->getDataTableFromNumeric($archiveColumns);
         $dataTable->filter('ReplaceColumnNames', array($columnNames));
         $dataTable->filter(function(DataTable $dataTable) {
             foreach ($dataTable->getRows() as $row) {
