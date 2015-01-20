@@ -9,6 +9,7 @@
 namespace Piwik\Plugins\Bandwidth;
 
 use Piwik\DataTable;
+use Piwik\FrontController;
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 use Piwik\Plugin\ViewDataTable;
@@ -29,6 +30,7 @@ class Bandwidth extends \Piwik\Plugin
             'ViewDataTable.configure' => 'configureViewDataTable',
             'Actions.Archiving.addActionMetrics' => 'addActionMetrics',
             'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
+            'Template.VisitsSummaryOverviewSparklines' => 'renderSparklines',
         );
 
         foreach ($this->reportsToEnrich as $module => $actions) {
@@ -38,6 +40,11 @@ class Bandwidth extends \Piwik\Plugin
         }
 
         return $hooks;
+    }
+
+    public function renderSparklines(&$out)
+    {
+        $out .= FrontController::getInstance()->dispatch('Bandwidth', 'sparklines');
     }
 
     public function addMetricTranslations(&$translations)
@@ -58,10 +65,11 @@ class Bandwidth extends \Piwik\Plugin
         $module = $view->requestConfig->getApiModuleToRequest();
         $method = $view->requestConfig->getApiMethodToRequest();
 
-        if (property_exists($view->config, 'selectable_columns') &&
-            (($module === 'API' && $method === 'get') || ($module === 'VisitsSummary' && $method === 'getEvolutionGraph'))) {
-            $columns = array(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
-            $view->config->selectable_columns = array_merge($view->config->selectable_columns ? : array(), $columns);
+        if ($module === 'API' && $method === 'get' && property_exists($view->config, 'selectable_columns')) {
+            $selectable = $view->config->selectable_columns ? : array();
+            $columns    = array(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
+
+            $view->config->selectable_columns = array_merge($selectable, $columns);
             $view->config->addTranslation('nb_total_bandwidth', Piwik::translate('Bandwidth_ColumnTotalBandwidth'));
         }
 

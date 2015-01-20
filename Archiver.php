@@ -8,7 +8,6 @@
  */
 
 namespace Piwik\Plugins\Bandwidth;
-use Piwik\Common;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
 
 /**

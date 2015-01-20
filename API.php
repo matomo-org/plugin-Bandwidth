@@ -23,6 +23,7 @@ class API extends \Piwik\Plugin\API
     public function get($idSite, $period, $date, $segment = false, $columns = false)
     {
         Piwik::checkUserHasViewAccess($idSite);
+
         $archive = Archive::build($idSite, $period, $date, $segment);
 
         $requestedColumns = Piwik::getArrayFromApiParameter($columns);

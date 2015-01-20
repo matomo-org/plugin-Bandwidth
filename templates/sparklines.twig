@@ -1,0 +1,6 @@
+{% block content %}
+    <div class="sparkline">
+        {{ sparkline(urlSparklineBandwidth)|raw }}
+        <strong>{{ nbTotalBandwidth }}</strong> total bandwidth
+    </div>
+{% endblock %}
