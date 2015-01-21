@@ -9,8 +9,11 @@
 namespace Piwik\Plugins\Bandwidth\tests\Framework\TestCase;
 
 use Piwik\Access;
+use Piwik\Db;
+use Piwik\Plugin;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\Mock\FakeAccess;
+use Piwik\DataAccess\ArchiveTableCreator;
 
 /**
  * @group Bandwidth
@@ -18,6 +21,28 @@ use Piwik\Tests\Framework\Mock\FakeAccess;
 class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTestCase
 {
     protected $date;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->setSuperUser();
+
+        Fixture::createSuperUser();
+        Fixture::createWebsite('2014-01-01 00:00:00');
+
+        Plugin\Manager::getInstance()->loadPlugin('Bandwidth');
+        Plugin\Manager::getInstance()->installLoadedPlugins();
+    }
+
+    public function tearDown()
+    {
+        // clean up your test here if needed
+        $tables = ArchiveTableCreator::getTablesArchivesInstalled();
+        if (!empty($tables)) {
+            Db::dropTables($tables);
+        }
+        parent::tearDown();
+    }
 
     protected function setUser()
     {

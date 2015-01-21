@@ -9,13 +9,11 @@
 namespace Piwik\Plugins\Bandwidth\tests\Integration;
 
 use Piwik\API\Request;
-use Piwik\DataAccess\ArchiveTableCreator;
 use Piwik\DataTable;
 use Piwik\Db;
 use Piwik\Plugin;
 use Piwik\Plugins\Bandwidth\API;
 use Piwik\Plugins\Bandwidth\tests\Framework\TestCase\IntegrationTestCase;
-use Piwik\Tests\Framework\Fixture;
 
 /**
  * Bandidth Class and Bandwidth Tracker test
@@ -37,22 +35,8 @@ class BandwidthTest extends IntegrationTestCase
     {
         parent::setUp();
         $this->api = API::getInstance();
-        $this->setSuperUser();
-
-        Fixture::createSuperUser();
-        Fixture::createWebsite('2014-01-01 00:00:00');
 
         $this->setUser();
-    }
-
-    public function tearDown()
-    {
-        // clean up your test here if needed
-        $tables = ArchiveTableCreator::getTablesArchivesInstalled();
-        if (!empty($tables)) {
-            Db::dropTables($tables);
-        }
-        parent::tearDown();
     }
 
     public function test_shouldEnrichPageUrls()
