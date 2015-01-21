@@ -19,7 +19,7 @@ use Piwik\Plugins\Bandwidth\tests\Framework\TestCase\IntegrationTestCase;
  * Bandidth Class and Bandwidth Tracker test
  *
  * @group Bandwidth
- * @group APITest
+ * @group BandwidthTest
  * @group Plugins
  */
 class BandwidthTest extends IntegrationTestCase

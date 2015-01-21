@@ -31,7 +31,11 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
         Fixture::createWebsite('2014-01-01 00:00:00');
 
         Plugin\Manager::getInstance()->loadPlugin('Bandwidth');
-        Plugin\Manager::getInstance()->installLoadedPlugins();
+        try {
+            Plugin\Manager::getInstance()->activatePlugin('Bandwidth');
+        } catch (\Exception $e) {
+
+        }
     }
 
     public function tearDown()
