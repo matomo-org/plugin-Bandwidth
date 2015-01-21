@@ -13,6 +13,23 @@ use Piwik\Plugin\ProcessedMetric;
 
 abstract class Base extends ProcessedMetric
 {
+    protected $metric;
+
+    public function compute(Row $row)
+    {
+        if ($this->metric) {
+            return $this->getMetricAsIntSafe($row, $this->metric);
+        }
+    }
+
+    public function getTemporaryMetrics()
+    {
+        if ($this->metric) {
+            return array($this->metric);
+        }
+
+        return array();
+    }
 
     public function getMetricAsIntSafe(Row $row, $metric)
     {

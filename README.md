@@ -41,6 +41,11 @@ There is a report `Bandwidth.get` returning the total bandwidth (across all acti
 It also enriches varies reports such as `Actions.get`, `Actions.getPageUrls`, `Actions.getPageTitles` and `Actions.getDownloads`.
 For example it adds columns such as `avg_bandwidth`, `sum_bandwidth`, `min_bandwidth`, `max_bandwidth` to each page view.
 
+__Why are the bandwidth columns are not displayed in the UI?__
+
+Make sure the Bandwidth plugin is activated by going to `Administration => Plugins`. Also the bandwidth columns are not 
+displayed if no bandwidth was tracked in the current selected month.
+
 ## Changelog
 
 0.1.0 Initial Release

@@ -93,6 +93,16 @@ class BandwidthTest extends IntegrationTestCase
         $this->assertBandwidthStats($row, $maxB = 3949, $minB = 399, $sumB = 4348, $avgB = 2174);
     }
 
+    public function test_shouldEnrichPageTitlesAndFormat_IfRequested()
+    {
+        $this->trackPageviews(array(1, 10, null, 5, null, 3949, 399));
+
+        $result = $this->requestAction('getPageTitles', array('format_metrics' => '1'));
+
+        $row = $result->getFirstRow();
+        $this->assertBandwidthStats($row, $maxB = '3.86 K', $minB = '1 B', $sumB = '4.26 K', $avgB = '872 B');
+    }
+
     public function test_shouldEnrichPageTitles()
     {
         $this->trackPageviews(array(1, 10, null, 5, null, 3949, 399));
@@ -162,7 +172,7 @@ class BandwidthTest extends IntegrationTestCase
         $params = array(
             'idSite' => 1,
             'period' => 'day',
-            'date' => $this->date
+            'date'   => $this->date
         );
 
         if (!empty($additionalParams)) {

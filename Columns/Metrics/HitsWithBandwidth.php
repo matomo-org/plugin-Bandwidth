@@ -17,6 +17,8 @@ use Piwik\Plugins\Bandwidth\Metrics;
  */
 class HitsWithBandwidth extends Base
 {
+    protected $metric = Metrics::METRICS_NB_HITS_WITH_BANDWIDTH;
+
     public function getName()
     {
         return 'nb_hits_with_bandwidth';
@@ -27,9 +29,5 @@ class HitsWithBandwidth extends Base
         return Piwik::translate('Bandwidth_ColumnHitsWithBandwidth');
     }
 
-    public function compute(Row $row)
-    {
-        return $this->getMetricAsIntSafe($row, Metrics::METRICS_NB_HITS_WITH_BANDWIDTH);
-    }
 
 }

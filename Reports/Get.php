@@ -24,11 +24,9 @@ class Get extends Base
         parent::init();
 
         $this->name = Piwik::translate('Bandwidth_Bandwidth') . ' - ' . Piwik::translate('General_MainMetrics');
-        $this->order = 1;
-        $this->metrics  = array(
-            Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH
-        );
-
+        $this->order = 30;
+        $this->metrics = array_values(Metrics::getNumericRecordNameToColumnsMapping());
+        $this->processedMetrics = array();
     }
 
 }

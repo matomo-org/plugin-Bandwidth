@@ -19,6 +19,7 @@ use Piwik\Url;
 
 class Bandwidth extends \Piwik\Plugin
 {
+    // module => action. The ones that are defined here will be enriched by bandwidth columns when displayed in the UI
     private $reportsToEnrich = array(
         'Actions' => array('getPageUrls', 'getPageTitles', 'getDownloads'),
     );
@@ -78,7 +79,7 @@ class Bandwidth extends \Piwik\Plugin
         if ($module === 'API' && $method === 'get' && property_exists($view->config, 'selectable_columns')) {
             // here we want to make sure the total column is selectable
             $selectable = $view->config->selectable_columns ? : array();
-            $columns = array_values(Metrics::getArchiveNameToColumnsMapping());
+            $columns = array_values(Metrics::getNumericRecordNameToColumnsMapping());
 
             $view->config->selectable_columns = array_merge($selectable, $columns);
             $view->config->addTranslations(Metrics::getMetricTranslations());

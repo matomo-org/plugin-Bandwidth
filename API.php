@@ -26,22 +26,22 @@ class API extends \Piwik\Plugin\API
 
         $archive = Archive::build($idSite, $period, $date, $segment);
 
-        $columnNames = Metrics::getArchiveNameToColumnsMapping();
+        $columnNames = Metrics::getNumericRecordNameToColumnsMapping();
+        $archiveRecordNames = array_keys($columnNames);
+        $metricColumnNames  = array_values($columnNames);
 
-        $dataTable = $archive->getDataTableFromNumeric(array_keys($columnNames));
+        $dataTable = $archive->getDataTableFromNumeric($archiveRecordNames);
         $dataTable->filter('ReplaceColumnNames', array($columnNames));
-        $dataTable->filter(function(DataTable $dataTable) use ($columnNames) {
+        $dataTable->filter(function(DataTable $dataTable) use ($metricColumnNames) {
             foreach ($dataTable->getRows() as $row) {
-                foreach ($columnNames as $metric) {
+                foreach ($metricColumnNames as $metric) {
                     $row->setColumn($metric, (int) $row->getColumn($metric));
                 }
             }
         });
 
-        $allColumns = array_values($columnNames);
-
         $requestedColumns = Piwik::getArrayFromApiParameter($columns);
-        $columnsToShow    = $requestedColumns ?: $allColumns;
+        $columnsToShow    = $requestedColumns ?: $metricColumnNames;
         $dataTable->queueFilter('ColumnDelete', array($columnsToRemove = array(), $columnsToShow));
 
         return $dataTable;

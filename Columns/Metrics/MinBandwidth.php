@@ -17,6 +17,8 @@ use Piwik\Plugins\Bandwidth\Metrics;
  */
 class MinBandwidth extends Base
 {
+    protected $metric = Metrics::METRICS_PAGE_MIN_BANDWIDTH;
+
     public function getName()
     {
         return 'min_bandwidth';
@@ -25,11 +27,6 @@ class MinBandwidth extends Base
     public function getTranslatedName()
     {
         return Piwik::translate('Bandwidth_ColumnMinBandwidth');
-    }
-
-    public function compute(Row $row)
-    {
-        return $this->getMetricAsIntSafe($row, Metrics::METRICS_PAGE_MIN_BANDWIDTH);
     }
 
 }

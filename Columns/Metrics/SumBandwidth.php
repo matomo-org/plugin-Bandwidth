@@ -17,6 +17,8 @@ use Piwik\Plugins\Bandwidth\Metrics;
  */
 class SumBandwidth extends Base
 {
+    protected $metric = Metrics::METRICS_PAGE_SUM_BANDWIDTH;
+
     public function getName()
     {
         return 'sum_bandwidth';
@@ -25,11 +27,6 @@ class SumBandwidth extends Base
     public function getTranslatedName()
     {
         return Piwik::translate('Bandwidth_ColumnSumBandwidth');
-    }
-
-    public function compute(Row $row)
-    {
-        return $this->getMetricAsIntSafe($row, Metrics::METRICS_PAGE_SUM_BANDWIDTH);
     }
 
 }

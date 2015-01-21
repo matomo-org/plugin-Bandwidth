@@ -36,7 +36,7 @@ class Archiver extends \Piwik\Plugin\Archiver
      * This is only an example record name, so feel free to change it to suit your needs.
      */
     const BANDWIDTH_TOTAL_RECORD    = "Bandwidth_nb_total_overall";
-    const BANDWIDTH_PAGEVIEW_RECORD  = "Bandwidth_nb_total_pageurl";
+    const BANDWIDTH_PAGEVIEW_RECORD = "Bandwidth_nb_total_pageurl";
     const BANDWIDTH_DOWNLOAD_RECORD = "Bandwidth_nb_total_download";
 
     public function aggregateDayReport()

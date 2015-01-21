@@ -17,6 +17,8 @@ use Piwik\Plugins\Bandwidth\Metrics;
  */
 class MaxBandwidth extends Base
 {
+    protected $metric = Metrics::METRICS_PAGE_MAX_BANDWIDTH;
+
     public function getName()
     {
         return 'max_bandwidth';
@@ -25,11 +27,6 @@ class MaxBandwidth extends Base
     public function getTranslatedName()
     {
         return Piwik::translate('Bandwidth_ColumnMaxBandwidth');
-    }
-
-    public function compute(Row $row)
-    {
-        return $this->getMetricAsIntSafe($row, Metrics::METRICS_PAGE_MAX_BANDWIDTH);
     }
 
 }

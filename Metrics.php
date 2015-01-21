@@ -30,7 +30,7 @@ class Metrics
     const COLUMN_TOTAL_PAGEVIEW_BANDWIDTH = 'nb_total_pageview_bandwidth';
     const COLUMN_TOTAL_DOWNLOAD_BANDWIDTH = 'nb_total_download_bandwidth';
 
-    public static function getArchiveNameToColumnsMapping()
+    public static function getNumericRecordNameToColumnsMapping()
     {
         return array(
             Archiver::BANDWIDTH_TOTAL_RECORD    => Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH,
