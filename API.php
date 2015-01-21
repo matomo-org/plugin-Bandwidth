@@ -26,19 +26,23 @@ class API extends \Piwik\Plugin\API
 
         $archive = Archive::build($idSite, $period, $date, $segment);
 
-        $archiveColumns = array(Archiver::BANDWIDTH_TOTAL_RECORD);
-        $columnNames = array(Archiver::BANDWIDTH_TOTAL_RECORD => Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
+        $columnNames = array(
+            Archiver::BANDWIDTH_TOTAL_RECORD    => Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH,
+            Archiver::BANDWIDTH_PAGEVIEW_RECORD => Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH,
+            Archiver::BANDWIDTH_DOWNLOAD_RECORD => Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH,
+        );
 
-        $dataTable = $archive->getDataTableFromNumeric($archiveColumns);
+        $dataTable = $archive->getDataTableFromNumeric(array_keys($columnNames));
         $dataTable->filter('ReplaceColumnNames', array($columnNames));
-        $dataTable->filter(function(DataTable $dataTable) {
+        $dataTable->filter(function(DataTable $dataTable) use ($columnNames) {
             foreach ($dataTable->getRows() as $row) {
-                $metric = Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH;
-                $row->setColumn($metric, (int) $row->getColumn($metric));
+                foreach ($columnNames as $metric) {
+                    $row->setColumn($metric, (int) $row->getColumn($metric));
+                }
             }
         });
 
-        $allColumns = array(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
+        $allColumns = array_values($columnNames);
 
         $requestedColumns = Piwik::getArrayFromApiParameter($columns);
         $columnsToShow    = $requestedColumns ?: $allColumns;

@@ -52,6 +52,7 @@ class Bandwidth extends \Piwik\Plugin
     {
         $metrics      = Metrics::getMetricTranslations();
         $translations = array_merge($translations, $metrics);
+        $translations[Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH] = Piwik::translate('Bandwidth_ColumnTotalBandwidth');
     }
 
     public function addActionMetrics(&$metricsConfig)
@@ -68,10 +69,11 @@ class Bandwidth extends \Piwik\Plugin
 
         if ($module === 'API' && $method === 'get' && property_exists($view->config, 'selectable_columns')) {
             $selectable = $view->config->selectable_columns ? : array();
-            $columns    = array(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
+            $metric  = Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH;
+            $columns = array($metric);
 
             $view->config->selectable_columns = array_merge($selectable, $columns);
-            $view->config->addTranslation('nb_total_bandwidth', Piwik::translate('Bandwidth_ColumnTotalBandwidth'));
+            $view->config->addTranslation($metric, Piwik::translate('Bandwidth_ColumnTotalBandwidth'));
         }
 
         if (array_key_exists($module, $this->reportsToEnrich) && in_array($method, $this->reportsToEnrich[$module])) {

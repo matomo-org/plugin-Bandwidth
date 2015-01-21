@@ -9,6 +9,7 @@
 
 namespace Piwik\Plugins\Bandwidth;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
+use Piwik\Tracker\Action;
 
 /**
  * Class Archiver
@@ -34,7 +35,9 @@ class Archiver extends \Piwik\Plugin\Archiver
      *
      * This is only an example record name, so feel free to change it to suit your needs.
      */
-    const BANDWIDTH_TOTAL_RECORD = "Bandwidth_nb_total_bandwidth";
+    const BANDWIDTH_TOTAL_RECORD    = "Bandwidth_nb_total_overall";
+    const BANDWIDTH_PAGEVIEW_RECORD  = "Bandwidth_nb_total_pageurl";
+    const BANDWIDTH_DOWNLOAD_RECORD = "Bandwidth_nb_total_download";
 
     public function aggregateDayReport()
     {
@@ -42,12 +45,32 @@ class Archiver extends \Piwik\Plugin\Archiver
         $column = $column->getColumnName();
         $table  = 'log_link_visit_action';
         $field  = 'sum_bandwidth';
+        $where  = "$table.$column is not null";
 
-        $metrics = array(
+        $selects = array(
             "sum($table.$column) as `$field`"
         );
-        $query = $this->getLogAggregator()->queryActionsByDimension(array($column), "$table.$column is not null", $metrics);
 
+        $query = $this->getLogAggregator()->queryActionsByDimension(array($column), $where, $selects);
+        $this->sumAndInsertNumericRecord($query, self::BANDWIDTH_TOTAL_RECORD, $field);
+
+        $joinLogActionOnColumn = array('idaction_url');
+        $whereLogType = "$where AND log_action1.type = ";
+
+        $query = $this->getLogAggregator()->queryActionsByDimension(array($column), $whereLogType . Action::TYPE_PAGE_URL, $selects, false, null, $joinLogActionOnColumn);
+        $this->sumAndInsertNumericRecord($query, self::BANDWIDTH_PAGEVIEW_RECORD, $field);
+
+        $query = $this->getLogAggregator()->queryActionsByDimension(array($column), $whereLogType . Action::TYPE_DOWNLOAD, $selects, false, null, $joinLogActionOnColumn);
+        $this->sumAndInsertNumericRecord($query, self::BANDWIDTH_DOWNLOAD_RECORD, $field);
+    }
+
+    /**
+     * @param \Zend_Db_Statement $query
+     * @param string $metric
+     * @param string $field
+     */
+    private function sumAndInsertNumericRecord($query, $metric, $field)
+    {
         $total = 0;
 
         while ($row = $query->fetch()) {
@@ -56,13 +79,15 @@ class Archiver extends \Piwik\Plugin\Archiver
             }
         }
 
-         $this->getProcessor()->insertNumericRecord(self::BANDWIDTH_TOTAL_RECORD, (int) $total);
+        $this->getProcessor()->insertNumericRecord($metric, (int) $total);
     }
 
     public function aggregateMultipleReports()
     {
         $this->getProcessor()->aggregateNumericMetrics(array(
-            self::BANDWIDTH_TOTAL_RECORD
+            self::BANDWIDTH_TOTAL_RECORD,
+            self::BANDWIDTH_PAGEVIEW_RECORD,
+            self::BANDWIDTH_DOWNLOAD_RECORD
         ));
     }
 

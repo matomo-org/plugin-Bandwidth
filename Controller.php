@@ -26,7 +26,7 @@ class Controller extends \Piwik\Plugin\Controller
 
     public function sparklines()
     {
-        $sparklineParams = array('columns' => array('nb_total_bandwidth'));
+        $sparklineParams = array('columns' => array(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH));
         $sparklineUrl    = $this->getUrlSparkline('getEvolutionGraph', $sparklineParams);
 
         $mainMetricsRow   = $this->getBandwidthMainMetricsRow();
@@ -50,7 +50,7 @@ class Controller extends \Piwik\Plugin\Controller
 
     private function getFormattedTotalBandwidth(Row $row)
     {
-        $nbTotalBandwidth = (int) $row->getColumn(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH);
+        $nbTotalBandwidth = (int) $row->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
         $formatter = new Formatter();
         $nbTotalBandwidth = $formatter->getPrettySizeFromBytes($nbTotalBandwidth, null, 2);
         return $nbTotalBandwidth;

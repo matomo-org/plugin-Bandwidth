@@ -26,7 +26,7 @@ class Get extends Base
         $this->name = Piwik::translate('Bandwidth_Bandwidth') . ' - ' . Piwik::translate('General_MainMetrics');
         $this->order = 1;
         $this->metrics  = array(
-            Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH
+            Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH
         );
 
     }

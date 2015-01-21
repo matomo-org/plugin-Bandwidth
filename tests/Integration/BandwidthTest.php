@@ -8,16 +8,14 @@
 
 namespace Piwik\Plugins\Bandwidth\tests\Integration;
 
-use Piwik\Access;
 use Piwik\API\Request;
 use Piwik\DataAccess\ArchiveTableCreator;
 use Piwik\DataTable;
 use Piwik\Db;
 use Piwik\Plugin;
 use Piwik\Plugins\Bandwidth\API;
+use Piwik\Plugins\Bandwidth\tests\Framework\TestCase\IntegrationTestCase;
 use Piwik\Tests\Framework\Fixture;
-use Piwik\Tests\Framework\Mock\FakeAccess;
-use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 
 /**
  * Bandidth Class and Bandwidth Tracker test
@@ -32,6 +30,8 @@ class BandwidthTest extends IntegrationTestCase
      * @var API
      */
     private $api;
+
+    protected $date = '2014-04-04';
 
     public function setUp()
     {
@@ -57,7 +57,7 @@ class BandwidthTest extends IntegrationTestCase
 
     public function test_shouldEnrichPageUrls()
     {
-        $this->trackBytes(array(1, 10, null, 5, null, 3949, 399));
+        $this->trackPageviews(array(1, 10, null, 5, null, 3949, 399));
 
         $result = $this->requestAction('getPageUrls');
 
@@ -67,7 +67,7 @@ class BandwidthTest extends IntegrationTestCase
 
     public function test_shouldEnrichPageUrls_ZeroShouldCountToAverageCount()
     {
-        $this->trackBytes(array(1, 10, 5, 0, null, 3949, 0, null, 399));
+        $this->trackPageviews(array(1, 10, 5, 0, null, 3949, 0, null, 399));
         $result = $this->requestAction('getPageUrls');
 
         $row = $result->getFirstRow();
@@ -76,7 +76,7 @@ class BandwidthTest extends IntegrationTestCase
 
     public function test_shouldEnrichPageUrls_ShouldNotFailIfNoPageHasBandwidth()
     {
-        $this->trackBytes(array(null, null, null, null));
+        $this->trackPageviews(array(null, null, null, null));
         $result = $this->requestAction('getPageUrls');
 
         $row = $result->getFirstRow();
@@ -85,7 +85,7 @@ class BandwidthTest extends IntegrationTestCase
 
     public function test_shouldEnrichPageUrls_ShouldDefineASegment()
     {
-        $this->trackBytes(array(1, 10, 5, 0, null, 3949, 0, null, 399));
+        $this->trackPageviews(array(1, 10, 5, 0, null, 3949, 0, null, 399));
         $result = $this->requestAction('getPageUrls', array('segment' => 'bandwidth>=34'));
 
         $row = $result->getFirstRow();
@@ -95,7 +95,7 @@ class BandwidthTest extends IntegrationTestCase
 
     public function test_shouldEnrichPageTitles()
     {
-        $this->trackBytes(array(1, 10, null, 5, null, 3949, 399));
+        $this->trackPageviews(array(1, 10, null, 5, null, 3949, 399));
 
         $result = $this->requestAction('getPageTitles');
 
@@ -105,7 +105,7 @@ class BandwidthTest extends IntegrationTestCase
 
     public function test_shouldEnrichDownloads()
     {
-        $this->trackDownloadBytes(array(1, 10, null, 5, null, 3949, 397));
+        $this->trackDownloads(array(1, 10, null, 5, null, 3949, 397));
 
         $result = $this->requestAction('getDownloads');
 
@@ -116,12 +116,12 @@ class BandwidthTest extends IntegrationTestCase
     public function test_manyDifferentUrlsWithFolders_ShouldAggregateStats()
     {
         $tracker = $this->getTracker();
-        $this->trackUrlByte($tracker, 10, '/index');
-        $this->trackUrlByte($tracker, 20, '/blog/2014/test');
-        $this->trackUrlByte($tracker, 15, '/blog/2014/test2');
-        $this->trackUrlByte($tracker, 3, '/team/contact');
-        $this->trackUrlByte($tracker, null, '/index');
-        $this->trackUrlByte($tracker, 10, '/index');
+        $this->trackPageview($tracker, 10, '/index');
+        $this->trackPageview($tracker, 20, '/blog/2014/test');
+        $this->trackPageview($tracker, 15, '/blog/2014/test2');
+        $this->trackPageview($tracker, 3, '/team/contact');
+        $this->trackPageview($tracker, null, '/index');
+        $this->trackPageview($tracker, 10, '/index');
 
         $result = $this->requestAction('getPageUrls');
         $this->assertSame(3, $result->getRowsCount());
@@ -152,66 +152,9 @@ class BandwidthTest extends IntegrationTestCase
         $this->assertSame($row->getColumn('avg_bandwidth'), $avgB);
     }
 
-    private function trackBytes($bytes)
-    {
-        $tracker = $this->getTracker();
-
-        foreach ($bytes as $byte) {
-            $this->trackUrlByte($tracker, $byte);
-        }
-    }
-
-    private function trackUrlByte(\PiwikTracker $tracker, $byte, $url = null)
-    {
-        if (null !== $url) {
-            $tracker->setUrl('http://www.example.org' . $url);
-        }
-
-        if (null === $byte) {
-            $tracker->setDebugStringAppend('');
-        } else {
-            $tracker->setDebugStringAppend('bw_bytes=' . $byte);
-        }
-
-        $title = $url ? : 'test';
-
-        $tracker->doTrackPageView($title);
-    }
-
-    private function trackDownloadBytes($bytes)
-    {
-        $tracker = $this->getTracker();
-
-        foreach ($bytes as $byte) {
-            if (null === $byte) {
-                $tracker->setDebugStringAppend('');
-            } else {
-                $tracker->setDebugStringAppend('bw_bytes=' . $byte);
-            }
-
-            $tracker->doTrackAction('http://www.example.com/test', 'download');
-        }
-    }
-
-    private function setUser()
-    {
-        $pseudoMockAccess = new FakeAccess();
-        FakeAccess::setSuperUserAccess(false);
-        FakeAccess::$idSitesView = array(1);
-        FakeAccess::$identity = 'aUser';
-        Access::setSingletonInstance($pseudoMockAccess);
-    }
-
-    private function setSuperUser()
-    {
-        $pseudoMockAccess = new FakeAccess();
-        $pseudoMockAccess::setSuperUserAccess(true);
-        Access::setSingletonInstance($pseudoMockAccess);
-    }
-
     /**
      * @param string $action
-     * @param bool|string $segment
+     * @param array $additionalParams
      * @return DataTable
      */
     private function requestAction($action, $additionalParams = array())
@@ -219,7 +162,7 @@ class BandwidthTest extends IntegrationTestCase
         $params = array(
             'idSite' => 1,
             'period' => 'day',
-            'date' => '2014-04-04'
+            'date' => $this->date
         );
 
         if (!empty($additionalParams)) {
@@ -227,16 +170,6 @@ class BandwidthTest extends IntegrationTestCase
         }
 
         return Request::processRequest('Actions.' . $action, $params);
-    }
-
-    /**
-     * @return \PiwikTracker
-     */
-    private function getTracker()
-    {
-        $tracker = Fixture::getTracker(1, '2014-04-04 00:01:01', true, true);
-        $tracker->setTokenAuth(Fixture::getTokenAuth());
-        return $tracker;
     }
 
 }

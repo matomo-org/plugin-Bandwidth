@@ -1,2 +1,2 @@
-plugins/Bandwidth/tests/UI/processed-ui-screenshots
-plugins/Bandwidth/tests/UI/screenshot-diffs
+tests/UI/processed-ui-screenshots
+tests/UI/screenshot-diffs

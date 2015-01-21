@@ -43,7 +43,8 @@ class BandwidthTest extends UnitTestCase
             'max_bandwidth' => 'Bandwidth_ColumnMaxBandwidth',
             'min_bandwidth' => 'Bandwidth_ColumnMinBandwidth',
             'sum_bandwidth' => 'Bandwidth_ColumnSumBandwidth',
-            'avg_bandwidth' => 'Bandwidth_ColumnAvgBandwidth'
+            'avg_bandwidth' => 'Bandwidth_ColumnAvgBandwidth',
+            'nb_total_overall_bandwidth' => 'Bandwidth_ColumnTotalBandwidth'
         );
 
         $this->assertEquals($expected, $translations);

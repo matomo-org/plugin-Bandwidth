@@ -1,0 +1,93 @@
+<?php
+/**
+ * Piwik - free/libre analytics platform
+ *
+ * @link http://piwik.org
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ */
+
+namespace Piwik\Plugins\Bandwidth\tests\Framework\TestCase;
+
+use Piwik\Access;
+use Piwik\Tests\Framework\Fixture;
+use Piwik\Tests\Framework\Mock\FakeAccess;
+
+/**
+ * @group Bandwidth
+ */
+class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTestCase
+{
+    protected $date;
+
+    protected function setUser()
+    {
+        $pseudoMockAccess = new FakeAccess();
+        FakeAccess::setSuperUserAccess(false);
+        FakeAccess::$idSitesView = array(1);
+        FakeAccess::$identity = 'aUser';
+        Access::setSingletonInstance($pseudoMockAccess);
+    }
+
+    protected function setSuperUser()
+    {
+        $pseudoMockAccess = new FakeAccess();
+        $pseudoMockAccess::setSuperUserAccess(true);
+        Access::setSingletonInstance($pseudoMockAccess);
+    }
+
+    protected function setAnonymousUser()
+    {
+        $pseudoMockAccess = new FakeAccess();
+        $pseudoMockAccess::setSuperUserAccess(false);
+        $pseudoMockAccess::$identity = 'anonymous';
+        Access::setSingletonInstance($pseudoMockAccess);
+    }
+
+    protected function getTracker()
+    {
+        $tracker = Fixture::getTracker(1, $this->date . ' 00:01:01', true, true);
+        $tracker->setTokenAuth(Fixture::getTokenAuth());
+        return $tracker;
+    }
+
+    protected function trackPageviews($bytes)
+    {
+        $tracker = $this->getTracker();
+
+        foreach ($bytes as $byte) {
+            $this->trackPageview($tracker, $byte);
+        }
+    }
+
+    protected function trackPageview(\PiwikTracker $tracker, $byte, $url = null)
+    {
+        if (null !== $url) {
+            $tracker->setUrl('http://www.example.org' . $url);
+        }
+
+        if (null === $byte) {
+            $tracker->setDebugStringAppend('');
+        } else {
+            $tracker->setDebugStringAppend('bw_bytes=' . $byte);
+        }
+
+        $title = $url ? : 'test';
+
+        $tracker->doTrackPageView($title);
+    }
+
+    protected function trackDownloads($bytes)
+    {
+        $tracker = $this->getTracker();
+
+        foreach ($bytes as $byte) {
+            if (null === $byte) {
+                $tracker->setDebugStringAppend('');
+            } else {
+                $tracker->setDebugStringAppend('bw_bytes=' . $byte);
+            }
+
+            $tracker->doTrackAction('http://www.example.com/test', 'download');
+        }
+    }
+}

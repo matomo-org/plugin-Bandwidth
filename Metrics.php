@@ -25,7 +25,9 @@ class Metrics
     const METRICS_PAGE_MAX_BANDWIDTH = 1092;
     const METRICS_NB_HITS_WITH_BANDWIDTH = 1093;
 
-    const METRIC_COLUMN_TOTAL_BANDWIDTH = 'nb_total_bandwidth';
+    const COLUMN_TOTAL_OVERALL_BANDWIDTH  = 'nb_total_overall_bandwidth';
+    const COLUMN_TOTAL_PAGEVIEW_BANDWIDTH = 'nb_total_pageview_bandwidth';
+    const COLUMN_TOTAL_DOWNLOAD_BANDWIDTH = 'nb_total_download_bandwidth';
 
     /**
      * @return \Piwik\Plugin\ProcessedMetric[]

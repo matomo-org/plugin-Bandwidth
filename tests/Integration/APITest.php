@@ -8,7 +8,6 @@
 
 namespace Piwik\Plugins\Bandwidth\tests\Integration;
 
-use Piwik\Access;
 use Piwik\DataAccess\ArchiveTableCreator;
 use Piwik\DataTable;
 use Piwik\Db;
@@ -16,8 +15,7 @@ use Piwik\Plugin;
 use Piwik\Plugins\Bandwidth\API;
 use Piwik\Plugins\Bandwidth\Metrics;
 use Piwik\Tests\Framework\Fixture;
-use Piwik\Tests\Framework\Mock\FakeAccess;
-use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
+use Piwik\Plugins\Bandwidth\tests\Framework\TestCase\IntegrationTestCase;
 
 /**
  * @group Bandwidth
@@ -30,6 +28,9 @@ class APITest extends IntegrationTestCase
      * @var API
      */
     private $api;
+    
+    protected $date = '2014-04-04';
+    private $idSite = 1;
 
     public function setUp()
     {
@@ -56,35 +57,80 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnADataTable()
     {
-        $this->trackBytes(array(1));
+        $this->trackPageviews(array(1));
 
-        $result = $this->api->get(1, 'month', '2014-04-04');
+        $result = $this->api->get($this->idSite, 'month', $this->date);
         $result->applyQueuedFilters();
 
         $this->assertTrue($result instanceof DataTable);
     }
 
-    public function test_get_shouldReturnTheSumOfAll()
+    public function test_get_shouldReturnZero_IfNoTrackedBandwidth()
     {
-        $this->trackBytes(array(1, 10, 20, 348));
-        $result = $this->api->get(1, 'day', '2014-04-04');
+        $result = $this->api->get($this->idSite, 'day', $this->date);
 
-        $this->assertTotalBandwidthValue(379, $result);
+        $this->assertTotalBandwidthValue(0, 0, 0, $result);
     }
 
-    public function test_get_shouldReturnZeroIfNoTrackedBandwidth()
+    public function test_get_shouldReturnTheSumOfAllOnlyPageviews()
     {
-        $result = $this->api->get(1, 'day', '2014-04-04');
+        $this->trackPageviews(array(1, 10, 20, 348));
+        $result = $this->api->get($this->idSite, 'day', $this->date);
 
-        $this->assertTotalBandwidthValue(0, $result);
+        $this->assertTotalBandwidthValue(379, 379, 0, $result);
     }
 
-    public function test_get_shouldReturnFalseIfColumnShallNotBeDisplayed()
+    public function test_get_shouldReturnTheSumOfAllOnlyDownloads()
     {
-        $result = $this->api->get(1, 'day', '2014-04-04', false, 'nb_visits');
+        $this->trackDownloads(array(1, 10, 20, 348));
+        $result = $this->api->get($this->idSite, 'day', $this->date);
+
+        $this->assertTotalBandwidthValue(379, 0, 379, $result);
+    }
+
+    public function test_get_shouldReturnTheSumOfAll_MixedPageviewsAndDownloads()
+    {
+        $this->trackPageviews(array(1, 10, 20, 49));
+        $this->trackDownloads(array(59, 4, 1, 34, 592));
+
+        $result = $this->api->get($this->idSite, 'day', $this->date);
         $result->applyQueuedFilters();
 
-        $this->assertTotalBandwidthValue(false, $result);
+        $this->assertTotalBandwidthValue(770, 80, 690, $result);
+    }
+
+    public function test_get_shouldReturnTheSumOfAll_DifferentPeriod()
+    {
+        $this->trackPageviews(array(1, 10, 20, 49));
+        $this->trackDownloads(array(59, 4, 1, 34, 592));
+
+        $result = $this->api->get($this->idSite, 'month', $this->date);
+        $result->applyQueuedFilters();
+
+        $this->assertTotalBandwidthValue(770, 80, 690, $result);
+    }
+
+    public function test_get_shouldReturnFalse_IfColumnShallNotBeDisplayed()
+    {
+        $this->trackPageviews(array(1, 10, 20, 49));
+        $this->trackDownloads(array(59, 4, 1, 34));
+
+        $result = $this->api->get($this->idSite, 'day', $this->date, false, 'nb_visits');
+        $result->applyQueuedFilters();
+
+        $this->assertTotalBandwidthValue(false, false, false, $result);
+    }
+
+    public function test_get_shouldReturnSomeColumns_IfValidOnesRequested()
+    {
+        $this->trackPageviews(array(1, 10, 20, 49));
+        $this->trackDownloads(array(59, 4, 1, 34));
+
+        $displayColumns = Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH . ',' . Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH;
+        $result = $this->api->get($this->idSite, 'day', $this->date, false, $displayColumns);
+        $result->applyQueuedFilters();
+
+        $this->assertTotalBandwidthValue(false, 80, 98, $result);
     }
 
     /**
@@ -94,47 +140,15 @@ class APITest extends IntegrationTestCase
     public function test_get_shouldFailIfUserHasNoPermission()
     {
         $this->setAnonymousUser();
-        $this->api->get(1, 'day', '2014-04-04');
+        $this->api->get($this->idSite, 'day', $this->date);
     }
 
-    private function assertTotalBandwidthValue($expectedValue, DataTable $dataTable)
+    private function assertTotalBandwidthValue($expectedOverall, $expectedPageview, $expectedDownload, DataTable $dataTable)
     {
-        $this->assertSame($expectedValue, $dataTable->getFirstRow()->getColumn(Metrics::METRIC_COLUMN_TOTAL_BANDWIDTH));
+        $row = $dataTable->getFirstRow();
+        $this->assertSame($expectedOverall, $row->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH));
+        $this->assertSame($expectedPageview, $row->getColumn(Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH));
+        $this->assertSame($expectedDownload, $row->getColumn(Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH));
     }
-
-    private function trackBytes($bytes)
-    {
-        $tracker = Fixture::getTracker(1, '2014-04-04 00:01:01', true, true);
-        $tracker->setTokenAuth(Fixture::getTokenAuth());
-
-        foreach ($bytes as $byte) {
-            $tracker->setDebugStringAppend('bw_bytes=' . $byte);
-            $tracker->doTrackPageView('test');
-        }
-    }
-
-    private function setUser()
-    {
-        $pseudoMockAccess = new FakeAccess();
-        FakeAccess::setSuperUserAccess(false);
-        FakeAccess::$idSitesView = array(1);
-        FakeAccess::$identity = 'aUser';
-        Access::setSingletonInstance($pseudoMockAccess);
-    }
-
-    private function setSuperUser()
-    {
-        $pseudoMockAccess = new FakeAccess();
-        $pseudoMockAccess::setSuperUserAccess(true);
-        Access::setSingletonInstance($pseudoMockAccess);
-    }
-
-    private function setAnonymousUser()
-    {
-        $pseudoMockAccess = new FakeAccess();
-        $pseudoMockAccess::setSuperUserAccess(false);
-        $pseudoMockAccess::$identity = 'anonymous';
-        Access::setSingletonInstance($pseudoMockAccess);
-    }
-
+    
 }

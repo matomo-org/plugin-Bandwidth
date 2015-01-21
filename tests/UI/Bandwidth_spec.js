@@ -54,7 +54,7 @@ describe("Bandwidth", function () {
 
     it('should load the visitors > overview correctly', function (done) {
         expect.screenshot('visitors_overview').to.be.captureSelector('.pageWrap,.expandDataTableFooterDrawer', function (page) {
-            page.load("?" + urlBase + "#" + generalParams + "&module=VisitsSummary&action=index&columns=nb_total_bandwidth");
+            page.load("?" + urlBase + "#" + generalParams + "&module=VisitsSummary&action=index&columns=nb_total_overall_bandwidth");
         }, done);
     });
 });
