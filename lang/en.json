@@ -6,7 +6,9 @@
         "ColumnMaxBandwidth": "Max Bandwidth",
         "ColumnMinBandwidth": "Min Bandwidth",
         "ColumnHitsWithBandwidth": "Recorded hits with bandwidth",
-        "ColumnTotalBandwidth": "Total Bandwidth",
-        "SparklineTotalBandwidthDetails": "%s transferred total"
+        "ColumnTotalOverallBandwidth": "Bytes transferred overall",
+        "ColumnTotalPageviewBandwidth": "Bytes transferred pageviews",
+        "ColumnTotalDownloadBandwidth": "Bytes transferred downloads",
+        "SparklineTotalBandwidthDetails": "%s bytes transferred overall"
     }
 }

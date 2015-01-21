@@ -9,6 +9,7 @@
 namespace Piwik\Plugins\Bandwidth;
 use Piwik\DataTable;
 use Piwik\Metrics\Formatter;
+use Piwik\Piwik;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\AvgBandwidth;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\HitsWithBandwidth;
@@ -28,6 +29,15 @@ class Metrics
     const COLUMN_TOTAL_OVERALL_BANDWIDTH  = 'nb_total_overall_bandwidth';
     const COLUMN_TOTAL_PAGEVIEW_BANDWIDTH = 'nb_total_pageview_bandwidth';
     const COLUMN_TOTAL_DOWNLOAD_BANDWIDTH = 'nb_total_download_bandwidth';
+
+    public static function getArchiveNameToColumnsMapping()
+    {
+        return array(
+            Archiver::BANDWIDTH_TOTAL_RECORD    => Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH,
+            Archiver::BANDWIDTH_PAGEVIEW_RECORD => Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH,
+            Archiver::BANDWIDTH_DOWNLOAD_RECORD => Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH,
+        );
+    }
 
     /**
      * @return \Piwik\Plugin\ProcessedMetric[]
@@ -49,6 +59,10 @@ class Metrics
         foreach (self::getBandwidthMetrics() as $metric) {
             $translations[$metric->getName()] = $metric->getTranslatedName();
         }
+
+        $translations[Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH]  = Piwik::translate('Bandwidth_ColumnTotalOverallBandwidth');
+        $translations[Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH] = Piwik::translate('Bandwidth_ColumnTotalPageviewBandwidth');
+        $translations[Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH] = Piwik::translate('Bandwidth_ColumnTotalDownloadBandwidth');
 
         return $translations;
     }

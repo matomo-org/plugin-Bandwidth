@@ -8,6 +8,7 @@
  */
 namespace Piwik\Plugins\Bandwidth;
 
+use Piwik\Common;
 use Piwik\DataTable;
 use Piwik\FrontController;
 use Piwik\Metrics\Formatter;
@@ -20,6 +21,14 @@ class Bandwidth extends \Piwik\Plugin
 {
     private $reportsToEnrich = array(
         'Actions' => array('getPageUrls', 'getPageTitles', 'getDownloads'),
+    );
+
+    // we will only show columns in that report in the UI if there was at least one byte tracked for the defined metric
+    private $enrichReportIfTotalHasValue = array(
+        'Actions.getPageUrls'   => Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH,
+        'Actions.getPageTitles' => Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH,
+        'Actions.getDownloads'  => Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH,
+        '*' => Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH // for all other reports use this
     );
 
     /**
@@ -52,7 +61,6 @@ class Bandwidth extends \Piwik\Plugin
     {
         $metrics      = Metrics::getMetricTranslations();
         $translations = array_merge($translations, $metrics);
-        $translations[Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH] = Piwik::translate('Bandwidth_ColumnTotalBandwidth');
     }
 
     public function addActionMetrics(&$metricsConfig)
@@ -68,15 +76,41 @@ class Bandwidth extends \Piwik\Plugin
         $method = $view->requestConfig->getApiMethodToRequest();
 
         if ($module === 'API' && $method === 'get' && property_exists($view->config, 'selectable_columns')) {
+            // here we want to make sure the total column is selectable
             $selectable = $view->config->selectable_columns ? : array();
-            $metric  = Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH;
-            $columns = array($metric);
+            $columns = array_values(Metrics::getArchiveNameToColumnsMapping());
 
             $view->config->selectable_columns = array_merge($selectable, $columns);
-            $view->config->addTranslation($metric, Piwik::translate('Bandwidth_ColumnTotalBandwidth'));
+            $view->config->addTranslations(Metrics::getMetricTranslations());
         }
 
         if (array_key_exists($module, $this->reportsToEnrich) && in_array($method, $this->reportsToEnrich[$module])) {
+
+            $idSite = Common::getRequestVar('idSite');
+            $date   = Common::getRequestVar('date');
+            $period = Common::getRequestVar('period', 'month', 'string');
+            if ($period === 'day' || $period === 'week') {
+                $period = 'month';
+            }
+
+            $result = API::getInstance()->get($idSite, $period, $date);
+
+            if (array_key_exists($module . '.' . $method, $this->enrichReportIfTotalHasValue)) {
+                $columnToCompare = $this->enrichReportIfTotalHasValue[$module . '.' . $method];
+            } else {
+                $columnToCompare = $this->enrichReportIfTotalHasValue['*'];
+            }
+
+            if (!$result->getRowsCount()) {
+                return;
+            }
+
+            $value = $result->getFirstRow()->getColumn($columnToCompare);
+
+            if (empty($value)) {
+                return;
+            }
+
             $view->config->columns_to_display[] = 'avg_bandwidth';
             $view->config->columns_to_display[] = 'sum_bandwidth';
             $view->config->addTranslations(Metrics::getMetricTranslations());

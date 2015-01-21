@@ -10,7 +10,6 @@ namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 use Piwik\DataTable\Row;
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
-use Piwik\Plugin\ProcessedMetric;
 use Piwik\Plugins\Bandwidth\Metrics;
 
 /**

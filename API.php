@@ -26,11 +26,7 @@ class API extends \Piwik\Plugin\API
 
         $archive = Archive::build($idSite, $period, $date, $segment);
 
-        $columnNames = array(
-            Archiver::BANDWIDTH_TOTAL_RECORD    => Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH,
-            Archiver::BANDWIDTH_PAGEVIEW_RECORD => Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH,
-            Archiver::BANDWIDTH_DOWNLOAD_RECORD => Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH,
-        );
+        $columnNames = Metrics::getArchiveNameToColumnsMapping();
 
         $dataTable = $archive->getDataTableFromNumeric(array_keys($columnNames));
         $dataTable->filter('ReplaceColumnNames', array($columnNames));

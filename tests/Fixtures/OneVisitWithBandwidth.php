@@ -10,7 +10,6 @@ namespace Piwik\Plugins\Bandwidth\tests\Fixtures;
 use Piwik\Date;
 use Piwik\Filesystem;
 use Piwik\Plugin;
-use Piwik\Config;
 use Piwik\Tests\Framework\Fixture;
 use PiwikTracker;
 
@@ -33,14 +32,18 @@ class OneVisitWithBandwidth extends Fixture
         Plugin\Manager::getInstance()->installLoadedPlugins();
         Filesystem::deleteAllCacheOnUpdate();
 
-        $this->setUpWebsite();
+        $this->setUpWebsiteAndUser();
         $this->trackVisits();
     }
 
-    private function setUpWebsite()
+    private function setUpWebsiteAndUser()
     {
         // tests run in UTC, the Tracker in UTC
         if (!self::siteCreated($idSite = 1)) {
+            self::createWebsite($this->dateTime);
+        }
+
+        if (!self::siteCreated($idSite = 2)) {
             self::createWebsite($this->dateTime);
         }
 
@@ -75,9 +78,27 @@ class OneVisitWithBandwidth extends Fixture
         $this->moveTimeForward(4.5);
         $this->trackPageview('Test Title', 95);
         $this->trackPageview('Index', 19493);
-        $this->trackPageview('Index', 29);
+        $this->trackPageview('Index', 204948283939);
         $this->trackPageview('No bandwidth');
         $this->trackPageview('Index', 455);
+
+
+        // we want to track pageviews for a different day in the same month year to verify it will still show
+        // bandwidth columns on that day even there were no bytes tracked but there were some tracked in the same month
+        $this->tracker = self::getTracker($this->idSite, '2010-01-05 23:23:23', $useDefault = true, $uselocal = false);
+        $this->trackPageview('Test Title');
+        $this->trackPageview('Test Title');
+        $this->trackPageview('Test Title 2');
+        $this->trackPageview('Index');
+
+        // we want to track some more pageviews with no bytes to make sure columns are not shown here as there are no
+        // tracked bytes for this month
+        $this->tracker = self::getTracker($this->idSite, '2010-02-05 23:23:23', $useDefault = true, $uselocal = false);
+        $this->trackPageview('Test Title');
+        $this->trackPageview('Test Title');
+        $this->trackPageview('Index');
+        $this->trackDownload('/test/xyz.png');
+        $this->trackDownload('/app.apk');
     }
     
     private function trackPageview($title, $bytes = null)
