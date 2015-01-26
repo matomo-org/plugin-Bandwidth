@@ -12,6 +12,7 @@ use Piwik\Common;
 use Piwik\DataTable;
 use Piwik\FrontController;
 use Piwik\Metrics\Formatter;
+use Piwik\Period\Range;
 use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugin\ViewDataTable;
@@ -92,6 +93,10 @@ class Bandwidth extends \Piwik\Plugin
             $period = Common::getRequestVar('period', 'month', 'string');
             if ($period === 'day' || $period === 'week') {
                 $period = 'month';
+            }
+
+            if (Range::isMultiplePeriod($date, $period)) {
+                $period = 'range';
             }
 
             $result = API::getInstance()->get($idSite, $period, $date);
