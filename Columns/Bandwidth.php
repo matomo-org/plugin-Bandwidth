@@ -9,9 +9,11 @@
 namespace Piwik\Plugins\Bandwidth\Columns;
 
 use Piwik\Common;
+use Piwik\Period\Range;
 use Piwik\Piwik;
 use Piwik\Plugin\Dimension\ActionDimension;
 use Piwik\Plugin\Segment;
+use Piwik\Plugins\Bandwidth\API as BandwidthApi;
 use Piwik\Tracker\Request;
 use Piwik\Tracker\Visitor;
 use Piwik\Tracker\Action;
@@ -84,5 +86,26 @@ class Bandwidth extends ActionDimension
         }
 
         return false;
+    }
+
+    public function isUsedInSite($idSite, $period, $date, $columnToCompare)
+    {
+        if ($period === 'day' || $period === 'week') {
+            $period = 'month';
+        }
+
+        if (Range::isMultiplePeriod($date, $period)) {
+            $period = 'range';
+        }
+
+        $result = BandwidthApi::getInstance()->get($idSite, $period, $date);
+
+        if (!$result->getRowsCount()) {
+            return false;
+        }
+
+        $value = $result->getFirstRow()->getColumn($columnToCompare);
+
+        return !empty($value);
     }
 }

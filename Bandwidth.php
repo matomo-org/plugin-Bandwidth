@@ -17,6 +17,7 @@ use Piwik\Piwik;
 use Piwik\Plugin;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Url;
+use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
 
 class Bandwidth extends \Piwik\Plugin
 {
@@ -91,15 +92,6 @@ class Bandwidth extends \Piwik\Plugin
             $idSite = Common::getRequestVar('idSite');
             $date   = Common::getRequestVar('date');
             $period = Common::getRequestVar('period', 'month', 'string');
-            if ($period === 'day' || $period === 'week') {
-                $period = 'month';
-            }
-
-            if (Range::isMultiplePeriod($date, $period)) {
-                $period = 'range';
-            }
-
-            $result = API::getInstance()->get($idSite, $period, $date);
 
             if (array_key_exists($module . '.' . $method, $this->enrichReportIfTotalHasValue)) {
                 $columnToCompare = $this->enrichReportIfTotalHasValue[$module . '.' . $method];
@@ -107,13 +99,10 @@ class Bandwidth extends \Piwik\Plugin
                 $columnToCompare = $this->enrichReportIfTotalHasValue['*'];
             }
 
-            if (!$result->getRowsCount()) {
-                return;
-            }
+            $bandwidthDimension = new BandwidthColumn();
+            $isUsed = $bandwidthDimension->isUsedInSite($idSite, $period, $date, $columnToCompare);
 
-            $value = $result->getFirstRow()->getColumn($columnToCompare);
-
-            if (empty($value)) {
+            if (!$isUsed) {
                 return;
             }
 
