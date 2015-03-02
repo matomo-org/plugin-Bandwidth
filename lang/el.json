@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Εύρος ζώνης",
+        "ColumnAvgBandwidth": "Μέση τιμή εύρους ζώνης",
+        "ColumnHitsWithBandwidth": "Καταγεγραμμένες επισκέψεις με εύρος ζώνης",
+        "ColumnMaxBandwidth": "Μέγιστη τιμή εύρους ζώνης",
+        "ColumnMinBandwidth": "Ελάχιστη τιμή εύρους ζώνης",
+        "ColumnSumBandwidth": "Άθροισμα τιμών εύρους ζώνης",
+        "ColumnTotalDownloadBandwidth": "Bytes που μεταφέρθηκαν για κατέβασμα",
+        "ColumnTotalOverallBandwidth": "Bytes συνολικά που μεταφέρθηκαν",
+        "ColumnTotalPageviewBandwidth": "Bytes από την μεταφορά αναγνώσεων σελίδων",
+        "SparklineTotalBandwidthDetails": "%s συνολικά bytes που μεταφέρθηκαν"
+    }
+}

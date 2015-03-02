@@ -1,0 +1,9 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Bandbreite",
+        "ColumnAvgBandwidth": "Durchschnittliche Bandbreite",
+        "ColumnMaxBandwidth": "Maximale Bandbreite",
+        "ColumnMinBandwidth": "Minimale Bandbreite",
+        "ColumnTotalOverallBandwidth": "Insgesamt übertragene Bytes"
+    }
+}
