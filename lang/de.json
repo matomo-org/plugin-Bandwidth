@@ -2,8 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Bandbreite",
         "ColumnAvgBandwidth": "Durchschnittliche Bandbreite",
+        "ColumnHitsWithBandwidth": "Aufgezeichnete Treffer mit Bandbreite",
         "ColumnMaxBandwidth": "Maximale Bandbreite",
         "ColumnMinBandwidth": "Minimale Bandbreite",
-        "ColumnTotalOverallBandwidth": "Insgesamt übertragene Bytes"
+        "ColumnSumBandwidth": "Bandbreitensumme",
+        "ColumnTotalDownloadBandwidth": "Bytes transferiert durch Downloads",
+        "ColumnTotalOverallBandwidth": "Insgesamt übertragene Bytes",
+        "ColumnTotalPageviewBandwidth": "Bytes transferiert durch Seitenansichten",
+        "SparklineTotalBandwidthDetails": "%s Bytes transferiert insgesamt"
     }
 }

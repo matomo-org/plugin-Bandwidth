@@ -1,0 +1,10 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Båndbredde",
+        "ColumnAvgBandwidth": "Gennemsnitlig båndbredde",
+        "ColumnMaxBandwidth": "Max båndbredde",
+        "ColumnSumBandwidth": "Sum båndbredde",
+        "ColumnTotalOverallBandwidth": "Bytes samlet overført",
+        "SparklineTotalBandwidthDetails": "%s bytes overført samlet"
+    }
+}

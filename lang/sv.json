@@ -1,0 +1,9 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Bandbredd",
+        "ColumnMaxBandwidth": "Max bandbredd",
+        "ColumnSumBandwidth": "Summa bandbredd",
+        "ColumnTotalOverallBandwidth": "Överförda bytes totalt",
+        "SparklineTotalBandwidthDetails": "%s byte överförda totalt"
+    }
+}
