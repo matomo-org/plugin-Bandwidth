@@ -1,0 +1,13 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Bandbreedte",
+        "ColumnAvgBandwidth": "Gem. Bandbreedte",
+        "ColumnHitsWithBandwidth": "Gemeten hits met bandbreedte",
+        "ColumnMaxBandwidth": "Max Bandbreedte",
+        "ColumnMinBandwidth": "Min Bandbreedte",
+        "ColumnSumBandwidth": "Totaal Bandbreedte",
+        "ColumnTotalDownloadBandwidth": "Bytes verzonden downloads",
+        "ColumnTotalOverallBandwidth": "Bytes verzonden totaal",
+        "ColumnTotalPageviewBandwidth": "Bytes verzonden paginaweergaven"
+    }
+}

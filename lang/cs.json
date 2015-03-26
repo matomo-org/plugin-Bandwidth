@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Šířka pásma",
+        "ColumnAvgBandwidth": "Prům. šířka pásma",
+        "ColumnHitsWithBandwidth": "Zaznamenané zásahy s šířkou pásma",
+        "ColumnMaxBandwidth": "Maximální šířka pásma",
+        "ColumnMinBandwidth": "Minimální šířka pásma",
+        "ColumnSumBandwidth": "Celková šířka pásma",
+        "ColumnTotalDownloadBandwidth": "Přeneseno bytů stahování",
+        "ColumnTotalOverallBandwidth": "Celkem přeneseno bytů",
+        "ColumnTotalPageviewBandwidth": "Přeneseno bytů zobrazení stránek",
+        "SparklineTotalBandwidthDetails": "Celkem přeneseno %s bytů"
+    }
+}
