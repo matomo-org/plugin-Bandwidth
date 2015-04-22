@@ -2,13 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Šířka pásma",
         "ColumnAvgBandwidth": "Prům. šířka pásma",
-        "ColumnHitsWithBandwidth": "Zaznamenané zásahy s šířkou pásma",
+        "ColumnSumBandwidth": "Celková šířka pásma",
         "ColumnMaxBandwidth": "Maximální šířka pásma",
         "ColumnMinBandwidth": "Minimální šířka pásma",
-        "ColumnSumBandwidth": "Celková šířka pásma",
-        "ColumnTotalDownloadBandwidth": "Přeneseno bytů stahování",
+        "ColumnHitsWithBandwidth": "Zaznamenané zásahy s šířkou pásma",
         "ColumnTotalOverallBandwidth": "Celkem přeneseno bytů",
         "ColumnTotalPageviewBandwidth": "Přeneseno bytů zobrazení stránek",
+        "ColumnTotalDownloadBandwidth": "Přeneseno bytů stahování",
         "SparklineTotalBandwidthDetails": "Celkem přeneseno %s bytů"
     }
 }

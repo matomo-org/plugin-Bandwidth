@@ -1,0 +1,8 @@
+{
+    "Bandwidth": {
+        "ColumnTotalOverallBandwidth": "Байт передано всего",
+        "ColumnTotalPageviewBandwidth": "Байт передано на просмотр страниц",
+        "ColumnTotalDownloadBandwidth": "Байт передано на скачивания",
+        "SparklineTotalBandwidthDetails": "%s байт передано всего"
+    }
+}

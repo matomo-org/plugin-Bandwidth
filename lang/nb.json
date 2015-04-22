@@ -1,0 +1,9 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Båndbredde",
+        "ColumnAvgBandwidth": "Gj. båndbredde",
+        "ColumnSumBandwidth": "Sum båndbredde",
+        "ColumnMaxBandwidth": "Maksimum båndbredde",
+        "ColumnMinBandwidth": "Minimum båndbredde"
+    }
+}

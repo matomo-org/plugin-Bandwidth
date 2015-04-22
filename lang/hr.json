@@ -1,0 +1,10 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Propusnost",
+        "ColumnAvgBandwidth": "Prosječna propusnost",
+        "ColumnSumBandwidth": "Ukupna propusnost",
+        "ColumnMaxBandwidth": "Maksimalna propusnost",
+        "ColumnMinBandwidth": "Minimalna propusnost",
+        "ColumnTotalOverallBandwidth": "Broj prenesenih byteova"
+    }
+}
