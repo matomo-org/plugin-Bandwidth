@@ -38,6 +38,8 @@ matrix:
     - php: 5.5
       env: TEST_SUITE=UITests MYSQL_ADAPTER=PDO_MYSQL
 
+sudo: required
+
 script: $PIWIK_ROOT_DIR/tests/travis/travis.sh
 
 before_install:
@@ -110,7 +112,7 @@ before_script:
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
 
-  - export GENERATE_TRAVIS_YML_COMMAND="php ./console generate:travis-yml --plugin=\"Bandwidth\" --verbose"
+  - export GENERATE_TRAVIS_YML_COMMAND="php ./console generate:travis-yml --plugin=\"Bandwidth\""
   - ./tests/travis/autoupdate_travis_yml.sh
 
   - cd tests/PHPUnit
