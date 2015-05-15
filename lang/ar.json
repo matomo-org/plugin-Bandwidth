@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "عرض النطاق",
+        "ColumnAvgBandwidth": "عرض النطاق في المتوسط",
+        "ColumnSumBandwidth": "مجموع عرض النطاق",
+        "ColumnMaxBandwidth": "أقصى عرض نطاق",
+        "ColumnMinBandwidth": "أقل عرض نطاق",
+        "ColumnHitsWithBandwidth": "الزيارات المسجلة في عرض النطاق",
+        "ColumnTotalOverallBandwidth": "إجمالي البايتات المنقولة",
+        "ColumnTotalPageviewBandwidth": "البايتات المنقولة لمرات عرض الصفحات",
+        "ColumnTotalDownloadBandwidth": "البايتات المنقولة للتنزيلات",
+        "SparklineTotalBandwidthDetails": "إجمالي البايتات المنقولة %s"
+    }
+}
