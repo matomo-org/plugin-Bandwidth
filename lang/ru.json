@@ -1,5 +1,8 @@
 {
     "Bandwidth": {
+        "Bandwidth": "Ширина канала",
+        "ColumnAvgBandwidth": "Средняя ширина канала",
+        "ColumnMinBandwidth": "Минимальная ширина канала",
         "ColumnTotalOverallBandwidth": "Байт передано всего",
         "ColumnTotalPageviewBandwidth": "Байт передано на просмотр страниц",
         "ColumnTotalDownloadBandwidth": "Байт передано на скачивания",

@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Protok",
+        "ColumnAvgBandwidth": "Prosečan protok",
+        "ColumnSumBandwidth": "Ukupan protok",
+        "ColumnMaxBandwidth": "Maks. protok",
+        "ColumnMinBandwidth": "Min. protok",
+        "ColumnHitsWithBandwidth": "Zabeleženo pogodaka uz protok",
+        "ColumnTotalOverallBandwidth": "Ukupno preneseno bajtova",
+        "ColumnTotalPageviewBandwidth": "Preneseno bajtova na preglede stranica",
+        "ColumnTotalDownloadBandwidth": "Preneseno bajtova na preuzimanje fajlova",
+        "SparklineTotalBandwidthDetails": "Ukupno preneseno bajtova %s"
+    }
+}
