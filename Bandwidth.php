@@ -112,19 +112,21 @@ class Bandwidth extends \Piwik\Plugin
         }
     }
 
-    public function enrichApi(DataTable $dataTable, $params)
+    public function enrichApi(DataTable\DataTableInterface $dataTable, $params)
     {
-        $extraProcessedMetrics = $dataTable->getMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME);
+        $dataTable->filter(function (DataTable $dataTable) {
+            $extraProcessedMetrics = $dataTable->getMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME);
 
-        if (empty($extraProcessedMetrics)) {
-            $extraProcessedMetrics = array();
-        }
+            if (empty($extraProcessedMetrics)) {
+                $extraProcessedMetrics = array();
+            }
 
-        foreach (Metrics::getBandwidthMetrics() as $metric) {
-            $extraProcessedMetrics[] = $metric;
-        }
+            foreach (Metrics::getBandwidthMetrics() as $metric) {
+                $extraProcessedMetrics[] = $metric;
+            }
 
-        $dataTable->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $extraProcessedMetrics);
+            $dataTable->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $extraProcessedMetrics);
+        });
     }
 
 }
