@@ -50,26 +50,20 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
 
     protected function setUser()
     {
-        $pseudoMockAccess = new FakeAccess();
         FakeAccess::setSuperUserAccess(false);
         FakeAccess::$idSitesView = array(1);
         FakeAccess::$identity = 'aUser';
-        Access::setSingletonInstance($pseudoMockAccess);
     }
 
     protected function setSuperUser()
     {
-        $pseudoMockAccess = new FakeAccess();
-        $pseudoMockAccess::setSuperUserAccess(true);
-        Access::setSingletonInstance($pseudoMockAccess);
+        FakeAccess::setSuperUserAccess(true);
     }
 
     protected function setAnonymousUser()
     {
-        $pseudoMockAccess = new FakeAccess();
-        $pseudoMockAccess::setSuperUserAccess(false);
-        $pseudoMockAccess::$identity = 'anonymous';
-        Access::setSingletonInstance($pseudoMockAccess);
+        FakeAccess::clearAccess();
+        FakeAccess::$identity = 'anonymous';
     }
 
     protected function getTracker()
@@ -119,4 +113,12 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
             $tracker->doTrackAction('http://www.example.com/test', 'download');
         }
     }
+
+    public function provideContainerConfig()
+    {
+        return array(
+            'Piwik\Access' => new FakeAccess()
+        );
+    }
+
 }
