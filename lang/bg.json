@@ -1,0 +1,8 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Трафик",
+        "ColumnSumBandwidth": "Общ трафик",
+        "ColumnMaxBandwidth": "Максимален трафик",
+        "ColumnMinBandwidth": "Минимален трафик"
+    }
+}
