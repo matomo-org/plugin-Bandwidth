@@ -1,6 +1,7 @@
 {
     "Bandwidth": {
         "Bandwidth": "Трафик",
+        "ColumnAvgBandwidth": "Среден трафик",
         "ColumnSumBandwidth": "Общ трафик",
         "ColumnMaxBandwidth": "Максимален трафик",
         "ColumnMinBandwidth": "Минимален трафик"

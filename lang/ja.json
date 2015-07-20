@@ -4,6 +4,8 @@
         "ColumnAvgBandwidth": "帯域の平均",
         "ColumnSumBandwidth": "帯域の合計",
         "ColumnMaxBandwidth": "帯域の最大",
-        "ColumnMinBandwidth": "帯域の最小"
+        "ColumnMinBandwidth": "帯域の最小",
+        "ColumnHitsWithBandwidth": "バンド幅に記録されたヒット数",
+        "ColumnTotalOverallBandwidth": "転送された全バイト数"
     }
 }

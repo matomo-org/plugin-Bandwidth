@@ -1,0 +1,13 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "बैंडविड्थ",
+        "ColumnAvgBandwidth": "औसत। बैंडविड्थ",
+        "ColumnSumBandwidth": "योग बैंडविड्थ",
+        "ColumnMaxBandwidth": "अधिकतम बैंडविड्थ",
+        "ColumnMinBandwidth": "न्यूनतम बैंडविड्थ",
+        "ColumnHitsWithBandwidth": "बैंडविड्थ के साथ रिकार्ड किए गए हिट",
+        "ColumnTotalOverallBandwidth": "बाइट्स समग्र का तबादला",
+        "ColumnTotalPageviewBandwidth": "हस्तांतरित प्रिव्यू बाइट्स",
+        "ColumnTotalDownloadBandwidth": "बाइट्स डाउनलोड का तबादला"
+    }
+}

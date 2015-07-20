@@ -5,7 +5,7 @@
         "ColumnSumBandwidth": "Bandbreitensumme",
         "ColumnMaxBandwidth": "Maximale Bandbreite",
         "ColumnMinBandwidth": "Minimale Bandbreite",
-        "ColumnHitsWithBandwidth": "Aufgezeichnete Treffer mit Bandbreite",
+        "ColumnHitsWithBandwidth": "Aufgezeichnete Zugriffe mit Bandbreite",
         "ColumnTotalOverallBandwidth": "Insgesamt übertragene Bytes",
         "ColumnTotalPageviewBandwidth": "Bytes transferiert durch Seitenansichten",
         "ColumnTotalDownloadBandwidth": "Bytes transferiert durch Downloads",
