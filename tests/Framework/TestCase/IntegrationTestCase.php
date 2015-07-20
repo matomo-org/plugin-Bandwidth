@@ -8,7 +8,6 @@
 
 namespace Piwik\Plugins\Bandwidth\tests\Framework\TestCase;
 
-use Piwik\Access;
 use Piwik\Db;
 use Piwik\Plugin;
 use Piwik\Tests\Framework\Fixture;
@@ -50,14 +49,14 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
 
     protected function setUser()
     {
-        FakeAccess::setSuperUserAccess(false);
+        FakeAccess::$superUser = false;
         FakeAccess::$idSitesView = array(1);
         FakeAccess::$identity = 'aUser';
     }
 
     protected function setSuperUser()
     {
-        FakeAccess::setSuperUserAccess(true);
+        FakeAccess::$superUser = true;
     }
 
     protected function setAnonymousUser()
