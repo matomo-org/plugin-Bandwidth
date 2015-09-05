@@ -1,0 +1,9 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "அலைக்கற்றை",
+        "ColumnAvgBandwidth": "சராசரி அலைக்கற்றை",
+        "ColumnSumBandwidth": "அலைக்கற்றை மொத்தம்",
+        "ColumnMaxBandwidth": "அலைக்கற்றை அதிக அளவு",
+        "ColumnMinBandwidth": "அலைக்கற்றை குறைந்த அளவு"
+    }
+}
