@@ -16,7 +16,7 @@ env:
     - PLUGIN_NAME=Bandwidth
     - PIWIK_ROOT_DIR=$TRAVIS_BUILD_DIR/piwik
     - UNPROTECTED_ARTIFACTS=1
-    - PIWIK_LATEST_STABLE_TEST_TARGET=2.14.1
+    - PIWIK_LATEST_STABLE_TEST_TARGET=2.15.0-b15
     - secure: "d6R6npyv/p/bMQbeDyi/lvymIbjsEb3DJJ6ePOyZO60/rWHm3YbqyWp8h7T419ODwqDGTP71oqoshmjDDVq7HmW+jQsDvrgslT4EI/TQuQ1JuW8dZC02C6komyit5p4Um1jrj9gWCwiNKzTuc/lZ1L7EpnGLa6H/Qkag1MuoKHc="
     - secure: "UBqV3+iEd3IB7chu/WUmngqA8BETxpDi+41pM88u6rbmTMqTLZvwjp/8Ue4kEwtJIJef/pJUiMTIvV5YEQlMXBir3j7qSoZuHA6Dj5biHRPD6jAV08Bpsr8z4y0weX3G11pNlnLchEkpkNsd7cVmISjxqrWzJ2v3p8VkRigy5C8="
   matrix:
