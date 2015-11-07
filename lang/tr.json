@@ -1,0 +1,9 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Bant Genişliği",
+        "ColumnAvgBandwidth": "Ort. Bant Genişliği",
+        "ColumnSumBandwidth": "Toplam Bant Genişliği",
+        "ColumnMaxBandwidth": "Maksimum Bant Genişliği",
+        "ColumnMinBandwidth": "Minimum Bant Genişliği"
+    }
+}
