@@ -2,7 +2,10 @@
     "Bandwidth": {
         "Bandwidth": "Ширина канала",
         "ColumnAvgBandwidth": "Средняя ширина канала",
+        "ColumnSumBandwidth": "Суммарная ширина канала",
+        "ColumnMaxBandwidth": "Максимальная ширина канала",
         "ColumnMinBandwidth": "Минимальная ширина канала",
+        "ColumnHitsWithBandwidth": "Сохранено хитов с шириной канала",
         "ColumnTotalOverallBandwidth": "Байт передано всего",
         "ColumnTotalPageviewBandwidth": "Байт передано на просмотр страниц",
         "ColumnTotalDownloadBandwidth": "Байт передано на скачивания",

@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Sávszélesség",
+        "ColumnAvgBandwidth": "Ált. sávszélesség",
+        "ColumnSumBandwidth": "Össz sávszélesség",
+        "ColumnMaxBandwidth": "Max sávszélesség",
+        "ColumnMinBandwidth": "Min sávszélesség",
+        "ColumnHitsWithBandwidth": "Rögzített találatok sávszélességgel",
+        "ColumnTotalOverallBandwidth": "Forgalmazott bájtok",
+        "ColumnTotalPageviewBandwidth": "Oldalbetöltéskor forgalmazott bájtok",
+        "ColumnTotalDownloadBandwidth": "Letöltéskor forgalmazott bájtok",
+        "SparklineTotalBandwidthDetails": "%s bájt összforgalom"
+    }
+}

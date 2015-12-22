@@ -1,9 +1,14 @@
 {
     "Bandwidth": {
         "Bandwidth": "Båndbredde",
-        "ColumnAvgBandwidth": "Gj. båndbredde",
+        "ColumnAvgBandwidth": "Gj.snitt. båndbredde",
         "ColumnSumBandwidth": "Sum båndbredde",
         "ColumnMaxBandwidth": "Maksimum båndbredde",
-        "ColumnMinBandwidth": "Minimum båndbredde"
+        "ColumnMinBandwidth": "Minimum båndbredde",
+        "ColumnHitsWithBandwidth": "Innsamlede treff med båndbredde",
+        "ColumnTotalOverallBandwidth": "Bytes overført totalt",
+        "ColumnTotalPageviewBandwidth": "Overførte bytes for sidevisninger",
+        "ColumnTotalDownloadBandwidth": "Overførte bytes for nedlastinger",
+        "SparklineTotalBandwidthDetails": "%s bytes overført totalt"
     }
 }

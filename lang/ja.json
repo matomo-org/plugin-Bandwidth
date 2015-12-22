@@ -6,6 +6,9 @@
         "ColumnMaxBandwidth": "帯域の最大",
         "ColumnMinBandwidth": "帯域の最小",
         "ColumnHitsWithBandwidth": "バンド幅に記録されたヒット数",
-        "ColumnTotalOverallBandwidth": "転送された全バイト数"
+        "ColumnTotalOverallBandwidth": "転送された全バイト数",
+        "ColumnTotalPageviewBandwidth": "ページビュー転送バイト数",
+        "ColumnTotalDownloadBandwidth": "ダウンロード転送バイト数",
+        "SparklineTotalBandwidthDetails": "%s バイト転送（全体）"
     }
 }
