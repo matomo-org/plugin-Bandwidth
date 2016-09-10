@@ -9,11 +9,7 @@
 namespace Piwik\Plugins\Bandwidth;
 
 use Piwik\Common;
-use Piwik\DataTable\Row;
-use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
-use Piwik\View;
-use Piwik\API\Request;
 
 /**
  * A controller let's you for example create a page that can be added to a menu. For more information read our guide
@@ -23,20 +19,6 @@ use Piwik\API\Request;
  */
 class Controller extends \Piwik\Plugin\Controller
 {
-
-    public function sparklines()
-    {
-        $sparklineParams = array('columns' => array(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH));
-        $sparklineUrl    = $this->getUrlSparkline('getEvolutionGraph', $sparklineParams);
-
-        $mainMetricsRow   = $this->getBandwidthMainMetricsRow();
-        $nbTotalBandwidth = $this->getFormattedTotalBandwidth($mainMetricsRow);
-
-        return $this->renderTemplate('sparklines', array(
-            'urlSparklineBandwidth' => $sparklineUrl,
-            'nbTotalBandwidth' => $nbTotalBandwidth
-        ));
-    }
 
     public function getEvolutionGraph()
     {
@@ -48,34 +30,5 @@ class Controller extends \Piwik\Plugin\Controller
         return $this->renderView($view);
     }
 
-    private function getFormattedTotalBandwidth(Row $row)
-    {
-        $nbTotalBandwidth = (int) $row->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
-        $formatter = new Formatter();
-        $nbTotalBandwidth = $formatter->getPrettySizeFromBytes($nbTotalBandwidth, null, 2);
-        return $nbTotalBandwidth;
-    }
 
-    private function getBandwidthMainMetricsRow()
-    {
-        $idSite  = Common::getRequestVar('idSite');
-        $period  = Common::getRequestVar('period');
-        $date    = Common::getRequestVar('date');
-        $segment = Request::getRawSegmentFromRequest();
-
-        $dataTableActions = Request::processRequest('Bandwidth.get', array(
-            'idSite'  => $idSite,
-            'period'  => $period,
-            'date'    => $date,
-            'segment' => $segment
-        ));
-
-        if ($dataTableActions->getRowsCount() === 0) {
-            $row = new Row();
-        } else {
-            $row = $dataTableActions->getFirstRow();
-        }
-
-        return $row;
-    }
 }

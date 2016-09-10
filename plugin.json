@@ -1,19 +1,26 @@
 {
  "name": "Bandwidth",
- "version": "0.1.2",
+ "version": "3.0.0",
  "description": "Monitor Bandwidth for each page, download, and measure overall traffic in bytes",
  "theme": false,
  "keywords": ["bandwidth", "filesize", "size", "download"],
  "license": "GPL v3+",
- "homepage": "http://piwik.org",
+ "homepage": "https://piwik.org",
  "require": {
-    "piwik": ">=2.14.0,<3.0.0-b1"
+    "piwik": ">=3.0.0-b1,<4.0.0-b1"
  },
+  "support": {
+    "email": "hello@piwik.org",
+    "issues": "https://github.com/piwik/plugin-Bandwidth/issues",
+    "forum": "https://forum.piwik.org",
+    "source": "https://github.com/piwik/plugin-Bandwidth",
+    "wiki": "https://github.com/piwik/plugin-Bandwidth/wiki"
+  },
  "authors": [
      {
          "name": "Piwik",
          "email": "hello@piwik.org",
-         "homepage": "http://piwik.org"
+         "homepage": "https://piwik.org"
      }
  ]
 }
