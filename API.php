@@ -10,10 +10,7 @@ namespace Piwik\Plugins\Bandwidth;
 
 use Piwik\Archive;
 use Piwik\DataTable;
-use Piwik\DataTable\Row;
-use Piwik\Period;
 use Piwik\Piwik;
-use Piwik\Plugin\Dimension\VisitDimension;
 
 /**
  * @method static \Piwik\Plugins\Bandwidth\API getInstance()

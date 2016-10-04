@@ -14,6 +14,6 @@ abstract class Base extends Report
 {
     protected function init()
     {
-        $this->category = 'General_Actions';
+        $this->categoryId = 'General_Actions';
     }
 }

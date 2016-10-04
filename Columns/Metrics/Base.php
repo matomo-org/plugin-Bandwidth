@@ -36,7 +36,11 @@ abstract class Base extends ProcessedMetric
         $value = $this->getMetric($row, $metric);
 
         if (false !== $value) {
-            $value = (int) $value;
+            if (strlen((string) $value) >= 9 && is_numeric($value)) {
+                return $value;
+            } else {
+                $value = (int) $value;
+            }
         }
 
         return $value;

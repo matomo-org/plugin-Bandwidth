@@ -12,12 +12,9 @@ use Piwik\Common;
 use Piwik\DataTable;
 use Piwik\FrontController;
 use Piwik\Metrics\Formatter;
-use Piwik\Period\Range;
-use Piwik\Piwik;
-use Piwik\Plugin;
 use Piwik\Plugin\ViewDataTable;
-use Piwik\Url;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
+use Piwik\Plugins\CoreVisualizations\Visualizations\Sparklines;
 
 class Bandwidth extends \Piwik\Plugin
 {
@@ -35,15 +32,14 @@ class Bandwidth extends \Piwik\Plugin
     );
 
     /**
-     * @see Piwik\Plugin::getListHooksRegistered
+     * @see \Piwik\Plugin::registerEvents
      */
-    public function getListHooksRegistered()
+    public function registerEvents()
     {
         $hooks = array(
             'ViewDataTable.configure' => 'configureViewDataTable',
             'Actions.Archiving.addActionMetrics' => 'addActionMetrics',
-            'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
-            'Template.VisitsSummaryOverviewSparklines' => 'renderSparklines'
+            'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations'
         );
 
         foreach ($this->reportsToEnrich as $module => $actions) {
@@ -85,6 +81,23 @@ class Bandwidth extends \Piwik\Plugin
 
             $view->config->selectable_columns = array_merge($selectable, $columns);
             $view->config->addTranslations(Metrics::getMetricTranslations());
+        }
+
+        if ($module === 'API' && $method === 'get' && $view->isViewDataTableId(Sparklines::ID)) {
+            /** @var Sparklines $view */
+            $view->config->addSparklineMetric(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
+            $view->config->filters[] = function (DataTable $table) use ($view) {
+                $firstRow = $table->getFirstRow();
+                $nbTotalBandwidth = $firstRow->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
+
+                if (is_numeric($nbTotalBandwidth)) {
+                    $formatter = new Formatter();
+                    $nbTotalBandwidth = $formatter->getPrettySizeFromBytes((int) $nbTotalBandwidth, null, 2);
+                    $firstRow->setColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH, $nbTotalBandwidth);
+                }
+                
+                return $nbTotalBandwidth;
+            };
         }
 
         if (array_key_exists($module, $this->reportsToEnrich) && in_array($method, $this->reportsToEnrich[$module])) {
