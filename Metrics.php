@@ -40,7 +40,7 @@ class Metrics
     }
 
     /**
-     * @return \Piwik\Plugin\ProcessedMetric[]
+     * @return \Piwik\Plugins\Bandwidth\Columns\Metrics\Base[]
      */
     public static function getBandwidthMetrics()
     {

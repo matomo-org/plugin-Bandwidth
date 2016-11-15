@@ -59,4 +59,9 @@ abstract class Base extends ProcessedMetric
     {
         return array();
     }
+
+    public function getMetricId()
+    {
+        return $this->metric;
+    }
 }

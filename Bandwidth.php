@@ -152,10 +152,20 @@ class Bandwidth extends \Piwik\Plugin
             foreach (Metrics::getBandwidthMetrics() as $metric) {
                 $extraProcessedMetrics[] = $metric;
             }
-
             $dataTable->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $extraProcessedMetrics);
-
         });
+
+        $dataTable->filter(function (DataTable $dataTable) {
+            $metricIdsToName = array();
+            foreach (Metrics::getBandwidthMetrics() as $metric) {
+                $metricId = $metric->getMetricId();
+                if(!empty($metricId)) {
+                    $metricIdsToName[$metricId] = $metric->getName();
+                }
+            }
+            $dataTable->filter('ReplaceColumnNames', array($metricIdsToName));
+        });
+
     }
 
 }
