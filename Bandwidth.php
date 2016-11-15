@@ -168,7 +168,6 @@ class Bandwidth extends \Piwik\Plugin
                     $metricIdsToName[$metricId] = $metric->getName();
                 }
             }
-            $dataTable->filter('ReplaceColumnNames', array($metricIdsToName));
             $dataTable->queueFilter('ReplaceColumnNames', array($metricIdsToName));
 
         });
