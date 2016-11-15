@@ -35,6 +35,8 @@ class Bandwidth extends \Piwik\Plugin
             'getExitPageUrls',
             'getSiteSearchKeywords',
             'getSiteSearchNoResultKeywords',
+            'getPageTitlesFollowingSiteSearch',
+            'getPageUrlsFollowingSiteSearch',
         ),
     );
 
