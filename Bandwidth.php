@@ -36,8 +36,11 @@ class Bandwidth extends \Piwik\Plugin
             'getSiteSearchKeywords',
             'getSiteSearchNoResultKeywords',
             'getPageTitlesFollowingSiteSearch',
-            'getPageUrlsFollowingSiteSearch',
+            'getPageUrlsFollowingSiteSearch'
         ),
+        'CustomDimensions' => array(
+            'getCustomDimension'
+        )
     );
 
     // we will only show columns in that report in the UI if there was at least one byte tracked for the defined metric
@@ -165,7 +168,9 @@ class Bandwidth extends \Piwik\Plugin
                     $metricIdsToName[$metricId] = $metric->getName();
                 }
             }
+            $dataTable->filter('ReplaceColumnNames', array($metricIdsToName));
             $dataTable->queueFilter('ReplaceColumnNames', array($metricIdsToName));
+
         });
 
     }
