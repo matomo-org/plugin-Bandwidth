@@ -20,7 +20,22 @@ class Bandwidth extends \Piwik\Plugin
 {
     // module => action. The ones that are defined here will be enriched by bandwidth columns when displayed in the UI
     private $reportsToEnrich = array(
-        'Actions' => array('getPageUrls', 'getPageTitles', 'getDownloads'),
+        'Actions' => array(
+            'getPageUrls',
+            'getPageUrl',
+            'getPageTitles',
+            'getPageTitle',
+            'getDownloads',
+            'getDownload',
+            'getOutlink',
+            'getOutlinks',
+            'getEntryPageTitles',
+            'getEntryPageUrls',
+            'getExitPageTitles',
+            'getExitPageUrls',
+            'getSiteSearchKeywords',
+            'getSiteSearchNoResultKeywords',
+        ),
     );
 
     // we will only show columns in that report in the UI if there was at least one byte tracked for the defined metric
@@ -139,6 +154,7 @@ class Bandwidth extends \Piwik\Plugin
             }
 
             $dataTable->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $extraProcessedMetrics);
+
         });
     }
 
