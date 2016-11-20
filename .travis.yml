@@ -27,8 +27,6 @@ env:
   global:
     - PLUGIN_NAME=Bandwidth
     - PIWIK_ROOT_DIR=$TRAVIS_BUILD_DIR/piwik
-    - secure: "d6R6npyv/p/bMQbeDyi/lvymIbjsEb3DJJ6ePOyZO60/rWHm3YbqyWp8h7T419ODwqDGTP71oqoshmjDDVq7HmW+jQsDvrgslT4EI/TQuQ1JuW8dZC02C6komyit5p4Um1jrj9gWCwiNKzTuc/lZ1L7EpnGLa6H/Qkag1MuoKHc="
-    - secure: "UBqV3+iEd3IB7chu/WUmngqA8BETxpDi+41pM88u6rbmTMqTLZvwjp/8Ue4kEwtJIJef/pJUiMTIvV5YEQlMXBir3j7qSoZuHA6Dj5biHRPD6jAV08Bpsr8z4y0weX3G11pNlnLchEkpkNsd7cVmISjxqrWzJ2v3p8VkRigy5C8="
     # this variable controls the version of Piwik your tests will run against.
     # by default it will run against the maximum support version read from plugin.json
     # (PIWIK_TEST_TARGET=maximum_supported_piwik).
@@ -73,7 +71,7 @@ install:
   - '[ -d ./tests/travis/.git ] || sh -c "rm -rf ./tests/travis && git clone https://github.com/piwik/travis-scripts.git ./tests/travis"'
   - cd ./tests/travis ; git checkout master ; cd ../..
 
-  - export GENERATE_TRAVIS_YML_COMMAND="php ./tests/travis/generator/main.php generate:travis-yml --plugin=\"Bandwidth\" --verbose"
+  - export GENERATE_TRAVIS_YML_COMMAND="php ./tests/travis/generator/main.php generate:travis-yml --plugin=\"Bandwidth\" --php-versions=\"5.6,5.3\" --verbose"
   - '[[ "$TRAVIS_JOB_NUMBER" != *.1 || "$TRAVIS_PULL_REQUEST" != "false" ]] || ./tests/travis/autoupdate_travis_yml.sh'
 
   - ./tests/travis/checkout_test_against_branch.sh
@@ -137,6 +135,7 @@ before_script:
 
   - ./tests/travis/prepare.sh
   - ./tests/travis/setup_webserver.sh
+  - if [[ "$TRAVIS_PHP_VERSION" != 5.3* ]]; then ./tests/travis/install_phantomjs.sh; export PATH=$PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH; fi
 
   - cd tests/PHPUnit
 
