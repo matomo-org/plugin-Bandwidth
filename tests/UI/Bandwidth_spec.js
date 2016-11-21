@@ -26,7 +26,7 @@ describe("Bandwidth", function () {
 
     it('should load the actions > pages page correctly', function (done) {
         expect.screenshot('actions_page_urls').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Pages");
+            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Pages&flat=0");
         }, done);
     });
 
