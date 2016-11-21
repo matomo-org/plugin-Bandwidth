@@ -26,7 +26,7 @@ describe("Bandwidth", function () {
 
     it('should load the actions > pages page correctly', function (done) {
         expect.screenshot('actions_page_urls').to.be.captureSelector('.pageWrap,.expandDataTableFooterDrawer', function (page) {
-            page.load("?" + urlBase + "#" + generalParams + "&module=Actions&action=menuGetPageUrls");
+            page.load("?" + urlBase + "#" + generalParams + "&module=Actions&action=menuGetPageUrls&flat=0");
         }, done);
     });
 
