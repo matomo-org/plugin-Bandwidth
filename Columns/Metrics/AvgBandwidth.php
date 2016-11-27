@@ -29,8 +29,19 @@ class AvgBandwidth extends Base
 
     public function compute(Row $row)
     {
-        $hits = $this->getMetricAsIntSafe($row, Metrics::METRICS_NB_HITS_WITH_BANDWIDTH);
-        $sum  = $this->getMetricAsIntSafe($row, Metrics::METRICS_PAGE_SUM_BANDWIDTH);
+        // NOTE: Fetching columns by name or id is required in some cases (like flattened reports)
+        //       This should be changed in the future: see https://github.com/piwik/piwik/issues/10916
+        if ($row->hasColumn('nb_hits_with_bandwidth')) {
+            $hits = $this->getMetricAsIntSafe($row, 'nb_hits_with_bandwidth');
+        } else {
+            $hits = $this->getMetricAsIntSafe($row, Metrics::METRICS_NB_HITS_WITH_BANDWIDTH);
+        }
+
+        if ($row->hasColumn('sum_bandwidth')) {
+            $sum = $this->getMetricAsIntSafe($row, 'sum_bandwidth');
+        } else {
+            $sum = $this->getMetricAsIntSafe($row, Metrics::METRICS_PAGE_SUM_BANDWIDTH);
+        }
 
         if (!empty($hits) && !empty($sum)) {
             $avg = floor($sum / $hits);
