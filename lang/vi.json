@@ -1,0 +1,9 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Băng thông",
+        "ColumnAvgBandwidth": "Băng thông trung bình",
+        "ColumnSumBandwidth": "Tổng băng thông",
+        "ColumnMaxBandwidth": "Băng thông tối đa",
+        "ColumnMinBandwidth": "Băng thông tối thiểu"
+    }
+}

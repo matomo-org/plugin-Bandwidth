@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Lăţime de bandă",
+        "ColumnAvgBandwidth": "Lăţime de bandă medie",
+        "ColumnSumBandwidth": "Total lăţime de bandă",
+        "ColumnMaxBandwidth": "Lăţime de bandă maximă",
+        "ColumnMinBandwidth": "Lăţime de bandă minimă",
+        "ColumnHitsWithBandwidth": "Hituri înregistrate pe lăţime de bandă",
+        "ColumnTotalOverallBandwidth": "Total octeţi tranferaţi",
+        "ColumnTotalPageviewBandwidth": "Vizualizări octeţi tranferaţi",
+        "ColumnTotalDownloadBandwidth": "Descărcări octeţi tranferaţi",
+        "SparklineTotalBandwidthDetails": "%s octeţi tranferaţi total"
+    }
+}

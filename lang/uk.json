@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Ширина каналу",
+        "ColumnAvgBandwidth": "Середня ширина каналу",
+        "ColumnSumBandwidth": "Загальна ширина каналу",
+        "ColumnMaxBandwidth": "Максимальна ширина каналу",
+        "ColumnMinBandwidth": "Мінімальна ширина каналу",
+        "ColumnHitsWithBandwidth": "Збережено хітів з шириною каналу",
+        "ColumnTotalOverallBandwidth": "Байт передано всього",
+        "ColumnTotalPageviewBandwidth": "Байт передано на переглядання сторінок",
+        "ColumnTotalDownloadBandwidth": "Байт передано на завантаження",
+        "SparklineTotalBandwidthDetails": "%s байт передано всього"
+    }
+}

@@ -1,6 +1,14 @@
 {
     "Bandwidth": {
-        "Bandwidth": "Gjerësi bande",
-        "ColumnMaxBandwidth": "Gjerësi bande Maksimum"
+        "Bandwidth": "Sasi trafiku",
+        "ColumnAvgBandwidth": "Mesatare Sasie Trafiku",
+        "ColumnSumBandwidth": "Shumë Sasie Trafiku",
+        "ColumnMaxBandwidth": "Maksimum Sasie Trafiku",
+        "ColumnMinBandwidth": "Minimum Sasie Trafiku",
+        "ColumnHitsWithBandwidth": "Hit-e me trafik të regjistruara",
+        "ColumnTotalOverallBandwidth": "Bajte të shpërngulur gjithsej",
+        "ColumnTotalPageviewBandwidth": "Bajte të shpërngulur nga parje faqesh",
+        "ColumnTotalDownloadBandwidth": "Bajte të shpërngulur nga shkarkime",
+        "SparklineTotalBandwidthDetails": "%s bajte të shpërngulur gjithsej"
     }
 }
