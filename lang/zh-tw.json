@@ -1,0 +1,14 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "流量",
+        "ColumnAvgBandwidth": "平均流量",
+        "ColumnSumBandwidth": "流量總計",
+        "ColumnMaxBandwidth": "最大流量",
+        "ColumnMinBandwidth": "最小流量",
+        "ColumnHitsWithBandwidth": "命中流量的紀錄",
+        "ColumnTotalOverallBandwidth": "Bytes 傳輸總計",
+        "ColumnTotalPageviewBandwidth": "Bytes 網頁瀏覽傳輸",
+        "ColumnTotalDownloadBandwidth": "Bytes 下載傳輸",
+        "SparklineTotalBandwidthDetails": "%s bytes 傳輸總計"
+    }
+}
