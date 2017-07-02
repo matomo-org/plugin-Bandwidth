@@ -14,6 +14,7 @@ use Piwik\Db;
 use Piwik\Plugin;
 use Piwik\Plugins\Bandwidth\API;
 use Piwik\Plugins\Bandwidth\tests\Framework\TestCase\IntegrationTestCase;
+use Piwik\Version;
 
 /**
  * Bandidth Class and Bandwidth Tracker test
@@ -105,6 +106,29 @@ class BandwidthTest extends IntegrationTestCase
 
         $row = $result->getFirstRow();
         $this->assertBandwidthStats($row, $maxB = 3949, $minB = 1, $sumB = 4362, $avgB = 872);
+    }
+
+    public function test_shouldEnrichLiveActions()
+    {
+        if (!class_exists('\\Piwik\\Plugins\\Live\\VisitorDetailsAbstract')) {
+            $this->markTestSkipped('Extended Live reports not available in this Piwik version');
+        }
+
+        $this->trackPageviews(array(1, 10, null, 5, null, 3949, 399));
+
+        $params = array(
+            'idSite' => 1,
+            'period' => 'day',
+            'date'   => $this->date
+        );
+
+        $result = Request::processRequest('Live.getLastVisitsDetails', $params);
+        $row = $result->getFirstRow();
+
+        $actions = $row->getColumn('actionDetails');
+        foreach ($actions as $action) {
+            $this->assertArrayHasKey('bandwidth', $action);
+        }
     }
 
     public function test_manyDifferentUrlsWithFolders_ShouldAggregateStats()
