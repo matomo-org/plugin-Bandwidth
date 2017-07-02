@@ -16,7 +16,7 @@ class VisitorDetails extends VisitorDetailsAbstract
 {
     public function extendActionDetails(&$action, $nextAction, $visitorDetails)
     {
-        if ($action['bandwidth']) {
+        if (array_key_exists('bandwidth', $action)) {
             $formatter = new Formatter();
             $action['bandwidth_pretty'] = $formatter->getPrettySizeFromBytes($action['bandwidth']);
         }
@@ -24,7 +24,7 @@ class VisitorDetails extends VisitorDetailsAbstract
 
     public function renderActionTooltip($action, $visitInfo)
     {
-        if ($action['bandwidth']) {
+        if (!empty($action['bandwidth'])) {
             $view = new View('@Bandwidth/_actionTooltip');
             $view->action = $action;
             return $view->render();
