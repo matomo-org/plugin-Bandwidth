@@ -1,0 +1,13 @@
+<div class="visitor-profile-summary visitor-profile-bandwidth">
+    <h1>{{ 'Bandwidth_Bandwidth'|translate }}</h1>
+    <div>
+        <p>
+            {{ 'Bandwidth_SparklineTotalBandwidthDetails'|translate(visitorData.sumBandwidth) }}
+            (
+            {{ 'Bandwidth_ColumnAvgBandwidth'|translate }}: {{ visitorData.avgBandwidth }},
+            {{ 'Bandwidth_ColumnMinBandwidth'|translate }}: {{ visitorData.minBandwidth }},
+            {{ 'Bandwidth_ColumnMaxBandwidth'|translate }}: {{ visitorData.maxBandwidth }}
+            )
+        </p>
+    </div>
+</div>
