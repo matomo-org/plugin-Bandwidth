@@ -4,11 +4,11 @@
         "ColumnAvgBandwidth": "平均带宽",
         "ColumnSumBandwidth": "总流量",
         "ColumnMaxBandwidth": "最大带宽",
-        "ColumnMinBandwidth": "最小流量",
+        "ColumnMinBandwidth": "最小带宽",
         "ColumnHitsWithBandwidth": "记录点击流量",
         "ColumnTotalOverallBandwidth": "总传输字节数",
         "ColumnTotalPageviewBandwidth": "传输的字节数",
         "ColumnTotalDownloadBandwidth": "下载的字节数",
-        "SparklineTotalBandwidthDetails": "%s 字节"
+        "SparklineTotalBandwidthDetails": "总共传输%s字节"
     }
 }
