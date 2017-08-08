@@ -79,6 +79,6 @@ class VisitorDetails extends VisitorDetailsAbstract
 
         $view              = new View('@Bandwidth/_profileSummary.twig');
         $view->visitorData = $profile;
-        return array(array(5, $view->render()));
+        return array(array(70, $view->render()));
     }
 }
