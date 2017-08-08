@@ -24,13 +24,13 @@ class VisitorDetails extends VisitorDetailsAbstract
 
     public function renderActionTooltip($action, $visitInfo)
     {
-        if (!empty($action['bandwidth'])) {
-            $view         = new View('@Bandwidth/_actionTooltip');
-            $view->action = $action;
-            return $view->render();
+        if (empty($action['bandwidth'])) {
+            return [];
         }
 
-        return '';
+        $view         = new View('@Bandwidth/_actionTooltip');
+        $view->action = $action;
+        return [[ 60, $view->render() ]];
     }
 
     protected $sumBandwidth         = 0;
