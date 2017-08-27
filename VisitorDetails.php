@@ -70,15 +70,4 @@ class VisitorDetails extends VisitorDetailsAbstract
             $profile['avgBandwidth'] = $formatter->getPrettySizeFromBytes(round($this->sumBandwidth / $this->actionsWithBandwidth));
         }
     }
-
-    public function renderProfileSummary($profile)
-    {
-        if (!isset($profile['avgBandwidth'])) {
-            return array();
-        }
-
-        $view              = new View('@Bandwidth/_profileSummary.twig');
-        $view->visitorData = $profile;
-        return array(array(70, $view->render()));
-    }
 }
