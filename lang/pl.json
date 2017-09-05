@@ -1,7 +1,14 @@
 {
     "Bandwidth": {
-        "Bandwidth": "Pasmo",
-        "ColumnAvgBandwidth": "Średnie pasmo",
-        "ColumnSumBandwidth": "Całkowite pasmo"
+        "Bandwidth": "Transfer",
+        "ColumnAvgBandwidth": "Średni Transfer",
+        "ColumnSumBandwidth": "Całkowity Transfer",
+        "ColumnMaxBandwidth": "Maks. Transfer",
+        "ColumnMinBandwidth": "Min. Transfer",
+        "ColumnHitsWithBandwidth": "Odnotowane trafienia z transferu",
+        "ColumnTotalOverallBandwidth": "Przesłanych łącznie bajtów",
+        "ColumnTotalPageviewBandwidth": "Bajtów przesłanych podczas wyświetlania stron",
+        "ColumnTotalDownloadBandwidth": "Bajtów przesłanych podczas pobierania plików",
+        "SparklineTotalBandwidthDetails": "%s przesłanych łącznie bajtów"
     }
 }

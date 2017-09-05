@@ -1,0 +1,8 @@
+{
+    "Bandwidth": {
+        "Bandwidth": "Lebar pita",
+        "ColumnAvgBandwidth": "Rata-rata Lebar pita",
+        "ColumnMaxBandwidth": "Lebar pita Maksimal",
+        "ColumnMinBandwidth": "Lebar pita minimal"
+    }
+}
