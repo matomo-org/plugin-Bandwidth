@@ -59,7 +59,8 @@ class Bandwidth extends \Piwik\Plugin
         $hooks = array(
             'ViewDataTable.configure' => 'configureViewDataTable',
             'Actions.Archiving.addActionMetrics' => 'addActionMetrics',
-            'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations'
+            'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
+            'Actions.getCustomActionDimensionFieldsAndJoins' => 'provideActionDimensionFields'
         );
 
         foreach ($this->reportsToEnrich as $module => $actions) {
@@ -174,4 +175,9 @@ class Bandwidth extends \Piwik\Plugin
 
     }
 
+    public function provideActionDimensionFields(&$fields, &$joins)
+    {
+        $column = new BandwidthColumn();
+        $fields[] = $column->getColumnName();
+    }
 }
