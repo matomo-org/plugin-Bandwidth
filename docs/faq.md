@@ -39,6 +39,6 @@ __Why are the bandwidth columns are not displayed in the UI?__
 Make sure the Bandwidth plugin is activated by going to `Administration => Plugins`. Also the bandwidth columns are not 
 displayed if no bandwidth was tracked in the current selected month.
 
-__Is it possible to track bandwidth with JavaScript Tracker__
+__Is it possible to track bandwidth using the Piwik JavaScript Tracker?__
 
-You can set the `bw_bytes` value manually in JavaScript using `_paq.push(['appendToTrackingUrl', 'bw_bytes=1234');` to track the bandwidth of your pages
+Yes, you can set the `bw_bytes` value manually in JavaScript using `_paq.push(['appendToTrackingUrl', 'bw_bytes=1234');` to track the bandwidth of your pages.
