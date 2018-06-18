@@ -1,6 +1,6 @@
-# Piwik Bandwidth Plugin
+# Matomo Bandwidth Plugin
 
-[![Build Status](https://travis-ci.org/piwik/plugin-Bandwidth.svg?branch=master)](https://travis-ci.org/piwik/plugin-Bandwidth)
+[![Build Status](https://travis-ci.org/matomo-org/plugin-Bandwidth.svg?branch=master)](https://travis-ci.org/matomo-org/plugin-Bandwidth)
 
 ## Description
 
