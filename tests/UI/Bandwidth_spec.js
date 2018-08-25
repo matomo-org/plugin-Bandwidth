@@ -18,69 +18,70 @@ describe("Bandwidth", function () {
         urlBase = 'module=CoreHome&action=index&' + generalParams;
 
     before(function () {
-
         testEnvironment.pluginsToLoad = ['Bandwidth'];
         testEnvironment.save();
 
     });
 
-    it('should load the actions > pages page correctly', function (done) {
-        expect.screenshot('actions_page_urls').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Pages&flat=0");
-        }, done);
+    it('should load the actions > pages page correctly', async function () {
+        await page.goto("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Pages&flat=0");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_page_urls');
     });
 
-    it('should load the actions > pages page flat correctly', function (done) {
-        expect.screenshot('actions_page_urls_flat').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Pages&flat=1");
-        }, done);
+    it('should load the actions > pages page flat correctly', async function () {
+        await page.goto('about:blank');
+        await page.goto("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Pages&flat=1");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_page_urls_flat');
     });
 
-    it('should load the actions > pages titles correctly', function (done) {
-        expect.screenshot('actions_page_titles').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=Actions_SubmenuPageTitles");
-        }, done);
+    it('should load the actions > pages titles correctly', async function () {
+        await page.goto("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=Actions_SubmenuPageTitles");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_page_titles');
     });
 
-    it('should load the actions > downloads correctly', function (done) {
-        expect.screenshot('actions_downloads').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Downloads");
-        }, done);
+    it('should load the actions > downloads correctly', async function () {
+        await page.goto("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Downloads");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_downloads');
     });
 
-    it('should load the actions > downloads flat correctly', function (done) {
-        expect.screenshot('actions_downloads_flat').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Downloads&flat=1");
-        }, done);
+    it('should load the actions > downloads flat correctly', async function () {
+        await page.goto('about:blank');
+        await page.goto("?" + urlBase + "#?" + generalParams + "&category=General_Actions&subcategory=General_Downloads&flat=1");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_downloads_flat');
     });
 
-    it('should load the visitors > overview correctly', function (done) {
-        expect.screenshot('visitors_overview').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + generalParams + "&category=General_Visitors&subcategory=General_Overview&columns=nb_total_overall_bandwidth,nb_total_pageview_bandwidth,nb_total_download_bandwidth");
-        }, done);
+    it('should load the visitors > overview correctly', async function () {
+        await page.goto("?" + urlBase + "#?" + generalParams + "&category=General_Visitors&subcategory=General_Overview&columns=nb_total_overall_bandwidth,nb_total_pageview_bandwidth,nb_total_download_bandwidth");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('visitors_overview');
     });
 
-    it('should show bandwidth columns if no byte was tracked on that day but during the month', function (done) {
-        expect.screenshot('actions_no_bandwidth_on_day_but_in_month').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + secondDateParams + "&category=General_Actions&subcategory=General_Pages&flat=1");
-        }, done);
+    it('should show bandwidth columns if no byte was tracked on that day but during the month', async function () {
+        await page.goto("?" + urlBase + "#?" + secondDateParams + "&category=General_Actions&subcategory=General_Pages&flat=1");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_no_bandwidth_on_day_but_in_month');
     });
 
-    it('should not show bandwidth columns if no byte was tracked in actions > pages page', function (done) {
-        expect.screenshot('actions_page_urls_no_bandwidth').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + thirdDateParams + "&category=General_Actions&subcategory=General_Pages&flat=1");
-        }, done);
+    it('should not show bandwidth columns if no byte was tracked in actions > pages page', async function () {
+        await page.goto("?" + urlBase + "#?" + thirdDateParams + "&category=General_Actions&subcategory=General_Pages&flat=1");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_page_urls_no_bandwidth');
     });
 
-    it('should not show bandwidth columns if no byte was tracked in actions > pages titles', function (done) {
-        expect.screenshot('actions_page_titles_no_bandwidth').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + thirdDateParams + "&category=General_Actions&subcategory=Actions_SubmenuPageTitles");
-        }, done);
+    it('should not show bandwidth columns if no byte was tracked in actions > pages titles', async function () {
+        await page.goto("?" + urlBase + "#?" + thirdDateParams + "&category=General_Actions&subcategory=Actions_SubmenuPageTitles");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_page_titles_no_bandwidth');
     });
 
-    it('should not show bandwidth columns if no byte was tracked in actions > downloads', function (done) {
-        expect.screenshot('actions_downloads_no_bandwidth').to.be.captureSelector('.pageWrap', function (page) {
-            page.load("?" + urlBase + "#?" + thirdDateParams + "&category=General_Actions&subcategory=General_Downloads");
-        }, done);
+    it('should not show bandwidth columns if no byte was tracked in actions > downloads', async function () {
+        await page.goto("?" + urlBase + "#?" + thirdDateParams + "&category=General_Actions&subcategory=General_Downloads");
+        var elem = await page.jQuery('.pageWrap');
+        expect(await elem.screenshot()).to.matchImage('actions_downloads_no_bandwidth');
     });
 });
