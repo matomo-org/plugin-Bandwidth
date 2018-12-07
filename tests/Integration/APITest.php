@@ -34,7 +34,7 @@ class APITest extends IntegrationTestCase
     {
         parent::setUp();
         $this->api = API::getInstance();
-        $this->setUser();
+        $this->setSuperUser();
     }
 
     public function test_get_shouldReturnADataTable()
