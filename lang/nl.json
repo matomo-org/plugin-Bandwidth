@@ -2,12 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Bandbreedte",
         "ColumnAvgBandwidth": "Gem. Bandbreedte",
-        "ColumnSumBandwidth": "Totaal Bandbreedte",
-        "ColumnMaxBandwidth": "Max Bandbreedte",
-        "ColumnMinBandwidth": "Min Bandbreedte",
+        "ColumnSumBandwidth": "Totale Bandbreedte",
+        "ColumnMaxBandwidth": "Max. Bandbreedte",
+        "ColumnMinBandwidth": "Min. Bandbreedte",
         "ColumnHitsWithBandwidth": "Gemeten hits met bandbreedte",
-        "ColumnTotalOverallBandwidth": "Bytes verzonden totaal",
+        "ColumnTotalOverallBandwidth": "Totaal aantal bytes verzonden",
         "ColumnTotalPageviewBandwidth": "Bytes verzonden paginaweergaven",
-        "ColumnTotalDownloadBandwidth": "Bytes verzonden downloads"
+        "ColumnTotalDownloadBandwidth": "Bytes verzonden downloads",
+        "SparklineTotalBandwidthDetails": "%s bytes verzonden totaal"
     }
 }

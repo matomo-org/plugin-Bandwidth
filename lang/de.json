@@ -7,8 +7,8 @@
         "ColumnMinBandwidth": "Minimale Bandbreite",
         "ColumnHitsWithBandwidth": "Aufgezeichnete Zugriffe mit Bandbreite",
         "ColumnTotalOverallBandwidth": "Insgesamt übertragene Bytes",
-        "ColumnTotalPageviewBandwidth": "Bytes transferiert durch Seitenansichten",
-        "ColumnTotalDownloadBandwidth": "Bytes transferiert durch Downloads",
-        "SparklineTotalBandwidthDetails": "%s Bytes transferiert insgesamt"
+        "ColumnTotalPageviewBandwidth": "Durch Seitenzugriffe übertragene Bytes",
+        "ColumnTotalDownloadBandwidth": "Durch Downloads übertragene Bytes",
+        "SparklineTotalBandwidthDetails": "%s Bytes insgesamt übertragen"
     }
 }
