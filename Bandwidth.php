@@ -60,7 +60,8 @@ class Bandwidth extends \Piwik\Plugin
             'ViewDataTable.configure' => 'configureViewDataTable',
             'Actions.Archiving.addActionMetrics' => 'addActionMetrics',
             'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
-            'Actions.getCustomActionDimensionFieldsAndJoins' => 'provideActionDimensionFields'
+            'Actions.getCustomActionDimensionFieldsAndJoins' => 'provideActionDimensionFields',
+            'Metrics.addMetricIdToNameMapping' => 'addMetricIdToNameMapping',
         );
 
         foreach ($this->reportsToEnrich as $module => $actions) {
@@ -90,6 +91,17 @@ class Bandwidth extends \Piwik\Plugin
         }
     }
 
+    public function addMetricIdToNameMapping(&$mapping)
+    {
+        foreach (Metrics::getBandwidthMetrics() as $metric) {
+            $metricId = $metric->getMetricId();
+            if (!is_int($metricId)) {
+                continue;
+            }
+            $mapping[$metricId] = $metric->getName();
+        }
+    }
+
     public function configureViewDataTable(ViewDataTable $view)
     {
         $module = $view->requestConfig->getApiModuleToRequest();
@@ -105,19 +117,20 @@ class Bandwidth extends \Piwik\Plugin
         }
 
         if ($module === 'API' && $method === 'get' && $view->isViewDataTableId(Sparklines::ID)) {
+            // TODO: should use a metric class or something so we don't have to manually support comparisons here
+
             /** @var Sparklines $view */
             $view->config->addSparklineMetric(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
             $view->config->filters[] = function (DataTable $table) use ($view) {
                 $firstRow = $table->getFirstRow();
-                $nbTotalBandwidth = $firstRow->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
+                $this->formatTotalBandwidth($firstRow);
 
-                if (is_numeric($nbTotalBandwidth)) {
-                    $formatter = new Formatter();
-                    $nbTotalBandwidth = $formatter->getPrettySizeFromBytes((int) $nbTotalBandwidth, null, 2);
-                    $firstRow->setColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH, $nbTotalBandwidth);
+                $comparisons = $firstRow->getComparisons();
+                if (!empty($comparisons)) {
+                    foreach ($comparisons->getRows() as $compareRow) {
+                        $this->formatTotalBandwidth($compareRow);
+                    }
                 }
-                
-                return $nbTotalBandwidth;
             };
         }
 
@@ -179,5 +192,18 @@ class Bandwidth extends \Piwik\Plugin
     {
         $column = new BandwidthColumn();
         $fields[] = $column->getColumnName();
+    }
+
+    private function formatTotalBandwidth(DataTable\Row $firstRow)
+    {
+        $nbTotalBandwidth = $firstRow->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
+
+        if (is_numeric($nbTotalBandwidth)) {
+            $formatter = new Formatter();
+            $nbTotalBandwidth = $formatter->getPrettySizeFromBytes((int) $nbTotalBandwidth, null, 2);
+            $firstRow->setColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH, $nbTotalBandwidth);
+        }
+
+        return $nbTotalBandwidth;
     }
 }
