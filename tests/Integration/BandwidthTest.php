@@ -75,7 +75,7 @@ class BandwidthTest extends IntegrationTestCase
 
         $row = $result->getFirstRow();
 
-        $this->assertBandwidthStats($row, $maxB = 3949, $minB = 399, $sumB = 4348, $avgB = 2174);
+        $this->assertBandwidthStats($row, $maxB = 3949, $minB = 0, $sumB = 4364, $avgB = 623);
     }
 
     public function test_shouldEnrichPageTitlesAndFormat_IfRequested()
