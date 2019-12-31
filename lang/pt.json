@@ -6,9 +6,9 @@
         "ColumnMaxBandwidth": "Largura de banda máxima",
         "ColumnMinBandwidth": "Largura de banda mínima",
         "ColumnHitsWithBandwidth": "Registos registados com a largura de banda",
-        "ColumnTotalOverallBandwidth": "Bytes globalmente transferidos",
+        "ColumnTotalOverallBandwidth": "bytes transferidos no total",
         "ColumnTotalPageviewBandwidth": "Bytes transferidos nas visualizações de páginas",
         "ColumnTotalDownloadBandwidth": "Bytes transferidos nas transferências",
-        "SparklineTotalBandwidthDetails": "%s bytes globalmente transferidos"
+        "SparklineTotalBandwidthDetails": "%s bytes transferidos no total"
     }
 }
