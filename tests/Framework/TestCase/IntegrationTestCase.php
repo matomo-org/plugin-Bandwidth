@@ -81,7 +81,7 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
         }
     }
 
-    protected function trackPageview(\PiwikTracker $tracker, $byte, $url = null)
+    protected function trackPageview($tracker, $byte, $url = null)
     {
         if (null !== $url) {
             $tracker->setUrl('http://www.example.org' . $url);
