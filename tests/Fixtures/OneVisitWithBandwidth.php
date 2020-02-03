@@ -11,7 +11,6 @@ use Piwik\Date;
 use Piwik\Filesystem;
 use Piwik\Plugin;
 use Piwik\Tests\Framework\Fixture;
-use PiwikTracker;
 
 /**
  * Track actions with bandwidth
@@ -22,7 +21,7 @@ class OneVisitWithBandwidth extends Fixture
     public $idSite = 1;
 
     /**
-     * @var \PiwikTracker
+     * @var \MatomoTracker
      */
     private $tracker;
 
