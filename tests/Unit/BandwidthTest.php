@@ -23,7 +23,7 @@ class BandwidthTest extends UnitTestCase
      */
     private $bandwidth;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->bandwidth = new Bandwidth();

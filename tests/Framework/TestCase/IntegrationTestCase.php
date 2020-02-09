@@ -21,7 +21,7 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
 {
     protected $date;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->setSuperUser();
@@ -37,7 +37,7 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
         }
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         // clean up your test here if needed
         $tables = ArchiveTableCreator::getTablesArchivesInstalled();
