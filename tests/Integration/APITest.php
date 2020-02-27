@@ -30,7 +30,7 @@ class APITest extends IntegrationTestCase
     protected $date = '2014-04-04';
     private $idSite = 1;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->api = API::getInstance();
@@ -115,12 +115,11 @@ class APITest extends IntegrationTestCase
         $this->assertTotalBandwidthValue(false, 80, 98, $result);
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage checkUserHasViewAccess
-     */
     public function test_get_shouldFailIfUserHasNoPermission()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('checkUserHasViewAccess');
+
         $this->setAnonymousUser();
         $this->api->get($this->idSite, 'day', $this->date);
     }

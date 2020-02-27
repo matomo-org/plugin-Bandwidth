@@ -25,7 +25,7 @@ class OneVisitWithBandwidth extends Fixture
      */
     private $tracker;
 
-    public function setUp()
+    public function setUp(): void
     {
         Plugin\Manager::getInstance()->loadPlugin('Bandwidth');
         Plugin\Manager::getInstance()->installLoadedPlugins();
@@ -129,7 +129,7 @@ class OneVisitWithBandwidth extends Fixture
         $this->tracker->setForceVisitDateTime(Date::factory($this->dateTime)->addHour($hour)->getDatetime());
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
     }
 }

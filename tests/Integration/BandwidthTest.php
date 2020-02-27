@@ -32,7 +32,7 @@ class BandwidthTest extends IntegrationTestCase
 
     protected $date = '2014-04-04';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->api = API::getInstance();
