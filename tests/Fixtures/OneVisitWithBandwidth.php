@@ -53,7 +53,6 @@ class OneVisitWithBandwidth extends Fixture
     {
         $this->tracker = self::getTracker($this->idSite, $this->dateTime, $useDefault = true, $uselocal = false);
         $this->tracker->setUrl('http://www.example.org/page');
-        $this->tracker->setGenerationTime(333);
 
         $this->trackPageview('Test Title', 550);
         $this->trackPageview('Test 2', 200928);
