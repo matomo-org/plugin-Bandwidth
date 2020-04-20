@@ -8,12 +8,14 @@
  */
 namespace Piwik\Plugins\Bandwidth\Columns;
 
+use Piwik\Columns\DimensionSegmentFactory;
 use Piwik\Common;
 use Piwik\Period\Range;
 use Piwik\Piwik;
 use Piwik\Plugin\Dimension\ActionDimension;
 use Piwik\Plugin\Segment;
 use Piwik\Plugins\Bandwidth\API as BandwidthApi;
+use Piwik\Segment\SegmentsList;
 use Piwik\Tracker\Request;
 use Piwik\Tracker\Visitor;
 use Piwik\Tracker\Action;
@@ -55,7 +57,7 @@ class Bandwidth extends ActionDimension
      * show all actions only considering users having more than 10 achievement points. If you do not want to define a
      * segment for this dimension just remove the column.
      */
-    protected function configureSegments()
+    public function configureSegments(SegmentsList $segmentsList, DimensionSegmentFactory $dimensionSegmentFactory)
     {
         $segment = new Segment();
         $segment->setSegment('bandwidth');
@@ -63,7 +65,7 @@ class Bandwidth extends ActionDimension
         $segment->setCategory('General_Actions');
         $segment->setName('Bandwidth_Bandwidth');
         $segment->setAcceptedValues('Any number in bytes, eg. 1000');
-        $this->addSegment($segment);
+        $segmentsList->addSegment($dimensionSegmentFactory->createSegment($segment));
     }
 
     /**
