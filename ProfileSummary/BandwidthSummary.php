@@ -15,8 +15,6 @@ use Piwik\View;
 
 /**
  * Class BandwidthSummary
- *
- * @api
  */
 class BandwidthSummary extends ProfileSummaryAbstract
 {
