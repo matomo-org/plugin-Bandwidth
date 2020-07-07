@@ -25,10 +25,10 @@ env:
   global:
     - PLUGIN_NAME=Bandwidth
     - PIWIK_ROOT_DIR=$TRAVIS_BUILD_DIR/matomo
-    # this variable controls the version of Piwik your tests will run against.
+    # this variable controls the version of Matomo your tests will run against.
     # by default it will run against the maximum support version read from plugin.json
     # (PIWIK_TEST_TARGET=maximum_supported_piwik).
-    # You can also specify a specific Piwik version
+    # You can also specify a specific Matomo version
     # (PIWIK_TEST_TARGET=2.16.0-b1).
     - PIWIK_TEST_TARGET=4.x-dev
   matrix:
@@ -80,7 +80,7 @@ install:
 
   # travis now complains about this failing 9 times out of 10, so removing it
   #- travis_retry composer self-update
-  - '[ "$SKIP_COMPOSER_INSTALL" == "1" ] || travis_retry composer install' 
+  - '[ "$SKIP_COMPOSER_INSTALL" == "1" ] || travis_retry composer install'
 
   # move plugin contents to folder in the plugins subdirectory
   - rm -rf plugins/$PLUGIN_NAME
