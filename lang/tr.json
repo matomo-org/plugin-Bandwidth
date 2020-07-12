@@ -7,7 +7,7 @@
         "ColumnMinBandwidth": "En Az Bant Genişliği",
         "ColumnHitsWithBandwidth": "Bant genişliği ile kaydedilmiş tıklanma",
         "ColumnTotalOverallBandwidth": "Toplam aktarılan bayt",
-        "ColumnTotalPageviewBandwidth": "Sayfa görüntüleme için aktarılan bayt",
+        "ColumnTotalPageviewBandwidth": "Sayfa gösterimleri için aktarılan bayt",
         "ColumnTotalDownloadBandwidth": "İndirmeler için aktarılan bayt",
         "SparklineTotalBandwidthDetails": "Toplam %s bayt aktarıldı"
     }

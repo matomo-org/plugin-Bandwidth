@@ -3,12 +3,12 @@
         "Bandwidth": "Kaista",
         "ColumnAvgBandwidth": "Keskimääräinen kaistankäyttö",
         "ColumnSumBandwidth": "Kaistankäyttö yhteensä",
-        "ColumnMaxBandwidth": "Enimmäiskaistankäyttö",
-        "ColumnMinBandwidth": "Vähimmäiskaistankäyttö",
+        "ColumnMaxBandwidth": "Kaistankäyttö enintään",
+        "ColumnMinBandwidth": "Kaistankäyttö vähintään",
         "ColumnHitsWithBandwidth": "Kaistankäytön kanssa tallennettuja osumia",
-        "ColumnTotalOverallBandwidth": "Tavuja siirretty yhteensä",
-        "ColumnTotalPageviewBandwidth": "Tavuja siirretty sivunkatseluihin",
-        "ColumnTotalDownloadBandwidth": "Tavuja siirretty latauksiin",
+        "ColumnTotalOverallBandwidth": "tavua siirretty yhteensä",
+        "ColumnTotalPageviewBandwidth": "tavua siirretty sivunkatseluihin",
+        "ColumnTotalDownloadBandwidth": "tavua siirretty latauksissa",
         "SparklineTotalBandwidthDetails": "%s tavua siirretty yhteensä"
     }
 }
