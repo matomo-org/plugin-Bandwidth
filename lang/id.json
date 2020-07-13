@@ -2,7 +2,12 @@
     "Bandwidth": {
         "Bandwidth": "Lebar pita",
         "ColumnAvgBandwidth": "Rata-rata Lebar pita",
+        "ColumnSumBandwidth": "Jumlah Lebar pita",
         "ColumnMaxBandwidth": "Lebar pita Maksimal",
-        "ColumnMinBandwidth": "Lebar pita minimal"
+        "ColumnMinBandwidth": "Lebar pita minimal",
+        "ColumnHitsWithBandwidth": "Hit terekam dengan Lebar pita",
+        "ColumnTotalOverallBandwidth": "Total Bita terkirim",
+        "ColumnTotalPageviewBandwidth": "Bita halaman dikunjungi terkirim",
+        "ColumnTotalDownloadBandwidth": "Unduhan Bita terkirim"
     }
 }
