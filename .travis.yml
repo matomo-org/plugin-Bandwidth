@@ -42,8 +42,8 @@ matrix:
     # execute latest stable tests only w/ PHP 7.2
     - php: 7.2
       env: TEST_SUITE=PluginTests MYSQL_ADAPTER=PDO_MYSQL TEST_AGAINST_CORE=minimum_required_piwik
-    # execute UI tests only w/ PHP 7.3
-    - php: 7.3
+    # execute UI tests only w/ PHP 7.4
+    - php: 7.4
       env: TEST_SUITE=UITests MYSQL_ADAPTER=PDO_MYSQL TEST_AGAINST_PIWIK_BRANCH=$PIWIK_TEST_TARGET
 
 dist: bionic
