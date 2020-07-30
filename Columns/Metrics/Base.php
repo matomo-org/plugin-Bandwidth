@@ -2,9 +2,10 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
+
 namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 
 use Piwik\DataTable\Row;
@@ -25,10 +26,10 @@ abstract class Base extends ProcessedMetric
     public function getTemporaryMetrics()
     {
         if ($this->metric) {
-            return array($this->metric);
+            return [$this->metric];
         }
 
-        return array();
+        return [];
     }
 
     public function getMetricAsIntSafe(Row $row, $metric)
@@ -36,10 +37,10 @@ abstract class Base extends ProcessedMetric
         $value = $this->getMetric($row, $metric);
 
         if (false !== $value) {
-            if (strlen((string) $value) >= 9 && is_numeric($value)) {
+            if (strlen((string)$value) >= 9 && is_numeric($value)) {
                 return $value;
             } else {
-                $value = (int) $value;
+                $value = (int)$value;
             }
         }
 
@@ -57,7 +58,7 @@ abstract class Base extends ProcessedMetric
 
     public function getDependentMetrics()
     {
-        return array();
+        return [];
     }
 
     public function getMetricId()

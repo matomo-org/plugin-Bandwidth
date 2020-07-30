@@ -2,10 +2,11 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Bandwidth\Reports;
 
 use Piwik\Piwik;
@@ -22,10 +23,10 @@ class Get extends Base
     {
         parent::init();
 
-        $this->name = Piwik::translate('Bandwidth_Bandwidth') . ' - ' . Piwik::translate('General_MainMetrics');
-        $this->order = 30;
-        $this->metrics = array_values(Metrics::getNumericRecordNameToColumnsMapping());
-        $this->processedMetrics = array();
+        $this->name             = Piwik::translate('Bandwidth_Bandwidth') . ' - ' . Piwik::translate('General_MainMetrics');
+        $this->order            = 30;
+        $this->metrics          = array_values(Metrics::getNumericRecordNameToColumnsMapping());
+        $this->processedMetrics = [];
     }
 
 }

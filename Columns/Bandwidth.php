@@ -2,10 +2,11 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Bandwidth\Columns;
 
 use Piwik\Columns\DimensionSegmentFactory;
@@ -16,9 +17,9 @@ use Piwik\Plugin\Dimension\ActionDimension;
 use Piwik\Plugin\Segment;
 use Piwik\Plugins\Bandwidth\API as BandwidthApi;
 use Piwik\Segment\SegmentsList;
+use Piwik\Tracker\Action;
 use Piwik\Tracker\Request;
 use Piwik\Tracker\Visitor;
-use Piwik\Tracker\Action;
 
 /**
  * This example dimension recognizes a new tracking url parameter that is supposed to save the keywords that were used
@@ -31,6 +32,7 @@ class Bandwidth extends ActionDimension
 {
     /**
      * This will be the name of the column in the log_link_visit_action table if a $columnType is specified.
+     *
      * @var string
      */
     protected $columnName = 'bandwidth';
@@ -39,12 +41,14 @@ class Bandwidth extends ActionDimension
      * If a columnType is defined, we will create this a column in the MySQL table having this type. Please make sure
      * MySQL will understand this type. Once you change the column type the Piwik platform will notify the user to
      * perform an update which can sometimes take a long time so be careful when choosing the correct column type.
+     *
      * @var string
      */
     protected $columnType = 'BIGINT(15) UNSIGNED DEFAULT NULL';
 
     /**
      * The name of the dimension which will be visible for instance in the UI of a related report and in the mobile app.
+     *
      * @return string
      */
     public function getName()
@@ -75,7 +79,7 @@ class Bandwidth extends ActionDimension
      *
      * @param Request $request
      * @param Visitor $visitor
-     * @param Action $action
+     * @param Action  $action
      *
      * @return mixed|false
      */
@@ -84,7 +88,7 @@ class Bandwidth extends ActionDimension
         $value = Common::getRequestVar('bw_bytes', false, 'string', $request->getParams());
 
         if (is_numeric($value)) {
-            return (int) $value;
+            return (int)$value;
         }
 
         return false;

@@ -2,17 +2,17 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
 namespace Piwik\Plugins\Bandwidth\tests\Framework\TestCase;
 
+use Piwik\DataAccess\ArchiveTableCreator;
 use Piwik\Db;
 use Piwik\Plugin;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\Mock\FakeAccess;
-use Piwik\DataAccess\ArchiveTableCreator;
 
 /**
  * @group Bandwidth
@@ -49,9 +49,9 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
 
     protected function setUser()
     {
-        FakeAccess::$superUser = false;
-        FakeAccess::$idSitesView = array(1);
-        FakeAccess::$identity = 'aUser';
+        FakeAccess::$superUser   = false;
+        FakeAccess::$idSitesView = [1];
+        FakeAccess::$identity    = 'aUser';
     }
 
     protected function setSuperUser()
@@ -93,7 +93,7 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
             $tracker->setDebugStringAppend('bw_bytes=' . $byte);
         }
 
-        $title = $url ? : 'test';
+        $title = $url ?: 'test';
 
         $tracker->doTrackPageView($title);
     }
@@ -115,9 +115,9 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
 
     public function provideContainerConfig()
     {
-        return array(
-            'Piwik\Access' => new FakeAccess()
-        );
+        return [
+            'Piwik\Access' => new FakeAccess(),
+        ];
     }
 
 }

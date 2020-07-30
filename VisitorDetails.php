@@ -6,6 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Bandwidth;
 
 use Piwik\Metrics\Formatter;
@@ -30,13 +31,13 @@ class VisitorDetails extends VisitorDetailsAbstract
 
         $view         = new View('@Bandwidth/_actionTooltip');
         $view->action = $action;
-        return [[ 60, $view->render() ]];
+        return [[60, $view->render()]];
     }
 
-    protected $sumBandwidth         = 0;
+    protected $sumBandwidth = 0;
     protected $actionsWithBandwidth = 0;
-    protected $maxBandwidth         = null;
-    protected $minBandwidth         = null;
+    protected $maxBandwidth = null;
+    protected $minBandwidth = null;
 
     public function initProfile($visits, &$profile)
     {

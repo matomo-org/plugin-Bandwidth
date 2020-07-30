@@ -2,39 +2,22 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
 
 namespace Piwik\Plugins\Bandwidth;
+
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
 use Piwik\Tracker\Action;
 
 /**
- * Class Archiver
- *
- * Archiver is class processing raw data into ready ro read reports.
- * It must implement two methods for aggregating daily reports
- * aggregateDayReport() and other for summing daily reports into periods
- * like week, month, year or custom range aggregateMultipleReports().
- *
- * For more detailed information about Archiver please visit Piwik developer guide
- * http://developer.piwik.org/api-reference/Piwik/Plugin/Archiver
  *
  */
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    /**
-     * It is a good practice to store your archive names (reports stored in database)
-     * in Archiver class constants. You can define as many record names as you want
-     * for your plugin.
-     *
-     * Also important thing is that record name must be prefixed with plugin name.
-     *
-     * This is only an example record name, so feel free to change it to suit your needs.
-     */
-    const BANDWIDTH_TOTAL_RECORD    = "Bandwidth_nb_total_overall";
+    const BANDWIDTH_TOTAL_RECORD = "Bandwidth_nb_total_overall";
     const BANDWIDTH_PAGEVIEW_RECORD = "Bandwidth_nb_total_pageurl";
     const BANDWIDTH_DOWNLOAD_RECORD = "Bandwidth_nb_total_download";
 
@@ -46,27 +29,27 @@ class Archiver extends \Piwik\Plugin\Archiver
         $field  = 'sum_bandwidth';
         $where  = "$table.$column is not null";
 
-        $selects = array(
-            "sum($table.$column) as `$field`"
-        );
+        $selects = [
+            "sum($table.$column) as `$field`",
+        ];
 
-        $query = $this->getLogAggregator()->queryActionsByDimension(array($column), $where, $selects);
+        $query = $this->getLogAggregator()->queryActionsByDimension([$column], $where, $selects);
         $this->sumAndInsertNumericRecord($query, self::BANDWIDTH_TOTAL_RECORD, $field);
 
-        $joinLogActionOnColumn = array('idaction_url');
-        $whereLogType = "$where AND log_action1.type = ";
+        $joinLogActionOnColumn = ['idaction_url'];
+        $whereLogType          = "$where AND log_action1.type = ";
 
-        $query = $this->getLogAggregator()->queryActionsByDimension(array($column), $whereLogType . Action::TYPE_PAGE_URL, $selects, false, null, $joinLogActionOnColumn);
+        $query = $this->getLogAggregator()->queryActionsByDimension([$column], $whereLogType . Action::TYPE_PAGE_URL, $selects, false, null, $joinLogActionOnColumn);
         $this->sumAndInsertNumericRecord($query, self::BANDWIDTH_PAGEVIEW_RECORD, $field);
 
-        $query = $this->getLogAggregator()->queryActionsByDimension(array($column), $whereLogType . Action::TYPE_DOWNLOAD, $selects, false, null, $joinLogActionOnColumn);
+        $query = $this->getLogAggregator()->queryActionsByDimension([$column], $whereLogType . Action::TYPE_DOWNLOAD, $selects, false, null, $joinLogActionOnColumn);
         $this->sumAndInsertNumericRecord($query, self::BANDWIDTH_DOWNLOAD_RECORD, $field);
     }
 
     /**
      * @param \Zend_Db_Statement $query
-     * @param string $metric
-     * @param string $field
+     * @param string             $metric
+     * @param string             $field
      */
     private function sumAndInsertNumericRecord($query, $metric, $field)
     {
@@ -78,16 +61,16 @@ class Archiver extends \Piwik\Plugin\Archiver
             }
         }
 
-        $this->getProcessor()->insertNumericRecord($metric, (int) $total);
+        $this->getProcessor()->insertNumericRecord($metric, (int)$total);
     }
 
     public function aggregateMultipleReports()
     {
-        $this->getProcessor()->aggregateNumericMetrics(array(
+        $this->getProcessor()->aggregateNumericMetrics([
             self::BANDWIDTH_TOTAL_RECORD,
             self::BANDWIDTH_PAGEVIEW_RECORD,
-            self::BANDWIDTH_DOWNLOAD_RECORD
-        ));
+            self::BANDWIDTH_DOWNLOAD_RECORD,
+        ]);
     }
 
 }

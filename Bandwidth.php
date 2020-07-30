@@ -2,10 +2,11 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Bandwidth;
 
 use Piwik\Common;
@@ -19,8 +20,8 @@ use Piwik\Plugins\CoreVisualizations\Visualizations\Sparklines;
 class Bandwidth extends \Piwik\Plugin
 {
     // module => action. The ones that are defined here will be enriched by bandwidth columns when displayed in the UI
-    private $reportsToEnrich = array(
-        'Actions' => array(
+    private $reportsToEnrich = [
+        'Actions'          => [
             'getPageUrls',
             'getPageUrl',
             'getPageTitles',
@@ -36,33 +37,33 @@ class Bandwidth extends \Piwik\Plugin
             'getSiteSearchKeywords',
             'getSiteSearchNoResultKeywords',
             'getPageTitlesFollowingSiteSearch',
-            'getPageUrlsFollowingSiteSearch'
-        ),
-        'CustomDimensions' => array(
-            'getCustomDimension'
-        )
-    );
+            'getPageUrlsFollowingSiteSearch',
+        ],
+        'CustomDimensions' => [
+            'getCustomDimension',
+        ],
+    ];
 
     // we will only show columns in that report in the UI if there was at least one byte tracked for the defined metric
-    private $enrichReportIfTotalHasValue = array(
+    private $enrichReportIfTotalHasValue = [
         'Actions.getPageUrls'   => Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH,
         'Actions.getPageTitles' => Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH,
         'Actions.getDownloads'  => Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH,
-        '*' => Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH // for all other reports use this
-    );
+        '*'                     => Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH // for all other reports use this
+    ];
 
     /**
      * @see \Piwik\Plugin::registerEvents
      */
     public function registerEvents()
     {
-        $hooks = array(
-            'ViewDataTable.configure' => 'configureViewDataTable',
-            'Actions.Archiving.addActionMetrics' => 'addActionMetrics',
-            'Metrics.getDefaultMetricTranslations' => 'addMetricTranslations',
+        $hooks = [
+            'ViewDataTable.configure'                        => 'configureViewDataTable',
+            'Actions.Archiving.addActionMetrics'             => 'addActionMetrics',
+            'Metrics.getDefaultMetricTranslations'           => 'addMetricTranslations',
             'Actions.getCustomActionDimensionFieldsAndJoins' => 'provideActionDimensionFields',
-            'Metrics.addMetricIdToNameMapping' => 'addMetricIdToNameMapping',
-        );
+            'Metrics.addMetricIdToNameMapping'               => 'addMetricIdToNameMapping',
+        ];
 
         foreach ($this->reportsToEnrich as $module => $actions) {
             foreach ($actions as $action) {
@@ -109,8 +110,8 @@ class Bandwidth extends \Piwik\Plugin
 
         if ($module === 'API' && $method === 'get' && property_exists($view->config, 'selectable_columns')) {
             // here we want to make sure the total column is selectable
-            $selectable = $view->config->selectable_columns ? : array();
-            $columns = array_values(Metrics::getNumericRecordNameToColumnsMapping());
+            $selectable = $view->config->selectable_columns ?: [];
+            $columns    = array_values(Metrics::getNumericRecordNameToColumnsMapping());
 
             $view->config->selectable_columns = array_merge($selectable, $columns);
             $view->config->addTranslations(Metrics::getMetricTranslations());
@@ -147,7 +148,7 @@ class Bandwidth extends \Piwik\Plugin
             }
 
             $bandwidthDimension = new BandwidthColumn();
-            $isUsed = $bandwidthDimension->isUsedInSite($idSite, $period, $date, $columnToCompare);
+            $isUsed             = $bandwidthDimension->isUsedInSite($idSite, $period, $date, $columnToCompare);
 
             if (!$isUsed) {
                 return;
@@ -165,7 +166,7 @@ class Bandwidth extends \Piwik\Plugin
             $extraProcessedMetrics = $dataTable->getMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME);
 
             if (empty($extraProcessedMetrics)) {
-                $extraProcessedMetrics = array();
+                $extraProcessedMetrics = [];
             }
 
             foreach (Metrics::getBandwidthMetrics() as $metric) {
@@ -175,14 +176,14 @@ class Bandwidth extends \Piwik\Plugin
         });
 
         $dataTable->filter(function (DataTable $dataTable) {
-            $metricIdsToName = array();
+            $metricIdsToName = [];
             foreach (Metrics::getBandwidthMetrics() as $metric) {
                 $metricId = $metric->getMetricId();
-                if(!empty($metricId)) {
+                if (!empty($metricId)) {
                     $metricIdsToName[$metricId] = $metric->getName();
                 }
             }
-            $dataTable->queueFilter('ReplaceColumnNames', array($metricIdsToName));
+            $dataTable->queueFilter('ReplaceColumnNames', [$metricIdsToName]);
 
         });
 
@@ -190,7 +191,7 @@ class Bandwidth extends \Piwik\Plugin
 
     public function provideActionDimensionFields(&$fields, &$joins)
     {
-        $column = new BandwidthColumn();
+        $column   = new BandwidthColumn();
         $fields[] = $column->getColumnName();
     }
 
@@ -199,8 +200,8 @@ class Bandwidth extends \Piwik\Plugin
         $nbTotalBandwidth = $firstRow->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
 
         if (is_numeric($nbTotalBandwidth)) {
-            $formatter = new Formatter();
-            $nbTotalBandwidth = $formatter->getPrettySizeFromBytes((int) $nbTotalBandwidth, null, 2);
+            $formatter        = new Formatter();
+            $nbTotalBandwidth = $formatter->getPrettySizeFromBytes((int)$nbTotalBandwidth, null, 2);
             $firstRow->setColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH, $nbTotalBandwidth);
         }
 

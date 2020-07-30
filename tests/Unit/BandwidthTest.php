@@ -2,7 +2,7 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
@@ -31,9 +31,9 @@ class BandwidthTest extends UnitTestCase
 
     public function test_addMetricTranslations_shouldAddToExistTranslations()
     {
-        $translations = array(
+        $translations = [
             'my' => 'test',
-        );
+        ];
 
         $this->bandwidth->addMetricTranslations($translations);
 
@@ -43,10 +43,10 @@ class BandwidthTest extends UnitTestCase
 
     public function test_addActionMetrics_shouldAddToExistingMetrics()
     {
-        $metric  = array('aggregation' => 'sum', 'query' => 'count(*)');
-        $metrics = array(
+        $metric  = ['aggregation' => 'sum', 'query' => 'count(*)'];
+        $metrics = [
             3 => $metric,
-        );
+        ];
 
         $this->bandwidth->addActionMetrics($metrics);
 

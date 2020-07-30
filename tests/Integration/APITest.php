@@ -2,15 +2,13 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
 namespace Piwik\Plugins\Bandwidth\tests\Integration;
 
 use Piwik\DataTable;
-use Piwik\Db;
-use Piwik\Plugin;
 use Piwik\Plugins\Bandwidth\API;
 use Piwik\Plugins\Bandwidth\Metrics;
 use Piwik\Plugins\Bandwidth\tests\Framework\TestCase\IntegrationTestCase;
@@ -26,7 +24,7 @@ class APITest extends IntegrationTestCase
      * @var API
      */
     private $api;
-    
+
     protected $date = '2014-04-04';
     private $idSite = 1;
 
@@ -39,7 +37,7 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnADataTable()
     {
-        $this->trackPageviews(array(1));
+        $this->trackPageviews([1]);
 
         $result = $this->api->get($this->idSite, 'month', $this->date);
         $result->applyQueuedFilters();
@@ -56,7 +54,7 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnTheSumOfAllOnlyPageviews()
     {
-        $this->trackPageviews(array(1, 10, 20, 348));
+        $this->trackPageviews([1, 10, 20, 348]);
         $result = $this->api->get($this->idSite, 'day', $this->date);
 
         $this->assertTotalBandwidthValue(379, 379, 0, $result);
@@ -64,7 +62,7 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnTheSumOfAllOnlyDownloads()
     {
-        $this->trackDownloads(array(1, 10, 20, 348));
+        $this->trackDownloads([1, 10, 20, 348]);
         $result = $this->api->get($this->idSite, 'day', $this->date);
 
         $this->assertTotalBandwidthValue(379, 0, 379, $result);
@@ -72,8 +70,8 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnTheSumOfAll_MixedPageviewsAndDownloads()
     {
-        $this->trackPageviews(array(1, 10, 20, 49));
-        $this->trackDownloads(array(59, 4, 1, 34, 592));
+        $this->trackPageviews([1, 10, 20, 49]);
+        $this->trackDownloads([59, 4, 1, 34, 592]);
 
         $result = $this->api->get($this->idSite, 'day', $this->date);
         $result->applyQueuedFilters();
@@ -83,8 +81,8 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnTheSumOfAll_DifferentPeriod()
     {
-        $this->trackPageviews(array(1, 10, 20, 49));
-        $this->trackDownloads(array(59, 4, 1, 34, 592));
+        $this->trackPageviews([1, 10, 20, 49]);
+        $this->trackDownloads([59, 4, 1, 34, 592]);
 
         $result = $this->api->get($this->idSite, 'month', $this->date);
         $result->applyQueuedFilters();
@@ -94,8 +92,8 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnFalse_IfColumnShallNotBeDisplayed()
     {
-        $this->trackPageviews(array(1, 10, 20, 49));
-        $this->trackDownloads(array(59, 4, 1, 34));
+        $this->trackPageviews([1, 10, 20, 49]);
+        $this->trackDownloads([59, 4, 1, 34]);
 
         $result = $this->api->get($this->idSite, 'day', $this->date, false, 'nb_visits');
         $result->applyQueuedFilters();
@@ -105,11 +103,11 @@ class APITest extends IntegrationTestCase
 
     public function test_get_shouldReturnSomeColumns_IfValidOnesRequested()
     {
-        $this->trackPageviews(array(1, 10, 20, 49));
-        $this->trackDownloads(array(59, 4, 1, 34));
+        $this->trackPageviews([1, 10, 20, 49]);
+        $this->trackDownloads([59, 4, 1, 34]);
 
         $displayColumns = Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH . ',' . Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH;
-        $result = $this->api->get($this->idSite, 'day', $this->date, false, $displayColumns);
+        $result         = $this->api->get($this->idSite, 'day', $this->date, false, $displayColumns);
         $result->applyQueuedFilters();
 
         $this->assertTotalBandwidthValue(false, 80, 98, $result);
@@ -131,5 +129,5 @@ class APITest extends IntegrationTestCase
         $this->assertSame($expectedPageview, $row->getColumn(Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH));
         $this->assertSame($expectedDownload, $row->getColumn(Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH));
     }
-    
+
 }

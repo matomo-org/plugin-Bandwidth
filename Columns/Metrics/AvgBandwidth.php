@@ -2,13 +2,13 @@
 /**
  * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
+
 namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 
 use Piwik\DataTable\Row;
-use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
 use Piwik\Plugins\Bandwidth\Metrics;
 
@@ -49,11 +49,11 @@ class AvgBandwidth extends Base
             $avg = 0;
         }
 
-        return (int) $avg;
+        return (int)$avg;
     }
 
     public function getDependentMetrics()
     {
-        return array('nb_hits_with_bandwidth', 'sum_bandwidth');
+        return ['nb_hits_with_bandwidth', 'sum_bandwidth'];
     }
 }
