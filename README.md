@@ -1,6 +1,6 @@
 # Matomo Bandwidth Plugin
 
-[![Build Status](https://travis-ci.org/matomo-org/plugin-Bandwidth.svg?branch=4.x-dev)](https://travis-ci.org/matomo-org/plugin-Bandwidth)
+[![Build Status](https://travis-ci.com/matomo-org/plugin-Bandwidth.svg?branch=4.x-dev)](https://travis-ci.com/matomo-org/plugin-Bandwidth)
 
 ## Description
 
