@@ -1,10 +1,10 @@
 {
     "Bandwidth": {
-        "Bandwidth": "Bant Genişliği",
-        "ColumnAvgBandwidth": "Ortalama Bant Genişliği",
-        "ColumnSumBandwidth": "Toplam Bant Genişliği",
-        "ColumnMaxBandwidth": "En Fazla Bant Genişliği",
-        "ColumnMinBandwidth": "En Az Bant Genişliği",
+        "Bandwidth": "Bant genişliği",
+        "ColumnAvgBandwidth": "Ortalama bant genişliği",
+        "ColumnSumBandwidth": "Toplam bant genişliği",
+        "ColumnMaxBandwidth": "En fazla bant genişliği",
+        "ColumnMinBandwidth": "En az bant genişliği",
         "ColumnHitsWithBandwidth": "Bant genişliği ile kaydedilmiş tıklanma",
         "ColumnTotalOverallBandwidth": "Toplam aktarılan bayt",
         "ColumnTotalPageviewBandwidth": "Sayfa gösterimleri için aktarılan bayt",
