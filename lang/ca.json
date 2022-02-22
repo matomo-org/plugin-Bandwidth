@@ -1,6 +1,14 @@
 {
     "Bandwidth": {
         "Bandwidth": "Amplada de banda",
-        "ColumnAvgBandwidth": "Amplada de banda mitja"
+        "ColumnAvgBandwidth": "Amplada de banda mitja",
+        "ColumnHitsWithBandwidth": "Visites registrades amb ample de banda",
+        "ColumnMaxBandwidth": "Ample de banda màxim",
+        "ColumnMinBandwidth": "Ample de banda mínim",
+        "ColumnSumBandwidth": "Sumatori d'ample de banda",
+        "ColumnTotalDownloadBandwidth": "Bytes transferits en descàrregues",
+        "ColumnTotalOverallBandwidth": "Total de bytes transferits",
+        "ColumnTotalPageviewBandwidth": "Bytes transferits en pàgines vistes",
+        "SparklineTotalBandwidthDetails": "%s total de bytes transferits"
     }
 }
