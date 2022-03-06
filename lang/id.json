@@ -2,12 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Lebar pita",
         "ColumnAvgBandwidth": "Rata-rata Lebar pita",
-        "ColumnSumBandwidth": "Jumlah Lebar pita",
+        "ColumnHitsWithBandwidth": "Hit terekam dengan Lebar pita",
         "ColumnMaxBandwidth": "Lebar pita Maksimal",
         "ColumnMinBandwidth": "Lebar pita minimal",
-        "ColumnHitsWithBandwidth": "Hit terekam dengan Lebar pita",
+        "ColumnSumBandwidth": "Jumlah Lebar pita",
+        "ColumnTotalDownloadBandwidth": "Unduhan Bita terkirim",
         "ColumnTotalOverallBandwidth": "Total Bita terkirim",
         "ColumnTotalPageviewBandwidth": "Bita halaman dikunjungi terkirim",
-        "ColumnTotalDownloadBandwidth": "Unduhan Bita terkirim"
+        "SparklineTotalBandwidthDetails": "%s byte ditransfer secara keseluruhan"
     }
 }
