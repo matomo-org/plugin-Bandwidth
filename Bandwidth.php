@@ -124,12 +124,12 @@ class Bandwidth extends \Piwik\Plugin
             $view->config->addSparklineMetric(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
             $view->config->filters[] = function (DataTable $table) use ($view) {
                 $firstRow = $table->getFirstRow();
-                $this->formatTotalBandwidth($firstRow);
+                $this->addTotalBandwidth($firstRow);
 
                 $comparisons = $firstRow->getComparisons();
                 if (!empty($comparisons)) {
                     foreach ($comparisons->getRows() as $compareRow) {
-                        $this->formatTotalBandwidth($compareRow);
+                        $this->addTotalBandwidth($compareRow);
                     }
                 }
             };
@@ -195,13 +195,11 @@ class Bandwidth extends \Piwik\Plugin
         $fields[] = $column->getColumnName();
     }
 
-    private function formatTotalBandwidth(DataTable\Row $firstRow)
+    private function addTotalBandwidth(DataTable\Row $firstRow)
     {
         $nbTotalBandwidth = $firstRow->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
 
         if (is_numeric($nbTotalBandwidth)) {
-            $formatter        = new Formatter();
-            $nbTotalBandwidth = $formatter->getPrettySizeFromBytes((int)$nbTotalBandwidth, null, 2);
             $firstRow->setColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH, $nbTotalBandwidth);
         }
 
