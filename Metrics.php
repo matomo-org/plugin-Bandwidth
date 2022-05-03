@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -12,9 +13,12 @@ namespace Piwik\Plugins\Bandwidth;
 use Piwik\Piwik;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\AvgBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\DownloadBandwidth;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\HitsWithBandwidth;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\MaxBandwidth;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\MinBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\OverallBandwidth;
+use Piwik\Plugins\Bandwidth\Columns\Metrics\PageviewBandwidth;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\SumBandwidth;
 
 class Metrics
@@ -48,6 +52,18 @@ class Metrics
             new MinBandwidth(),
             new SumBandwidth(),
             new AvgBandwidth(),
+        ];
+    }
+
+    /**
+     * @return \Piwik\Plugin\Metric[]
+     */
+    public static function getOverallMetrics()
+    {
+        return [
+            new DownloadBandwidth(),
+            new PageviewBandwidth(),
+            new OverallBandwidth(),
         ];
     }
 
@@ -100,5 +116,4 @@ class Metrics
 
         return $metricsConfig;
     }
-
 }

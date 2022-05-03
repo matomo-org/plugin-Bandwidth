@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -12,9 +13,9 @@ namespace Piwik\Plugins\Bandwidth;
 use Piwik\Common;
 use Piwik\DataTable;
 use Piwik\FrontController;
-use Piwik\Metrics\Formatter;
 use Piwik\Plugin\ViewDataTable;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
+use Piwik\Plugins\CoreVisualizations\Metrics\Formatter\Numeric;
 use Piwik\Plugins\CoreVisualizations\Visualizations\Sparklines;
 
 class Bandwidth extends \Piwik\Plugin
@@ -63,6 +64,7 @@ class Bandwidth extends \Piwik\Plugin
             'Metrics.getDefaultMetricTranslations'           => 'addMetricTranslations',
             'Actions.getCustomActionDimensionFieldsAndJoins' => 'provideActionDimensionFields',
             'Metrics.addMetricIdToNameMapping'               => 'addMetricIdToNameMapping',
+            'Metrics.getEvolutionUnit'                       => 'getEvolutionUnit',
         ];
 
         foreach ($this->reportsToEnrich as $module => $actions) {
@@ -83,6 +85,27 @@ class Bandwidth extends \Piwik\Plugin
     {
         $metrics      = Metrics::getMetricTranslations();
         $translations = array_merge($translations, $metrics);
+    }
+
+    public function getEvolutionUnit(&$unit, $column, $idSite)
+    {
+        if (!property_exists(Numeric::class, 'byteSizeUnit')) {
+            // don't use a default unit in Matomo versions where it didn't exist yet
+            return;
+        }
+
+        foreach (Metrics::getBandwidthMetrics() as $metric) {
+            if ($metric->getName() === $column) {
+                $unit = ' ' . Numeric::$byteSizeUnit;
+                return;
+            }
+        }
+        foreach (Metrics::getOverallMetrics() as $metric) {
+            if ($metric->getName() === $column) {
+                $unit = ' ' . Numeric::$byteSizeUnit;
+                return;
+            }
+        }
     }
 
     public function addActionMetrics(&$metricsConfig)
@@ -122,21 +145,9 @@ class Bandwidth extends \Piwik\Plugin
 
             /** @var Sparklines $view */
             $view->config->addSparklineMetric(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
-            $view->config->filters[] = function (DataTable $table) use ($view) {
-                $firstRow = $table->getFirstRow();
-                $this->addTotalBandwidth($firstRow);
-
-                $comparisons = $firstRow->getComparisons();
-                if (!empty($comparisons)) {
-                    foreach ($comparisons->getRows() as $compareRow) {
-                        $this->addTotalBandwidth($compareRow);
-                    }
-                }
-            };
         }
 
         if (array_key_exists($module, $this->reportsToEnrich) && in_array($method, $this->reportsToEnrich[$module])) {
-
             $idSite = Common::getRequestVar('idSite');
             $date   = Common::getRequestVar('date');
             $period = Common::getRequestVar('period', 'month', 'string');
@@ -172,6 +183,9 @@ class Bandwidth extends \Piwik\Plugin
             foreach (Metrics::getBandwidthMetrics() as $metric) {
                 $extraProcessedMetrics[] = $metric;
             }
+            foreach (Metrics::getOverallMetrics() as $metric) {
+                $extraProcessedMetrics[] = $metric;
+            }
             $dataTable->setMetadata(DataTable::EXTRA_PROCESSED_METRICS_METADATA_NAME, $extraProcessedMetrics);
         });
 
@@ -184,25 +198,12 @@ class Bandwidth extends \Piwik\Plugin
                 }
             }
             $dataTable->queueFilter('ReplaceColumnNames', [$metricIdsToName]);
-
         });
-
     }
 
     public function provideActionDimensionFields(&$fields, &$joins)
     {
         $column   = new BandwidthColumn();
         $fields[] = $column->getColumnName();
-    }
-
-    private function addTotalBandwidth(DataTable\Row $firstRow)
-    {
-        $nbTotalBandwidth = $firstRow->getColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH);
-
-        if (is_numeric($nbTotalBandwidth)) {
-            $firstRow->setColumn(Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH, $nbTotalBandwidth);
-        }
-
-        return $nbTotalBandwidth;
     }
 }

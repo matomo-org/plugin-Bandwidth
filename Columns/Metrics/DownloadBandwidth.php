@@ -15,16 +15,16 @@ use Piwik\Piwik;
 use Piwik\Plugin\ProcessedMetric;
 
 /**
- * The total amount bandwidth used.
+ * The total amount bandwidth used for downloads.
  *
  * Note: This Metric should actually inherit from AggregatedMetric class, but we need to use ProcessedMetric as core
  * won't format the values automatically otherwise
  */
-class OverallBandwidth extends ProcessedMetric
+class DownloadBandwidth extends ProcessedMetric
 {
     public function getName()
     {
-        return 'nb_total_overall_bandwidth';
+        return 'nb_total_download_bandwidth';
     }
 
     public function getDependentMetrics()
@@ -41,7 +41,7 @@ class OverallBandwidth extends ProcessedMetric
 
     public function getTranslatedName()
     {
-        return Piwik::translate('Bandwidth_ColumnTotalOverallBandwidth');
+        return Piwik::translate('Bandwidth_ColumnTotalDownloadBandwidth');
     }
 
     public function format($value, Formatter $formatter)

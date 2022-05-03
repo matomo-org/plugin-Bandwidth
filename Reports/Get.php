@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -10,7 +11,6 @@
 namespace Piwik\Plugins\Bandwidth\Reports;
 
 use Piwik\Piwik;
-use Piwik\Plugins\Bandwidth\Columns\Metrics\OverallBandwidth;
 use Piwik\Plugins\Bandwidth\Metrics;
 
 /**
@@ -24,12 +24,10 @@ class Get extends Base
     {
         parent::init();
 
-        $this->name = Piwik::translate('Bandwidth_Bandwidth').' - '.Piwik::translate('General_MainMetrics');
+        $this->name = Piwik::translate('Bandwidth_Bandwidth') . ' - ' . Piwik::translate('General_MainMetrics');
         $this->order = 30;
         $this->metrics = array_values(Metrics::getNumericRecordNameToColumnsMapping());
-        $this->processedMetrics = [
-            new OverallBandwidth()
-        ];
+        // Currently needed to get the metrics formatted
+        $this->processedMetrics = Metrics::getOverallMetrics();
     }
-
 }
