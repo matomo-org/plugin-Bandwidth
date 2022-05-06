@@ -1,1 +1,12 @@
-{}
+{
+    "Bandwidth": {
+        "Bandwidth": "대역폭",
+        "ColumnAvgBandwidth": "평균 대역폭",
+        "ColumnHitsWithBandwidth": "대역폭으로 기록된 조회수",
+        "ColumnMaxBandwidth": "최대 대역폭",
+        "ColumnMinBandwidth": "최소 대역폭",
+        "ColumnSumBandwidth": "합계 대역폭",
+        "ColumnTotalOverallBandwidth": "전체 전송된 바이트",
+        "ColumnTotalPageviewBandwidth": "바이트 전송된 페이지뷰"
+    }
+}
