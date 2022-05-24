@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * Matomo - free/libre analytics platform
+ *
+ * @link    https://matomo.org
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+ */
+
+namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
+
+use Piwik\DataTable\Row;
+use Piwik\Metrics\Formatter;
+use Piwik\Piwik;
+use Piwik\Plugin\ProcessedMetric;
+
+/**
+ * The total amount bandwidth used.
+ *
+ * Note: This Metric should actually inherit from AggregatedMetric class, but we need to use ProcessedMetric as core
+ * won't format the values automatically otherwise
+ */
+class OverallBandwidth extends ProcessedMetric
+{
+    public function getName()
+    {
+        return 'nb_total_overall_bandwidth';
+    }
+
+    public function getDependentMetrics()
+    {
+        return [
+            $this->getName()
+        ];
+    }
+
+    public function compute(Row $row)
+    {
+        return $row->getColumn($this->getName());
+    }
+
+    public function getTranslatedName()
+    {
+        return Piwik::translate('Bandwidth_ColumnTotalOverallBandwidth');
+    }
+
+    public function format($value, Formatter $formatter)
+    {
+        if ($value) {
+            $value = $formatter->getPrettySizeFromBytes($value, null, 2);
+        }
+
+        return $value;
+    }
+}

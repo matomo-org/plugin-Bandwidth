@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -23,10 +24,10 @@ class Get extends Base
     {
         parent::init();
 
-        $this->name             = Piwik::translate('Bandwidth_Bandwidth') . ' - ' . Piwik::translate('General_MainMetrics');
-        $this->order            = 30;
-        $this->metrics          = array_values(Metrics::getNumericRecordNameToColumnsMapping());
-        $this->processedMetrics = [];
+        $this->name = Piwik::translate('Bandwidth_Bandwidth') . ' - ' . Piwik::translate('General_MainMetrics');
+        $this->order = 30;
+        $this->metrics = array_values(Metrics::getNumericRecordNameToColumnsMapping());
+        // Currently needed to get the metrics formatted
+        $this->processedMetrics = Metrics::getOverallMetrics();
     }
-
 }

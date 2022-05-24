@@ -37,6 +37,8 @@ class Bandwidth extends ActionDimension
      */
     protected $columnName = 'bandwidth';
 
+    protected $type = self::TYPE_BYTE;
+
     /**
      * If a columnType is defined, we will create this a column in the MySQL table having this type. Please make sure
      * MySQL will understand this type. Once you change the column type the Piwik platform will notify the user to
