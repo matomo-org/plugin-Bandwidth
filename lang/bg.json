@@ -2,8 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Трафик",
         "ColumnAvgBandwidth": "Среден трафик",
-        "ColumnSumBandwidth": "Общ трафик",
+        "ColumnHitsWithBandwidth": "Записани посещения с трафик",
         "ColumnMaxBandwidth": "Максимален трафик",
-        "ColumnMinBandwidth": "Минимален трафик"
+        "ColumnMinBandwidth": "Минимален трафик",
+        "ColumnSumBandwidth": "Общ трафик",
+        "ColumnTotalDownloadBandwidth": "Прехвърлени байтове (изтегляния)",
+        "ColumnTotalOverallBandwidth": "Общо прехвърлени байтове",
+        "ColumnTotalPageviewBandwidth": "Прехвърлени байтове при показвания на страници",
+        "SparklineTotalBandwidthDetails": "%s байтове, прехвърлени общо"
     }
 }
