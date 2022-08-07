@@ -1,1 +1,10 @@
-{}
+{
+    "Bandwidth": {
+        "Bandwidth": "Lebar jalur",
+        "ColumnAvgBandwidth": "Purata Lebar jalur",
+        "ColumnHitsWithBandwidth": "Hit direkodkan dengan jalur lebar",
+        "ColumnMaxBandwidth": "Jalur Lebar Maksimum",
+        "ColumnMinBandwidth": "Jalur Lebar Minimum",
+        "ColumnSumBandwidth": "Jumlah Jalur Lebar"
+    }
+}
