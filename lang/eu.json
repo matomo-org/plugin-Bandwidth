@@ -1,1 +1,6 @@
-{}
+{
+    "Bandwidth": {
+        "Bandwidth": "Banda zabalera",
+        "ColumnAvgBandwidth": "batazbesteko banda-zabalera"
+    }
+}
