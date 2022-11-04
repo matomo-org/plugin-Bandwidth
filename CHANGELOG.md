@@ -1,5 +1,6 @@
 ## Changelog
 
+- 5.0.0 Compatibility with Matomo 5.0
 - 4.0.3 Updated expected test files
 - 4.0.2 Added support for showing evolution values on sparklines
 - 4.0.1 Compatibility with Matomo 4.0
