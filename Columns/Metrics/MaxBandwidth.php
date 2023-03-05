@@ -9,6 +9,7 @@
 namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 
 use Piwik\Piwik;
+use Piwik\Plugin\Metric;
 use Piwik\Plugins\Bandwidth\Metrics;
 
 /**
@@ -26,6 +27,11 @@ class MaxBandwidth extends Base
     public function getTranslatedName()
     {
         return Piwik::translate('Bandwidth_ColumnMaxBandwidth');
+    }
+
+    public function getSemanticType()
+    {
+        return Metric::SEMANTIC_TYPE_NUMBER;
     }
 
 }

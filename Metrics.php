@@ -11,6 +11,7 @@
 namespace Piwik\Plugins\Bandwidth;
 
 use Piwik\Piwik;
+use Piwik\Plugin\Metric;
 use Piwik\Plugins\Bandwidth\Columns\Bandwidth as BandwidthColumn;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\AvgBandwidth;
 use Piwik\Plugins\Bandwidth\Columns\Metrics\DownloadBandwidth;
@@ -77,6 +78,20 @@ class Metrics
         $translations[Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH]  = Piwik::translate('Bandwidth_ColumnTotalOverallBandwidth');
         $translations[Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH] = Piwik::translate('Bandwidth_ColumnTotalPageviewBandwidth');
         $translations[Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH] = Piwik::translate('Bandwidth_ColumnTotalDownloadBandwidth');
+
+        return $translations;
+    }
+
+    public static function getMetricSemanticTypes()
+    {
+        $translations = [];
+        foreach (self::getBandwidthMetrics() as $metric) {
+            $translations[$metric->getName()] = $metric->getSemanticType();
+        }
+
+        $translations[Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH]  = Metric::SEMANTIC_TYPE_NUMBER;
+        $translations[Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH] = Metric::SEMANTIC_TYPE_NUMBER;
+        $translations[Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH] = Metric::SEMANTIC_TYPE_NUMBER;
 
         return $translations;
     }
