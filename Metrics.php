@@ -84,16 +84,16 @@ class Metrics
 
     public static function getMetricSemanticTypes()
     {
-        $translations = [];
+        $semanticTypes = [];
         foreach (self::getBandwidthMetrics() as $metric) {
-            $translations[$metric->getName()] = $metric->getSemanticType();
+            $semanticTypes[$metric->getName()] = $metric->getSemanticType();
         }
 
-        $translations[Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH]  = Metric::SEMANTIC_TYPE_NUMBER;
-        $translations[Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH] = Metric::SEMANTIC_TYPE_NUMBER;
-        $translations[Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH] = Metric::SEMANTIC_TYPE_NUMBER;
+        $semanticTypes[Metrics::COLUMN_TOTAL_OVERALL_BANDWIDTH]  = Metric::SEMANTIC_TYPE_NUMBER;
+        $semanticTypes[Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH] = Metric::SEMANTIC_TYPE_NUMBER;
+        $semanticTypes[Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH] = Metric::SEMANTIC_TYPE_NUMBER;
 
-        return $translations;
+        return $semanticTypes;
     }
 
     public static function getActionMetrics()
