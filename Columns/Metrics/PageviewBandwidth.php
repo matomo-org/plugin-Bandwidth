@@ -12,6 +12,7 @@ namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 use Piwik\DataTable\Row;
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
+use Piwik\Plugin\Metric;
 use Piwik\Plugin\ProcessedMetric;
 
 /**
@@ -51,5 +52,10 @@ class PageviewBandwidth extends ProcessedMetric
         }
 
         return $value;
+    }
+
+    public function getSemanticType()
+    {
+        return Metric::SEMANTIC_TYPE_NUMBER;
     }
 }

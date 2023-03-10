@@ -63,6 +63,7 @@ class Bandwidth extends \Piwik\Plugin
             'Actions.Archiving.addActionMetrics'             => 'addActionMetrics',
             'Metrics.getDefaultMetricTranslations'           => 'addMetricTranslations',
             'Actions.getCustomActionDimensionFieldsAndJoins' => 'provideActionDimensionFields',
+            'Metrics.getDefaultMetricSemanticTypes' => 'addMetricSemanticTypes',
             'Metrics.addMetricIdToNameMapping'               => 'addMetricIdToNameMapping',
             'Metrics.getEvolutionUnit'                       => 'getEvolutionUnit',
         ];
@@ -85,6 +86,12 @@ class Bandwidth extends \Piwik\Plugin
     {
         $metrics      = Metrics::getMetricTranslations();
         $translations = array_merge($translations, $metrics);
+    }
+
+    public function addMetricSemanticTypes(&$types)
+    {
+        $metricTypes = Metrics::getMetricSemanticTypes();
+        $types = array_merge($types, $metricTypes);
     }
 
     public function getEvolutionUnit(&$unit, $column, $idSite)
