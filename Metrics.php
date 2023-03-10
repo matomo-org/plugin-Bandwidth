@@ -82,7 +82,7 @@ class Metrics
         return $translations;
     }
 
-    public static function getMetricSemanticTypes()
+    public static function getMetricSemanticTypes(): array
     {
         $semanticTypes = [];
         foreach (self::getBandwidthMetrics() as $metric) {
