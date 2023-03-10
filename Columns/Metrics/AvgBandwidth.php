@@ -58,7 +58,7 @@ class AvgBandwidth extends Base
         return ['nb_hits_with_bandwidth', 'sum_bandwidth'];
     }
 
-    public function getSemanticType()
+    public function getSemanticType(): ?string
     {
         return Metric::SEMANTIC_TYPE_NUMBER;
     }

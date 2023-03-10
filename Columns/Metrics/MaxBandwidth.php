@@ -29,7 +29,7 @@ class MaxBandwidth extends Base
         return Piwik::translate('Bandwidth_ColumnMaxBandwidth');
     }
 
-    public function getSemanticType()
+    public function getSemanticType(): ?string
     {
         return Metric::SEMANTIC_TYPE_NUMBER;
     }

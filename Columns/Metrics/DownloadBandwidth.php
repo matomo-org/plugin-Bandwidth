@@ -54,7 +54,7 @@ class DownloadBandwidth extends ProcessedMetric
         return $value;
     }
 
-    public function getSemanticType()
+    public function getSemanticType(): ?string
     {
         return Metric::SEMANTIC_TYPE_NUMBER;
     }

@@ -29,7 +29,7 @@ class MinBandwidth extends Base
         return Piwik::translate('Bandwidth_ColumnMinBandwidth');
     }
 
-    public function getSemanticType()
+    public function getSemanticType(): ?string
     {
         return Metric::SEMANTIC_TYPE_NUMBER;
     }
