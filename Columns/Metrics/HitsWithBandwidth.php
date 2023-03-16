@@ -9,6 +9,7 @@
 namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 
 use Piwik\Piwik;
+use Piwik\Plugin\Metric;
 use Piwik\Plugins\Bandwidth\Metrics;
 
 /**
@@ -28,5 +29,8 @@ class HitsWithBandwidth extends Base
         return Piwik::translate('Bandwidth_ColumnHitsWithBandwidth');
     }
 
-
+    public function getSemanticType(): ?string
+    {
+        return Metric::SEMANTIC_TYPE_NUMBER;
+    }
 }
