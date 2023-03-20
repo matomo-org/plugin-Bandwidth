@@ -9,7 +9,7 @@
 namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 
 use Piwik\Piwik;
-use Piwik\Plugin\Metric;
+use Piwik\Columns\Dimension;
 use Piwik\Plugins\Bandwidth\Metrics;
 
 /**
@@ -31,7 +31,7 @@ class MinBandwidth extends Base
 
     public function getSemanticType(): ?string
     {
-        return Metric::SEMANTIC_TYPE_NUMBER;
+        return Dimension::TYPE_NUMBER;
     }
 
 }
