@@ -8,8 +8,8 @@
 
 namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 
+use Piwik\Columns\Dimension;
 use Piwik\Piwik;
-use Piwik\Plugin\Metric;
 use Piwik\Plugins\Bandwidth\Metrics;
 
 /**
@@ -31,6 +31,6 @@ class HitsWithBandwidth extends Base
 
     public function getSemanticType(): ?string
     {
-        return Metric::SEMANTIC_TYPE_NUMBER;
+        return Dimension::TYPE_NUMBER;
     }
 }

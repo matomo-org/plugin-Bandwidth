@@ -10,7 +10,7 @@ namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 
 use Piwik\DataTable\Row;
 use Piwik\Piwik;
-use Piwik\Plugin\Metric;
+use Piwik\Columns\Dimension;
 use Piwik\Plugins\Bandwidth\Metrics;
 
 /**
@@ -60,6 +60,6 @@ class AvgBandwidth extends Base
 
     public function getSemanticType(): ?string
     {
-        return Metric::SEMANTIC_TYPE_NUMBER;
+        return Dimension::TYPE_NUMBER;
     }
 }
