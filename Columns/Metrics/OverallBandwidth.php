@@ -12,7 +12,7 @@ namespace Piwik\Plugins\Bandwidth\Columns\Metrics;
 use Piwik\DataTable\Row;
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
-use Piwik\Plugin\Metric;
+use Piwik\Columns\Dimension;
 use Piwik\Plugin\ProcessedMetric;
 
 /**
@@ -56,6 +56,6 @@ class OverallBandwidth extends ProcessedMetric
 
     public function getSemanticType(): ?string
     {
-        return Metric::SEMANTIC_TYPE_NUMBER;
+        return Dimension::TYPE_NUMBER;
     }
 }
