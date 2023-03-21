@@ -1,6 +1,7 @@
 ## Changelog
 
 - 5.0.0 Compatibility with Matomo 5.0
+- 4.0.5 Reused Dimension TYPE_ constants
 - 4.0.4 Added metric semantics type
 - 4.0.3 Updated expected test files
 - 4.0.2 Added support for showing evolution values on sparklines
