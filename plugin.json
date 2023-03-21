@@ -1,6 +1,6 @@
 {
  "name": "Bandwidth",
- "version": "4.0.4",
+ "version": "4.0.5",
  "description": "Monitor Bandwidth for each page, download, and measure overall traffic in bytes. For requirements check out the description.",
  "theme": false,
  "keywords": ["bandwidth", "filesize", "size", "download"],
