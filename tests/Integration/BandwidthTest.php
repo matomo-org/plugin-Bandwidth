@@ -107,10 +107,6 @@ class BandwidthTest extends IntegrationTestCase
 
     public function test_shouldEnrichLiveActions()
     {
-        if (!class_exists('\\Piwik\\Plugins\\Live\\VisitorDetailsAbstract')) {
-            $this->markTestSkipped('Extended Live reports not available in this Piwik version');
-        }
-
         $this->trackPageviews([1, 10, null, 5, null, 3949, 399]);
 
         $params = [
