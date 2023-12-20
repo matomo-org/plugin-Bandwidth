@@ -1,1 +1,14 @@
-{}
+{
+    "Bandwidth": {
+        "Bandwidth": "બેન્ડવિડ્થ",
+        "ColumnAvgBandwidth": "સરેરાશ બેન્ડવિડ્થ",
+        "ColumnHitsWithBandwidth": "બેન્ડવિડ્થ સાથે રેકોર્ડ કરેલ હિટ",
+        "ColumnMaxBandwidth": "મહત્તમ બેન્ડવિડ્થ",
+        "ColumnMinBandwidth": "ન્યૂનતમ બેન્ડવિડ્થ",
+        "ColumnSumBandwidth": "બેન્ડવિડ્થનો સરવાળો",
+        "ColumnTotalDownloadBandwidth": "બાઇટ્સ ટ્રાન્સફર ડાઉનલોડ્સ",
+        "ColumnTotalOverallBandwidth": "એકંદરે સ્થાનાંતરિત બાઇટ્સ",
+        "ColumnTotalPageviewBandwidth": "બાઇટ્સ ટ્રાન્સફર પૃષ્ઠ દૃશ્યો",
+        "SparklineTotalBandwidthDetails": "%s બાઇટ્સ એકંદરે ટ્રાન્સફર થયા"
+    }
+}
