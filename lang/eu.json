@@ -2,6 +2,7 @@
     "Bandwidth": {
         "Bandwidth": "Banda-zabalera",
         "ColumnAvgBandwidth": "Batez besteko banda-zabalera",
+        "ColumnHitsWithBandwidth": "Erregistratutako bisitako ekintzak banda zabalerarekin",
         "ColumnMaxBandwidth": "Gehienezko banda-zabalera",
         "ColumnMinBandwidth": "Gutxieneko banda-zabalera",
         "ColumnSumBandwidth": "Banda-zabaleraren batura",
