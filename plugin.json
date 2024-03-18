@@ -1,14 +1,14 @@
 {
- "name": "Bandwidth",
- "version": "5.0.1",
- "description": "Monitor Bandwidth for each page, download, and measure overall traffic in bytes. For requirements check out the description.",
- "theme": false,
- "keywords": ["bandwidth", "filesize", "size", "download"],
- "license": "GPL v3+",
- "homepage": "https://matomo.org",
- "require": {
+  "name": "Bandwidth",
+  "version": "5.0.1",
+  "description": "Monitor Bandwidth for each page, download, and measure overall traffic in bytes. For requirements check out the description.",
+  "theme": false,
+  "keywords": ["bandwidth", "filesize", "size", "download"],
+  "license": "GPL v3+",
+  "homepage": "https://matomo.org",
+  "require": {
     "matomo": ">=5.0.0-b4,<6.0.0-b1"
- },
+  },
   "support": {
     "email": "hello@matomo.org",
     "issues": "https://github.com/matomo-org/plugin-Bandwidth/issues",
@@ -16,11 +16,12 @@
     "source": "https://github.com/matomo-org/plugin-Bandwidth",
     "wiki": "https://github.com/matomo-org/plugin-Bandwidth/wiki"
   },
- "authors": [
-     {
-         "name": "Matomo",
-         "email": "hello@matomo.org",
-         "homepage": "https://matomo.org"
-     }
- ]
+  "authors": [
+    {
+      "name": "Matomo",
+      "email": "hello@matomo.org",
+      "homepage": "https://matomo.org"
+    }
+  ],
+  "category": "development"
 }
