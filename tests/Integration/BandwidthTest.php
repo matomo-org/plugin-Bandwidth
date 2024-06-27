@@ -142,12 +142,12 @@ class BandwidthTest extends IntegrationTestCase
         $row = $result->getRowFromLabel('team');
         $this->assertBandwidthStats($row, $maxB = 3, $minB = 3, $sumB = 3, $avgB = 3);
         $row = $result->getRowFromLabel('blog');
-        $this->assertBandwidthStats($row, $maxB = 35, $minB = 35, $sumB = 35, $avgB = 17);
+        $this->assertBandwidthStats($row, $maxB = 20, $minB = 15, $sumB = 35, $avgB = 17);
 
         // request subtable /blog
         $result = $this->requestAction('getPageUrls', ['idSubtable' => $row->getIdSubDataTable()]);
         $row    = $result->getRowFromLabel('2014');
-        $this->assertBandwidthStats($row, $maxB = 35, $minB = 35, $sumB = 35, $avgB = 17);
+        $this->assertBandwidthStats($row, $maxB = 20, $minB = 15, $sumB = 35, $avgB = 17);
 
         // request subtable /blog/2014
         $result = $this->requestAction('getPageUrls', ['idSubtable' => $row->getIdSubDataTable()]);
