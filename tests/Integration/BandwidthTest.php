@@ -12,6 +12,7 @@ use Piwik\API\Request;
 use Piwik\DataTable;
 use Piwik\Plugins\Bandwidth\API;
 use Piwik\Plugins\Bandwidth\tests\Framework\TestCase\IntegrationTestCase;
+use Piwik\Version;
 
 /**
  * Bandidth Class and Bandwidth Tracker test
@@ -157,8 +158,11 @@ class BandwidthTest extends IntegrationTestCase
 
     private function assertBandwidthStats(DataTable\Row $row, $maxB, $minB, $sumB, $avgB)
     {
-        $this->assertSame($row->getColumn('max_bandwidth'), $maxB);
-        $this->assertSame($row->getColumn('min_bandwidth'), $minB);
+        if (version_compare(Version::VERSION, '5.2.0-alpha', '>=')) {
+            // calculation of min/max metrics was broken before Matomo 5.2, so results would be incorrect
+            $this->assertSame($row->getColumn('max_bandwidth'), $maxB);
+            $this->assertSame($row->getColumn('min_bandwidth'), $minB);
+        }
         $this->assertSame($row->getColumn('sum_bandwidth'), $sumB);
         $this->assertSame($row->getColumn('avg_bandwidth'), $avgB);
     }
