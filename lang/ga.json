@@ -1,1 +1,14 @@
-{}
+{
+    "Bandwidth": {
+        "Bandwidth": "bandaleithead",
+        "ColumnAvgBandwidth": "Meánlíon bandaleithead",
+        "ColumnHitsWithBandwidth": "Amas taifeadta le bandaleithead",
+        "ColumnMaxBandwidth": "Bandaleithid uasta",
+        "ColumnMinBandwidth": "Bandaleithid íosta",
+        "ColumnSumBandwidth": "Bandaleithid Suime",
+        "ColumnTotalDownloadBandwidth": "Íoslódálacha aistrithe bytes",
+        "ColumnTotalOverallBandwidth": "Bearta aistrithe ar an iomlán",
+        "ColumnTotalPageviewBandwidth": "Aistríodh bearta radhairc leathanaigh",
+        "SparklineTotalBandwidthDetails": "%s beart aistrithe san iomlán"
+    }
+}
