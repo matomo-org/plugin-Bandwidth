@@ -1,1 +1,14 @@
-{}
+{
+    "Bandwidth": {
+        "Bandwidth": "Josla",
+        "ColumnAvgBandwidth": "Vid. joslas platums",
+        "ColumnHitsWithBandwidth": "Reģistrētie apmeklējumi ar joslas platumu",
+        "ColumnMaxBandwidth": "Maksimālais joslas platums",
+        "ColumnMinBandwidth": "Minimālais joslas platums",
+        "ColumnSumBandwidth": "Summēt joslas platumu",
+        "ColumnTotalDownloadBandwidth": "Pārsūtīto baitu lejupielādes",
+        "ColumnTotalOverallBandwidth": "Kopējais pārsūtīto baitu skaits",
+        "ColumnTotalPageviewBandwidth": "Pārsūtītie baiti lapas skatījumi",
+        "SparklineTotalBandwidthDetails": "Kopumā pārsūtīti %s baiti"
+    }
+}
