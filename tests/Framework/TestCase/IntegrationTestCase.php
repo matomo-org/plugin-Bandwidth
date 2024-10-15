@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -33,7 +34,6 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
         try {
             Plugin\Manager::getInstance()->activatePlugin('Bandwidth');
         } catch (\Exception $e) {
-
         }
     }
 
@@ -119,5 +119,4 @@ class IntegrationTestCase extends \Piwik\Tests\Framework\TestCase\IntegrationTes
             'Piwik\Access' => new FakeAccess(),
         ];
     }
-
 }

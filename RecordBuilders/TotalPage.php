@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -25,8 +26,11 @@ class TotalPage extends Base
     protected function aggregate(ArchiveProcessor $archiveProcessor): array
     {
         $joinLogActionOnColumn = ['idaction_url'];
-        $query = $this->queryActionsByDimension($archiveProcessor->getLogAggregator(),
-            'log_action1.type = ' . Action::TYPE_PAGE_URL, $joinLogActionOnColumn);
+        $query = $this->queryActionsByDimension(
+            $archiveProcessor->getLogAggregator(),
+            'log_action1.type = ' . Action::TYPE_PAGE_URL,
+            $joinLogActionOnColumn
+        );
         $record = $this->sumNumericRecord($query, 'sum_bandwidth');
         return [Archiver::BANDWIDTH_PAGEVIEW_RECORD => $record];
     }

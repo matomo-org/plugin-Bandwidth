@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -62,5 +63,4 @@ class BandwidthTest extends UnitTestCase
             $this->assertNotEmpty($metric['query']);
         }
     }
-
 }

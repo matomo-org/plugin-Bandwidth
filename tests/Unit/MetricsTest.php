@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -18,7 +19,6 @@ use Piwik\Tests\Framework\TestCase\UnitTestCase;
  */
 class MetricsTest extends UnitTestCase
 {
-
     public function test_getMetricTranslations()
     {
         $translations = Metrics::getMetricTranslations();
@@ -35,5 +35,4 @@ class MetricsTest extends UnitTestCase
 
         $this->assertEquals($expected, $translations);
     }
-
 }
