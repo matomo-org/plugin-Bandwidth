@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -17,7 +18,6 @@ use Piwik\Piwik;
  */
 class Controller extends \Piwik\Plugin\Controller
 {
-
     public function getEvolutionGraph()
     {
         $columns = Common::getRequestVar('columns');
@@ -27,6 +27,4 @@ class Controller extends \Piwik\Plugin\Controller
 
         return $this->renderView($view);
     }
-
-
 }

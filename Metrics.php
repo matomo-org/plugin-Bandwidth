@@ -24,14 +24,14 @@ use Piwik\Plugins\Bandwidth\Columns\Metrics\SumBandwidth;
 
 class Metrics
 {
-    const METRICS_PAGE_SUM_BANDWIDTH = 1090;
-    const METRICS_PAGE_MIN_BANDWIDTH = 1091;
-    const METRICS_PAGE_MAX_BANDWIDTH = 1092;
-    const METRICS_NB_HITS_WITH_BANDWIDTH = 1093;
+    public const METRICS_PAGE_SUM_BANDWIDTH = 1090;
+    public const METRICS_PAGE_MIN_BANDWIDTH = 1091;
+    public const METRICS_PAGE_MAX_BANDWIDTH = 1092;
+    public const METRICS_NB_HITS_WITH_BANDWIDTH = 1093;
 
-    const COLUMN_TOTAL_OVERALL_BANDWIDTH = 'nb_total_overall_bandwidth';
-    const COLUMN_TOTAL_PAGEVIEW_BANDWIDTH = 'nb_total_pageview_bandwidth';
-    const COLUMN_TOTAL_DOWNLOAD_BANDWIDTH = 'nb_total_download_bandwidth';
+    public const COLUMN_TOTAL_OVERALL_BANDWIDTH = 'nb_total_overall_bandwidth';
+    public const COLUMN_TOTAL_PAGEVIEW_BANDWIDTH = 'nb_total_pageview_bandwidth';
+    public const COLUMN_TOTAL_DOWNLOAD_BANDWIDTH = 'nb_total_download_bandwidth';
 
     public static function getNumericRecordNameToColumnsMapping()
     {

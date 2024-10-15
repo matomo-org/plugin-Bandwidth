@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -186,5 +187,4 @@ class BandwidthTest extends IntegrationTestCase
 
         return Request::processRequest('Actions.' . $action, $params);
     }
-
 }

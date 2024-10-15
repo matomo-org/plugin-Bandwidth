@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -14,7 +15,7 @@ namespace Piwik\Plugins\Bandwidth;
  */
 class Archiver extends \Piwik\Plugin\Archiver
 {
-    const BANDWIDTH_TOTAL_RECORD = "Bandwidth_nb_total_overall";
-    const BANDWIDTH_PAGEVIEW_RECORD = "Bandwidth_nb_total_pageurl";
-    const BANDWIDTH_DOWNLOAD_RECORD = "Bandwidth_nb_total_download";
+    public const BANDWIDTH_TOTAL_RECORD = "Bandwidth_nb_total_overall";
+    public const BANDWIDTH_PAGEVIEW_RECORD = "Bandwidth_nb_total_pageurl";
+    public const BANDWIDTH_DOWNLOAD_RECORD = "Bandwidth_nb_total_download";
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -33,5 +34,4 @@ class MaxBandwidth extends Base
     {
         return Dimension::TYPE_NUMBER;
     }
-
 }

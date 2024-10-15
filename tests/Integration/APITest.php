@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Matomo - free/libre analytics platform
  *
@@ -129,5 +130,4 @@ class APITest extends IntegrationTestCase
         $this->assertSame($expectedPageview, $row->getColumn(Metrics::COLUMN_TOTAL_PAGEVIEW_BANDWIDTH));
         $this->assertSame($expectedDownload, $row->getColumn(Metrics::COLUMN_TOTAL_DOWNLOAD_BANDWIDTH));
     }
-
 }
