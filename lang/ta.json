@@ -2,8 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "அலைக்கற்றை",
         "ColumnAvgBandwidth": "சராசரி அலைக்கற்றை",
-        "ColumnSumBandwidth": "அலைக்கற்றை மொத்தம்",
+        "ColumnHitsWithBandwidth": "அலைவரிசையுடன் பதிவு செய்யப்பட்ட வெற்றிகள்",
         "ColumnMaxBandwidth": "அலைக்கற்றை அதிக அளவு",
-        "ColumnMinBandwidth": "அலைக்கற்றை குறைந்த அளவு"
+        "ColumnMinBandwidth": "அலைக்கற்றை குறைந்த அளவு",
+        "ColumnSumBandwidth": "அலைக்கற்றை மொத்தம்",
+        "ColumnTotalDownloadBandwidth": "பைட்ச் மாற்றப்பட்ட பதிவிறக்கங்களை",
+        "ColumnTotalOverallBandwidth": "பைட்டுகள் ஒட்டுமொத்தமாக மாற்றப்பட்டன",
+        "ColumnTotalPageviewBandwidth": "பைட்டுகள் மாற்றப்பட்ட பக்கக் காட்சிகள்",
+        "SparklineTotalBandwidthDetails": "%s பைட்டுகள் ஒட்டுமொத்தமாக மாற்றப்படுகின்றன"
     }
 }
