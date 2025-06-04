@@ -2,13 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Ancho de banda",
         "ColumnAvgBandwidth": "Ancho de banda promedio",
-        "ColumnSumBandwidth": "Sumatoria de ancho de banda",
+        "ColumnHitsWithBandwidth": "Accesos registrados con ancho de banda",
         "ColumnMaxBandwidth": "Máximo ancho de banda",
         "ColumnMinBandwidth": "Ancho de bando mínimo",
-        "ColumnHitsWithBandwidth": "Visitas registradas con ancho de banda",
+        "ColumnSumBandwidth": "Sumatoria de ancho de banda",
+        "ColumnTotalDownloadBandwidth": "Bytes transferidos por descargas",
         "ColumnTotalOverallBandwidth": "Bytes generales transferidos",
         "ColumnTotalPageviewBandwidth": "Bytes transferidos por páginas vistas",
-        "ColumnTotalDownloadBandwidth": "Bytes transferidos por descargas",
         "SparklineTotalBandwidthDetails": "%s bytes transferidos en general"
     }
 }
