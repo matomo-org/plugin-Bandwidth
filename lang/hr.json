@@ -2,9 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Propusnost",
         "ColumnAvgBandwidth": "Prosječna propusnost",
-        "ColumnSumBandwidth": "Ukupna propusnost",
+        "ColumnHitsWithBandwidth": "Zabilježeni pogoci s propusnosti",
         "ColumnMaxBandwidth": "Maksimalna propusnost",
         "ColumnMinBandwidth": "Minimalna propusnost",
-        "ColumnTotalOverallBandwidth": "Broj prenesenih byteova"
+        "ColumnSumBandwidth": "Ukupna propusnost",
+        "ColumnTotalDownloadBandwidth": "Broj prenesenih bajtova za preuzimanja",
+        "ColumnTotalOverallBandwidth": "Ukupni broj prenesenih bajtova",
+        "ColumnTotalPageviewBandwidth": "Broj prenesenih bajtova za prikaze stranice",
+        "SparklineTotalBandwidthDetails": "%s ukupno prenesenih bajtova"
     }
 }
