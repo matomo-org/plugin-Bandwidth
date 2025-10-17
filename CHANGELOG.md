@@ -1,5 +1,6 @@
 ## Changelog
 
+- 5.0.4 - 2025-10-27 - Updated screenshot for Marketplace
 - 5.0.3 - 2025-07-07 - Textual change
 - 5.0.2 Added plugin category for Marketplace
 - 5.0.1 Compatibility with Matomo 5.0.0-b4
