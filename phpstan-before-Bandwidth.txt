@@ -1,0 +1,2 @@
+Docker error: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.51/version": dial unix /var/run/docker.sock: connect: operation not permitted
+For help go to: https://docs.ddev.com/en/stable/users/install/docker-installation/#troubleshooting-docker
