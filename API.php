@@ -24,7 +24,10 @@ class API extends \Piwik\Plugin\API
     /**
      * Returns bandwidth metrics for the requested site, period, and segment.
      *
-     * @param int $idSite The numeric ID of the website to query.
+     * @param int|string|int[] $idSite Website ID(s) to query.
+     *                         - Single site ID (e.g. 1)
+     *                         - Multiple site IDs (e.g. [1, 4, 5])
+     *                         - Comma-separated list ("1,4,5") or "all"
      * @param string $period The period to process, processes data for the period containing the specified date.
      *                       Allowed values: "day", "week", "month", "year", "range".
      * @param string $date The date or date range to process.
