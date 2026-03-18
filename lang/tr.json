@@ -2,7 +2,7 @@
     "Bandwidth": {
         "Bandwidth": "Bant genişliği",
         "ColumnAvgBandwidth": "Ortalama bant genişliği",
-        "ColumnHitsWithBandwidth": "Bant genişliği ile kaydedilmiş tıklanma",
+        "ColumnHitsWithBandwidth": "Bant genişliği ile kaydedilmiş erişilme",
         "ColumnMaxBandwidth": "En fazla bant genişliği",
         "ColumnMinBandwidth": "En az bant genişliği",
         "ColumnSumBandwidth": "Toplam bant genişliği",
