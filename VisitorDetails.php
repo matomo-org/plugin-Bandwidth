@@ -54,9 +54,6 @@ class VisitorDetails extends VisitorDetailsAbstract
                 $this->minBandwidth = $action['bandwidth'];
             }
             $this->minBandwidth = min($this->minBandwidth, $action['bandwidth']);
-            if (is_null($this->minBandwidth)) {
-                $this->minBandwidth = $action['bandwidth'];
-            }
             $this->maxBandwidth = max($this->maxBandwidth, $action['bandwidth']);
             $this->actionsWithBandwidth++;
         }
