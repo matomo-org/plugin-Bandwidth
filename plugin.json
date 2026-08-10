@@ -1,13 +1,13 @@
 {
   "name": "Bandwidth",
-  "version": "5.0.6",
+  "version": "6.0.0",
   "description": "Monitor Bandwidth for each page, download, and measure overall traffic in bytes. For requirements check out the description.",
   "theme": false,
   "keywords": ["bandwidth", "filesize", "size", "download"],
   "license": "GPL v3+",
   "homepage": "https://matomo.org",
   "require": {
-    "matomo": ">=5.0.0-b4,<6.0.0-b1"
+    "matomo": ">=6.0.0-b1,<7.0.0-b1"
   },
   "support": {
     "email": "hello@matomo.org",
