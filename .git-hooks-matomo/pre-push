@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local oid> <remote ref> <remote oid>
+
+
+
+set -e
+
+ROOT_DIR="$(git rev-parse --show-toplevel)"
+
+for script in "$ROOT_DIR/.git-hooks-matomo/pre-push.d/"*.sh; do
+  [ -x "$script" ] && "$script"
+done
