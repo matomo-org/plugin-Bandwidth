@@ -47,7 +47,7 @@ jobs:
       - name: Install package ripgrep
         run: sudo apt-get install ripgrep
       - name: Run tests
-        uses: matomo-org/github-action-tests@main
+        uses: matomo-org/github-action-tests@debug-action-20250915
         with:
           plugin-name: 'Bandwidth'
           php-version: ${{ matrix.php }}
