@@ -96,11 +96,6 @@ class Bandwidth extends \Piwik\Plugin
 
     public function getEvolutionUnit(&$unit, $column, $idSite)
     {
-        if (!property_exists(Numeric::class, 'byteSizeUnit')) {
-            // don't use a default unit in Matomo versions where it didn't exist yet
-            return;
-        }
-
         foreach (Metrics::getBandwidthMetrics() as $metric) {
             if ($metric->getName() === $column) {
                 $unit = ' ' . Numeric::$byteSizeUnit;
@@ -138,7 +133,7 @@ class Bandwidth extends \Piwik\Plugin
         $module = $view->requestConfig->getApiModuleToRequest();
         $method = $view->requestConfig->getApiMethodToRequest();
 
-        if ($module === 'API' && $method === 'get' && property_exists($view->config, 'selectable_columns')) {
+        if ($module === 'API' && $method === 'get') {
             // here we want to make sure the total column is selectable
             $selectable = $view->config->selectable_columns ?: [];
             $columns    = array_values(Metrics::getNumericRecordNameToColumnsMapping());
