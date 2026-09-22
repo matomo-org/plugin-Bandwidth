@@ -18,5 +18,6 @@ jobs:
     uses: matomo-org/plugin-ci-workflows/.github/workflows/plugin-ci.yml@main
     with:
       plugin-name: Bandwidth
+      verify-hook: true
     secrets:
       TESTS_ACCESS_TOKEN: ${{ secrets.TESTS_ACCESS_TOKEN }}
