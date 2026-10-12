@@ -1,14 +1,14 @@
 {
     "Bandwidth": {
-        "Bandwidth": "流量",
-        "ColumnAvgBandwidth": "平均流量",
-        "ColumnSumBandwidth": "流量總計",
-        "ColumnMaxBandwidth": "最大流量",
-        "ColumnMinBandwidth": "最小流量",
-        "ColumnHitsWithBandwidth": "命中流量的紀錄",
-        "ColumnTotalOverallBandwidth": "Bytes 傳輸總計",
-        "ColumnTotalPageviewBandwidth": "Bytes 網頁瀏覽傳輸",
-        "ColumnTotalDownloadBandwidth": "Bytes 下載傳輸",
-        "SparklineTotalBandwidthDetails": "%s bytes 傳輸總計"
+        "Bandwidth": "頻寬",
+        "ColumnAvgBandwidth": "平均頻寬",
+        "ColumnHitsWithBandwidth": "已記錄頻寬的命中數",
+        "ColumnMaxBandwidth": "最大頻寬",
+        "ColumnMinBandwidth": "最小頻寬",
+        "ColumnSumBandwidth": "頻寬總計",
+        "ColumnTotalDownloadBandwidth": "下載傳輸位元組數",
+        "ColumnTotalOverallBandwidth": "傳輸位元組總計",
+        "ColumnTotalPageviewBandwidth": "網頁瀏覽傳輸位元組數",
+        "SparklineTotalBandwidthDetails": "總共傳輸 %s 位元組"
     }
 }

@@ -1,1 +1,14 @@
-{}
+{
+    "Bandwidth": {
+        "Bandwidth": "Bandbreidd",
+        "ColumnAvgBandwidth": "Gj.sn. bandbreidd",
+        "ColumnHitsWithBandwidth": "Registrerte treff med bandbreidd",
+        "ColumnMaxBandwidth": "Maks bandbreidd",
+        "ColumnMinBandwidth": "Min. bandbreidd",
+        "ColumnSumBandwidth": "Samla bandbreidd",
+        "ColumnTotalDownloadBandwidth": "Byte overført for nedlastingar",
+        "ColumnTotalOverallBandwidth": "Byte overført totalt",
+        "ColumnTotalPageviewBandwidth": "Byte overført for sidevisingar",
+        "SparklineTotalBandwidthDetails": "%s byte overført totalt"
+    }
+}
