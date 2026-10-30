@@ -2,13 +2,13 @@
     "Bandwidth": {
         "Bandwidth": "Bande passante",
         "ColumnAvgBandwidth": "Bande Passante Moy",
-        "ColumnHitsWithBandwidth": "Visites enregistrées avec bande passante",
+        "ColumnHitsWithBandwidth": "Hits enregistrés avec bande passante",
         "ColumnMaxBandwidth": "Bande Passante Max",
         "ColumnMinBandwidth": "Bande Passante Min",
         "ColumnSumBandwidth": "Somme Bande Passante",
-        "ColumnTotalDownloadBandwidth": "Octets transférés téléchargés",
+        "ColumnTotalDownloadBandwidth": "Octets transférés (téléchargements)",
         "ColumnTotalOverallBandwidth": "Octets transférés au total",
-        "ColumnTotalPageviewBandwidth": "Octets transférés de pages vues",
+        "ColumnTotalPageviewBandwidth": "Octets transférés (pages vues)",
         "SparklineTotalBandwidthDetails": "%s octets transférés au total"
     }
 }
