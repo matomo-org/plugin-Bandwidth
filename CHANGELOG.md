@@ -1,5 +1,6 @@
 ## Changelog
 
+- 6.0.2 - Updated translations
 - 6.0.1 - 2026-11-23 - Updated translations
 - 6.0.0 - 2026-08-09 - Compatibility with Matomo 6
 - 5.0.6 - 2026-04-27 - Updated API documentation
